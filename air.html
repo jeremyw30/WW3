@@ -175,5 +175,52 @@
 </main>
 
 <script src="app.js"></script>
+<script>
+  // Charger les unités depuis localStorage
+  document.addEventListener('DOMContentLoaded', function() {
+    const units = JSON.parse(localStorage.getItem('ww3_units') || '{}');
+    const airUnits = Object.entries(units).filter(([id, unit]) => unit.category === 'air');
+    
+    if (airUnits.length > 0) {
+      const unitsContainer = document.querySelector('.units');
+      
+      // Ajouter les unités dynamiques
+      airUnits.forEach(([id, unit]) => {
+        const article = document.createElement('article');
+        article.className = 'unit';
+        article.setAttribute('data-unit', '');
+        article.setAttribute('data-keywords', unit.keywords);
+        
+        article.innerHTML = `
+          <div class="u-top">
+            <div>
+              <p class="u-name">${unit.name}</p>
+              <div class="small">${unit.description}</div>
+            </div>
+            ${unit.tag ? `<span class="u-tag">${unit.tag}</span>` : ''}
+          </div>
+          <div class="u-body">
+            <div class="cols">
+              <div class="block ok">
+                <h3>Efficace contre</h3>
+                <ul>${unit.effective.map(item => `<li>${item}</li>`).join('')}</ul>
+              </div>
+              <div class="block ko">
+                <h3>Faible contre</h3>
+                <ul>${unit.weak.map(item => `<li>${item}</li>`).join('')}</ul>
+              </div>
+              <div class="block no">
+                <h3>À ne pas faire</h3>
+                <ul>${unit.dont.map(item => `<li>${item}</li>`).join('')}</ul>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        unitsContainer.appendChild(article);
+      });
+    }
+  });
+</script>
 </body>
 </html>

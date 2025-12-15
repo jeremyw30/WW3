@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Alliance Napoléoniens</title>
+  <title>Admin Simple - Alliance Napoléoniens</title>
   <link rel="stylesheet" href="style.css">
   <style>
     .admin-container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 50px auto;
       padding: 30px;
     }
@@ -37,7 +36,7 @@
       font-family: inherit;
     }
     .form-group textarea {
-      min-height: 100px;
+      min-height: 80px;
       resize: vertical;
     }
     .btn-primary {
@@ -87,6 +86,13 @@
       top: 20px;
       right: 20px;
     }
+    .info-box {
+      background: var(--panel2);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--warn);
+    }
   </style>
 </head>
 <body>
@@ -94,21 +100,22 @@
   <div class="admin-container">
     <!-- Login Form -->
     <div id="loginBox" class="login-box">
-      <h1>🔐 Admin - Connexion</h1>
-      <p style="color: var(--muted); margin-bottom: 30px">Connectez-vous pour gérer les unités</p>
+      <h1>🔐 Admin Simple - Connexion</h1>
+      <p style="color: var(--muted); margin-bottom: 30px">Mot de passe partagé pour tous les admins</p>
       
       <form id="loginForm">
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="loginEmail" required>
-        </div>
-        <div class="form-group">
           <label>Mot de passe</label>
-          <input type="password" id="loginPassword" required>
+          <input type="password" id="loginPassword" required placeholder="Entrez le mot de passe admin">
         </div>
         <button type="submit" class="btn-primary">Se connecter</button>
         <p id="loginError" style="color: var(--danger); margin-top: 15px"></p>
       </form>
+      
+      <div class="info-box" style="margin-top: 20px">
+        <strong>📌 Mot de passe par défaut :</strong> <code>napoleon2025</code><br>
+        <small style="color: var(--muted)">Changez-le dans le code si nécessaire</small>
+      </div>
     </div>
 
     <!-- Admin Panel -->
@@ -116,7 +123,12 @@
       <button class="btn-danger logout-btn" id="logoutBtn">Déconnexion</button>
       
       <h1>⚙️ Gestion des Unités</h1>
-      <p style="color: var(--muted); margin-bottom: 30px">Ajouter, modifier ou supprimer des unités</p>
+      <p style="color: var(--muted); margin-bottom: 20px">Ajouter, modifier ou supprimer des unités</p>
+
+      <div class="info-box">
+        <strong>💾 Stockage local</strong> : Les données sont sauvegardées dans votre navigateur. 
+        Pour partager avec d'autres admins, exportez les données.
+      </div>
 
       <!-- Add/Edit Form -->
       <form id="unitForm">
@@ -174,32 +186,21 @@
         <h2>Unités existantes</h2>
         <div id="unitsList"></div>
       </div>
+
+      <!-- Export/Import -->
+      <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--line)">
+        <h2>Import / Export</h2>
+        <button class="btn-primary" onclick="exportData()">📥 Exporter les données</button>
+        <button class="btn-primary" onclick="document.getElementById('importFile').click()" style="margin-left: 10px">📤 Importer des données</button>
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+      </div>
     </div>
   </div>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    import { getDatabase, ref, set, push, remove, onValue, update } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
-
-    // Configuration Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyBxewPqv1KKrv1b8ahFGgVfPpTDvzSgzj8",
-      authDomain: "ww3-alliance.firebaseapp.com",
-      projectId: "ww3-alliance",
-      storageBucket: "ww3-alliance.firebasestorage.app",
-      messagingSenderId: "715645349258",
-      appId: "1:715645349258:web:4c424896668dd3f96eec73",
-      databaseURL: "https://ww3-alliance-default-rtdb.europe-west1.firebasedatabase.app"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
-
-    let currentEditId = null;
-
+  <script>
+    // MOT DE PASSE ADMIN - CHANGEZ-LE ICI
+    const ADMIN_PASSWORD = 'napoleon2025';
+    
     // Elements
     const loginBox = document.getElementById('loginBox');
     const adminPanel = document.getElementById('adminPanel');
@@ -211,37 +212,48 @@
     const submitBtn = document.getElementById('submitBtn');
     const cancelEdit = document.getElementById('cancelEdit');
 
-    // Check auth state
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        loginBox.classList.add('hidden');
-        adminPanel.classList.remove('hidden');
-        loadUnits();
-      } else {
-        loginBox.classList.remove('hidden');
-        adminPanel.classList.add('hidden');
-      }
-    });
+    let currentEditId = null;
+    let units = JSON.parse(localStorage.getItem('ww3_units') || '{}');
+
+    // Check if already logged in
+    if (sessionStorage.getItem('ww3_logged_in') === 'true') {
+      showAdmin();
+    }
 
     // Login
-    loginForm.addEventListener('submit', async (e) => {
+    loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
       
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
+      if (password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('ww3_logged_in', 'true');
+        showAdmin();
         loginError.textContent = '';
-      } catch (error) {
-        loginError.textContent = 'Email ou mot de passe incorrect';
+      } else {
+        loginError.textContent = 'Mot de passe incorrect';
       }
     });
 
     // Logout
-    logoutBtn.addEventListener('click', () => signOut(auth));
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.removeItem('ww3_logged_in');
+      hideAdmin();
+    });
+
+    function showAdmin() {
+      loginBox.classList.add('hidden');
+      adminPanel.classList.remove('hidden');
+      loadUnits();
+    }
+
+    function hideAdmin() {
+      loginBox.classList.remove('hidden');
+      adminPanel.classList.add('hidden');
+      document.getElementById('loginPassword').value = '';
+    }
 
     // Add/Edit Unit
-    unitForm.addEventListener('submit', async (e) => {
+    unitForm.addEventListener('submit', (e) => {
       e.preventDefault();
       
       const unitData = {
@@ -255,20 +267,20 @@
         keywords: document.getElementById('unitKeywords').value
       };
 
-      try {
-        if (currentEditId) {
-          await update(ref(db, 'units/' + currentEditId), unitData);
-        } else {
-          await push(ref(db, 'units'), unitData);
-        }
-        
-        unitForm.reset();
-        currentEditId = null;
-        submitBtn.textContent = 'Ajouter l\'unité';
-        cancelEdit.classList.add('hidden');
-      } catch (error) {
-        alert('Erreur: ' + error.message);
+      if (currentEditId) {
+        units[currentEditId] = unitData;
+      } else {
+        const id = Date.now().toString();
+        units[id] = unitData;
       }
+
+      localStorage.setItem('ww3_units', JSON.stringify(units));
+      
+      unitForm.reset();
+      currentEditId = null;
+      submitBtn.textContent = 'Ajouter l\'unité';
+      cancelEdit.classList.add('hidden');
+      loadUnits();
     });
 
     // Cancel edit
@@ -281,58 +293,87 @@
 
     // Load units
     function loadUnits() {
-      const unitsRef = ref(db, 'units');
-      onValue(unitsRef, (snapshot) => {
-        unitsList.innerHTML = '';
-        const data = snapshot.val();
-        
-        if (!data) {
-          unitsList.innerHTML = '<p style="color: var(--muted)">Aucune unité pour le moment</p>';
-          return;
-        }
+      unitsList.innerHTML = '';
+      
+      if (Object.keys(units).length === 0) {
+        unitsList.innerHTML = '<p style="color: var(--muted)">Aucune unité pour le moment</p>';
+        return;
+      }
 
-        Object.entries(data).forEach(([id, unit]) => {
-          const div = document.createElement('div');
-          div.className = 'unit-item';
-          div.innerHTML = `
-            <div class="unit-info">
-              <h3>${unit.name}</h3>
-              <p style="color: var(--muted); margin: 0">${unit.category.toUpperCase()} - ${unit.description}</p>
-            </div>
-            <div>
-              <button class="btn-primary" onclick="editUnit('${id}')">Modifier</button>
-              <button class="btn-danger" onclick="deleteUnit('${id}')">Supprimer</button>
-            </div>
-          `;
-          unitsList.appendChild(div);
-        });
+      Object.entries(units).forEach(([id, unit]) => {
+        const div = document.createElement('div');
+        div.className = 'unit-item';
+        div.innerHTML = `
+          <div class="unit-info">
+            <h3>${unit.name}</h3>
+            <p style="color: var(--muted); margin: 0">${unit.category.toUpperCase()} - ${unit.description}</p>
+          </div>
+          <div>
+            <button class="btn-primary" onclick="editUnit('${id}')">Modifier</button>
+            <button class="btn-danger" onclick="deleteUnit('${id}')">Supprimer</button>
+          </div>
+        `;
+        unitsList.appendChild(div);
       });
     }
 
     // Edit unit
-    window.editUnit = async (id) => {
-      const snapshot = await onValue(ref(db, 'units/' + id), (snap) => {
-        const unit = snap.val();
-        document.getElementById('unitCategory').value = unit.category;
-        document.getElementById('unitName').value = unit.name;
-        document.getElementById('unitDesc').value = unit.description;
-        document.getElementById('unitTag').value = unit.tag || '';
-        document.getElementById('unitEffective').value = unit.effective.join(', ');
-        document.getElementById('unitWeak').value = unit.weak.join(', ');
-        document.getElementById('unitDont').value = unit.dont.join(', ');
-        document.getElementById('unitKeywords').value = unit.keywords;
-        
-        currentEditId = id;
-        submitBtn.textContent = 'Modifier l\'unité';
-        cancelEdit.classList.remove('hidden');
-        window.scrollTo(0, 0);
-      }, { onlyOnce: true });
+    window.editUnit = (id) => {
+      const unit = units[id];
+      document.getElementById('unitCategory').value = unit.category;
+      document.getElementById('unitName').value = unit.name;
+      document.getElementById('unitDesc').value = unit.description;
+      document.getElementById('unitTag').value = unit.tag || '';
+      document.getElementById('unitEffective').value = unit.effective.join(', ');
+      document.getElementById('unitWeak').value = unit.weak.join(', ');
+      document.getElementById('unitDont').value = unit.dont.join(', ');
+      document.getElementById('unitKeywords').value = unit.keywords;
+      
+      currentEditId = id;
+      submitBtn.textContent = 'Modifier l\'unité';
+      cancelEdit.classList.remove('hidden');
+      window.scrollTo(0, 0);
     };
 
     // Delete unit
-    window.deleteUnit = async (id) => {
+    window.deleteUnit = (id) => {
       if (confirm('Supprimer cette unité ?')) {
-        await remove(ref(db, 'units/' + id));
+        delete units[id];
+        localStorage.setItem('ww3_units', JSON.stringify(units));
+        loadUnits();
+      }
+    };
+
+    // Export data
+    window.exportData = () => {
+      const dataStr = JSON.stringify(units, null, 2);
+      const dataBlob = new Blob([dataStr], {type: 'application/json'});
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'ww3-units-' + new Date().toISOString().slice(0,10) + '.json';
+      link.click();
+    };
+
+    // Import data
+    window.importData = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const importedUnits = JSON.parse(e.target.result);
+            if (confirm('Remplacer toutes les unités existantes par les données importées ?')) {
+              units = importedUnits;
+              localStorage.setItem('ww3_units', JSON.stringify(units));
+              loadUnits();
+              alert('Données importées avec succès !');
+            }
+          } catch (err) {
+            alert('Erreur lors de l\'import : fichier invalide');
+          }
+        };
+        reader.readAsText(file);
       }
     };
   </script>
