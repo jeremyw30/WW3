@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doctrine TERRE — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container inner">
+    <div class="brand"><span>🦅</span><span>Alliance Napoléoniens</span><span class="badge">TERRE</span></div>
+    <nav>
+      <a class="navlink" href="index.html">Accueil</a>
+      <a class="navlink" href="air.html">✈️ Air</a>
+      <a class="navlink active" href="terre.html">🪖 Terre</a>
+      <a class="navlink" href="naval.html">⚓ Naval</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero"><div class="pad">
+    <h1 class="h-title">🪖 Armée terrestre</h1>
+    <p class="h-sub">Recherche : <b>chars</b>, <b>artillerie</b>, <b>SAM</b>, <b>DCA</b>, <b>recon</b>…</p>
+
+    <div class="search">
+      <input data-search type="text" placeholder="Rechercher une unité (ex: chars, artillerie, SAM, DCA)..." />
+      <button class="btn" data-clear>Effacer</button>
+    </div>
+  </div></section>
+
+  <section class="units" style="margin-top:16px">
+
+    <article class="unit" data-unit data-keywords="infanterie soldats ville urbain capture défense">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Infanterie</p>
+          <div class="small">Base pour capturer / tenir des villes</div>
+        </div>
+        <span class="u-tag">CAPTURE</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Villes</li><li>Infanterie ennemie</li><li>Terrains urbains</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Chars lourds</li><li>Hélicoptères d’attaque</li><li>Artillerie</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Avancer à découvert</li><li>Affronter des chars en terrain ouvert</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="infanterie mécanisée mechanisée apc véhicules légers">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Infanterie mécanisée</p>
+          <div class="small">Infanterie + mobilité (combat polyvalent)</div>
+        </div>
+        <span class="u-tag">POLYVALENT</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Infanterie</li><li>Véhicules légers</li><li>Recon terrestre</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Chars lourds</li><li>Artillerie</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Attaquer seule</li><li>Entrer en ville sans infanterie</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="chars char lourd blindés lourds tank">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Chars lourds</p>
+          <div class="small">Puissance au sol (terrain ouvert)</div>
+        </div>
+        <span class="u-tag">FRONTAL</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Infanterie</li><li>Infanterie mécanisée</li><li>Véhicules blindés</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Artillerie</li><li>Hélicoptères d’attaque</li><li>Bombardiers</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Entrer en ville sans infanterie</li><li>Avancer sans DCA mobile</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="artillerie canons portée mlrs tir distance">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Artillerie</p>
+          <div class="small">Dégâts à distance (gagne sans contact)</div>
+        </div>
+        <span class="u-tag">PORTÉE</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Unités groupées</li><li>Villes (pression)</li><li>Blindés exposés</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Recon terrestre</li><li>Strike Fighters</li><li>Hélicoptères d’attaque</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Aller en première ligne</li><li>Rester sans protection</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="recon reconnaissance terrestre scout vision repérage">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Recon terrestre</p>
+          <div class="small">Vision / repérage (clé pour l’artillerie)</div>
+        </div>
+        <span class="u-tag">VISION</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Repérer artillerie</li><li>Repérer stacks ennemis</li><li>Chasser unités isolées</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Chars lourds</li><li>Infanterie en ville</li><li>Hélicoptères d’attaque</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Rester seul trop près du front</li><li>Entrer en ville sans soutien</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="dca mobile anti aérien aa mobile anti-air avions hélicoptères">
+      <div class="u-top">
+        <div>
+          <p class="u-name">DCA mobile</p>
+          <div class="small">Anti-aérien mobile (protection des stacks)</div>
+        </div>
+        <span class="u-tag">ANTI-AIR</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>ASF</li><li>Strike Fighters</li><li>Bombardiers</li><li>Hélicoptères d’attaque</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Infanterie</li><li>Chars lourds</li><li>Artillerie (à distance)</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Avancer seule</li><li>Protéger un stack sans vision</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="sam missiles sol air anti aérien longue portée avions bombardiers awacs">
+      <div class="u-top">
+        <div>
+          <p class="u-name">SAM</p>
+          <div class="small">Missiles sol-air (anti-avions puissant)</div>
+        </div>
+        <span class="u-tag">ZONE DENIAL</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Bombardiers</li><li>Strike Fighters</li><li>AWACS</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Artillerie (à distance)</li><li>Chars (si contact)</li><li>Infanterie</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Avancer</li><li>Être isolé</li><li>Rester sans protection au sol</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <div class="footer">Astuce : “Recon + Artillerie” = combo qui fait gagner sans pertes.</div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

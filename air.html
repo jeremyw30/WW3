@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doctrine AIR — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container inner">
+    <div class="brand"><span>🦅</span><span>Alliance Napoléoniens</span><span class="badge">AIR</span></div>
+    <nav>
+      <a class="navlink" href="index.html">Accueil</a>
+      <a class="navlink active" href="air.html">✈️ Air</a>
+      <a class="navlink" href="terre.html">🪖 Terre</a>
+      <a class="navlink" href="naval.html">⚓ Naval</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero"><div class="pad">
+    <h1 class="h-title">✈️ Armée aérienne</h1>
+    <p class="h-sub">Tape un mot clé : <b>ASF</b>, <b>AWACS</b>, <b>SAM</b>, <b>bombardier</b>…</p>
+
+    <div class="search">
+      <input data-search type="text" placeholder="Rechercher une unité (ex: ASF, AWACS, bombardier)..." />
+      <button class="btn" data-clear>Effacer</button>
+    </div>
+  </div></section>
+
+  <section class="units" style="margin-top:16px">
+
+    <article class="unit" data-unit data-keywords="asf air superiority fighter chasseur supériorité aérienne avions bombardiers recon drones hélicoptères sam dca aa frégate croiseur">
+      <div class="u-top">
+        <div>
+          <p class="u-name">ASF</p>
+          <div class="small">Chasseur de supériorité aérienne</div>
+        </div>
+        <span class="u-tag">AIR vs AIR</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>ASF / Strike Fighters</li><li>Bombardiers</li><li>Recon / Drones</li><li>Hélicoptères</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>SAM</li><li>DCA mobile</li><li>Frégates / Croiseurs (AA)</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Attaquer le sol</li><li>Survoler zones AA</li><li>Engager sans vision radar</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="strike fighter chasseur bombardier infanterie blindés légers artillerie asf sam dca frégate croiseur">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Strike Fighter</p>
+          <div class="small">Chasseur-bombardier</div>
+        </div>
+        <span class="u-tag">AIR vs SOL</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Infanterie</li><li>Blindés légers</li><li>Artillerie (si exposée)</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>ASF</li><li>SAM</li><li>DCA mobile</li><li>Frégates / Croiseurs</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Voler sans couverture ASF</li><li>Frapper une zone SAM</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="awacs avion radar détection vision asf sam dca frégate">
+      <div class="u-top">
+        <div>
+          <p class="u-name">AWACS</p>
+          <div class="small">Avion radar (détection longue portée)</div>
+        </div>
+        <span class="u-tag">VISION</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Avions (détection)</li><li>Hélicoptères (détection)</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>ASF</li><li>SAM</li><li>DCA / Frégates</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Le mettre en 1ère ligne</li><li>Voler sans escorte</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="bombardier villes infrastructures asf sam dca frégate croiseur">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Bombardier</p>
+          <div class="small">Bombardement stratégique</div>
+        </div>
+        <span class="u-tag">STRATÉGIQUE</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Villes</li><li>Infrastructures</li><li>Unités groupées</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>ASF</li><li>SAM</li><li>DCA</li><li>Frégates / Croiseurs</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Sortir sans contrôle du ciel</li><li>Survoler zones SAM</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="recon drone repérage reconnaissance dca sam asf">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Recon / Drone</p>
+          <div class="small">Repérage (information avant frappe)</div>
+        </div>
+        <span class="u-tag">SCOUT</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Repérage d’unités au sol</li><li>Préparation des frappes</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>ASF</li><li>DCA</li><li>SAM</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Survoler zones hostiles</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <div class="footer">Astuce : cherche “SAM” pour voir rapidement ce qui craint l’anti-aérien.</div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

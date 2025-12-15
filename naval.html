@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doctrine NAVAL — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container inner">
+    <div class="brand"><span>🦅</span><span>Alliance Napoléoniens</span><span class="badge">NAVAL</span></div>
+    <nav>
+      <a class="navlink" href="index.html">Accueil</a>
+      <a class="navlink" href="air.html">✈️ Air</a>
+      <a class="navlink" href="terre.html">🪖 Terre</a>
+      <a class="navlink active" href="naval.html">⚓ Naval</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero"><div class="pad">
+    <h1 class="h-title">⚓ Armée navale</h1>
+    <p class="h-sub">Recherche : <b>corvette</b>, <b>frégate</b>, <b>destroyer</b>, <b>croiseur</b>, <b>sous-marin</b>…</p>
+
+    <div class="search">
+      <input data-search type="text" placeholder="Rechercher une unité (ex: frégate, croiseur, sous-marin)..." />
+      <button class="btn" data-clear>Effacer</button>
+    </div>
+  </div></section>
+
+  <section class="units" style="margin-top:16px">
+
+    <article class="unit" data-unit data-keywords="corvette anti sous-marin asw sous-marins attaque lance-missiles">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Corvette</p>
+          <div class="small">Anti-sous-marin (sonar / chasse ASM)</div>
+        </div>
+        <span class="u-tag">ASM</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Sous-marins d’attaque</li><li>Sous-marins lance-missiles</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Destroyers</li><li>Croiseurs</li><li>Strike Fighters navals</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Combattre des flottes de surface</li><li>Naviguer seule</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="frégate fregate anti aérien aa avions missiles hélicoptères">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Frégate</p>
+          <div class="small">Anti-aérien naval (protection flotte)</div>
+        </div>
+        <span class="u-tag">AA</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Strike Fighters</li><li>Bombardiers navals</li><li>Hélicoptères</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Sous-marins d’attaque</li><li>Destroyers</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Chasser les sous-marins seule</li><li>Être en première ligne</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="destroyer navire surface combat frégate corvette sous-marin menace">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Destroyer</p>
+          <div class="small">Combat de surface (poly + pression)</div>
+        </div>
+        <span class="u-tag">SURFACE</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Frégates</li><li>Corvettes</li><li>Navires isolés</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Sous-marins d’attaque</li><li>Bombardiers navals</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Avancer sans écran ASM</li><li>Ignorer la menace sous-marine</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="croiseur cruiser flotte aa navale anti aérien surface destroyer fregate">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Croiseur</p>
+          <div class="small">Pivot de flotte (surface + protection)</div>
+        </div>
+        <span class="u-tag">PIVOT</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Destroyers (sans sous-marins)</li><li>Frégates</li><li>Aviation navale (si protégé ASM)</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Sous-marins d’attaque</li><li>Bombardiers en nombre</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Être isolé</li><li>Naviguer sans corvettes ASM</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="porte-avions carrier projection aérienne asf strike escorte sous-marin missiles">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Porte-avions</p>
+          <div class="small">Projection aérienne (pression stratégique)</div>
+        </div>
+        <span class="u-tag">PROJECTION</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Projection ASF / Strike</li><li>Contrôle de zones maritimes</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Sous-marins d’attaque</li><li>Missiles navals</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Avancer sans escorte complète</li><li>Approcher des côtes ennemies</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="unit" data-unit data-keywords="sous-marin attaque submarine porte-avions croiseur destroyer corvette asm">
+      <div class="u-top">
+        <div>
+          <p class="u-name">Sous-marin d’attaque</p>
+          <div class="small">Chasseur de gros navires (embuscade)</div>
+        </div>
+        <span class="u-tag">EMBUSCADE</span>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Porte-avions</li><li>Croiseurs</li><li>Destroyers</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>Corvettes (ASM)</li><li>Hélicoptères ASM</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Combattre en surface</li><li>Rester sans couverture</li></ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <div class="footer">Astuce : flotte “propre” = 1 croiseur + frégate (AA) + corvette (ASM).</div>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
