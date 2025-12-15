@@ -9,8 +9,11 @@
 <body>
 
 <header class="topbar">
-  <div class="container inner">
-    <div class="brand"><span>🦅</span><span>Alliance Napoléoniens</span><span class="badge">NAVAL</span></div>
+  <div class="inner">
+    <div class="brand">
+      <img src="napo.png" alt="Logo Alliance" style="height:150px; margin-right:8px">
+      <span style="display:flex; align-items:center; justify-content:center; height:150px; flex:1; font-size:42px; font-weight:900; color:#fbbf24; text-shadow:2px 2px 4px rgba(0,0,0,0.5); font-family:Georgia, serif; letter-spacing:1px">Alliance Napoléoniens</span>
+    </div>
     <nav>
       <a class="navlink" href="index.html">Accueil</a>
       <a class="navlink" href="air.html">✈️ Air</a>
@@ -26,8 +29,7 @@
     <p class="h-sub">Recherche : <b>corvette</b>, <b>frégate</b>, <b>destroyer</b>, <b>croiseur</b>, <b>sous-marin</b>…</p>
 
     <div class="search">
-      <input data-search type="text" placeholder="Rechercher une unité (ex: frégate, croiseur, sous-marin)..." />
-      <button class="btn" data-clear>Effacer</button>
+      <input data-search type="text" placeholder="Rechercher une unité (ex: frégate, croiseur, sous-marin)..." />      <button class="btn" data-search-btn>Rechercher</button>      <button class="btn" data-clear>Effacer</button>
     </div>
   </div></section>
 
@@ -191,7 +193,11 @@
 
   </section>
 
-  <div class="footer">Astuce : flotte “propre” = 1 croiseur + frégate (AA) + corvette (ASM).</div>
+  <div class="footer">
+    Astuce : flotte "propre" = 1 croiseur + frégate (AA) + corvette (ASM).
+    <span style="margin-left: 20px">|</span>
+    <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+  </div>
 </main>
 
 <script src="app.js"></script>

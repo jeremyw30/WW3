@@ -1,6 +1,7 @@
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   const input = document.querySelector("[data-search]");
   const clearBtn = document.querySelector("[data-clear]");
+  const searchBtn = document.querySelector("[data-search-btn]");
   const units = [...document.querySelectorAll("[data-unit]")];
 
   if (!input || units.length === 0) return;
@@ -14,7 +15,15 @@
   };
 
   input.addEventListener("input", apply);
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") apply();
+  });
+  
+  if (searchBtn) {
+    searchBtn.addEventListener("click", apply);
+  }
+  
   if (clearBtn) {
     clearBtn.addEventListener("click", () => { input.value = ""; apply(); input.focus(); });
   }
-})();
+});
