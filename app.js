@@ -21,9 +21,18 @@ document.addEventListener("DOMContentLoaded", async function () {
       liste.innerHTML = unites.map(u => {
         const nom = (u.nom ?? "").toString().trim() || "Unité sans nom";
         const desc = (u.description ?? "").toString().trim() || "Aucune description.";
+        const efficace = (u.efficace ?? "").toString().trim();
+        const faible = (u.faible ?? "").toString().trim();
+        const erreurs = (u["erreurs à éviter"] ?? u.dont ?? "").toString().trim();
 
         // Keywords = nom + description + catégorie (pour ta recherche)
         const keywords = `${cat} ${nom} ${desc}`.toLowerCase();
+
+        // Fonction pour convertir liste virgule en <ul><li>
+        const toList = (str) => {
+          if (!str) return "<li>Aucune information</li>";
+          return str.split(",").map(item => `<li>${escapeHtml(item.trim())}</li>`).join("");
+        };
 
         return `
           <article class="unit" data-unit data-keywords="${escapeHtmlAttr(keywords)}">
@@ -31,6 +40,22 @@ document.addEventListener("DOMContentLoaded", async function () {
               <div>
                 <p class="u-name">${escapeHtml(nom)}</p>
                 <div class="small">${escapeHtml(desc)}</div>
+              </div>
+            </div>
+            <div class="u-body">
+              <div class="cols">
+                <div class="block ok">
+                  <h3>Efficace contre</h3>
+                  <ul>${toList(efficace)}</ul>
+                </div>
+                <div class="block warn">
+                  <h3>Faible contre</h3>
+                  <ul>${toList(faible)}</ul>
+                </div>
+                <div class="block bad">
+                  <h3>À ne pas faire</h3>
+                  <ul>${toList(erreurs)}</ul>
+                </div>
               </div>
             </div>
           </article>
