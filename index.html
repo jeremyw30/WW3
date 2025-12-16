@@ -14,7 +14,12 @@
       <img src="napo.png" alt="Logo Alliance" style="height:150px; margin-right:8px">
       <span style="display:flex; align-items:center; justify-content:center; height:150px; flex:1; font-size:42px; font-weight:900; color:#fbbf24; text-shadow:2px 2px 4px rgba(0,0,0,0.5); font-family:Georgia, serif; letter-spacing:1px">Alliance Napoléoniens</span>
     </div>
-    <nav>
+    <div class="burger-menu" id="burgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="nav">
       <a class="navlink active" href="index.html">Accueil</a>
       <a class="navlink" href="terre.html">🪖 Terre</a>
       <a class="navlink" href="air.html">✈️ Air</a>
@@ -22,6 +27,31 @@
     </nav>
   </div>
 </header>
+
+<script>
+// Hamburger menu
+const burger = document.getElementById('burgerMenu');
+const nav = document.getElementById('nav');
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+}
+
+// Header compact au scroll
+const topbar = document.querySelector('.topbar');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 100) {
+    topbar.classList.add('compact');
+  } else {
+    topbar.classList.remove('compact');
+  }
+  lastScroll = currentScroll;
+});
+</script>
 
 <main class="container">
   <section class="hero">
