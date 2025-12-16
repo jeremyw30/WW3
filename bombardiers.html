@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Doctrine BOMBARDIERS — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body data-cat="bombardiers">
+
+<header class="topbar">
+  <div class="inner">
+    <div class="brand">
+      <img src="napo.png" alt="Logo Alliance" style="height:150px; margin-right:8px">
+      <span style="display:flex; align-items:center; justify-content:center; height:150px; flex:1; font-size:42px; font-weight:900; color:#fbbf24; text-shadow:2px 2px 4px rgba(0,0,0,0.5); font-family:Georgia, serif; letter-spacing:1px">Alliance Napoléoniens</span>
+    </div>
+    <div class="burger-menu" id="burgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="nav">
+      <a class="navlink" href="index.html">Accueil</a>
+      <a class="navlink" href="infanterie.html">🪖 Infanterie</a>
+      <a class="navlink" href="blindes.html">🛡️ Blindés</a>
+      <a class="navlink" href="artillerie.html">💣 Artillerie</a>
+      <a class="navlink" href="chasseurs.html">✈️ Chasseurs</a>
+      <a class="navlink active" href="bombardiers.html">🛩️ Bombardiers</a>
+      <a class="navlink" href="naval.html">⚓ Naval</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+const burger = document.getElementById('burgerMenu');
+const nav = document.getElementById('nav');
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+}
+
+const topbar = document.querySelector('.topbar');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 100) {
+    topbar.classList.add('compact');
+  } else {
+    topbar.classList.remove('compact');
+  }
+  lastScroll = currentScroll;
+});
+</script>
+
+<main class="main-content">
+  <section class="hero">
+    <h1>🛩️ Doctrine BOMBARDIERS</h1>
+    <p>Guide tactique des bombardiers</p>
+  </section>
+
+  <section class="controls">
+    <div class="search-box">
+      <input type="text" data-search placeholder="Rechercher une unité..." />
+      <button data-clear title="Effacer">✕</button>
+      <button data-search-btn>🔍</button>
+    </div>
+  </section>
+
+  <section id="liste" class="liste"></section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
