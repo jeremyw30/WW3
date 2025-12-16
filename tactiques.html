@@ -94,334 +94,170 @@ window.addEventListener('scroll', () => {
 <main class="container">
   <section class="hero">
     <div class="pad">
-      <h1 class="h-title">🎯 Tactiques & Stratégies</h1>
-      <p class="h-sub">
-        Les meilleures stratégies pour dominer sur Conflict of Nations. Rush, défense, contre-attaque : tout est ici.
+      <h1 class="h-title">🔺 Triangle Meta - Terrestre</h1>
+      <p class="h-sub" style="max-width:900px; margin:0 auto">
+        Une composition d'attaque extrêmement efficace. Utilisée surtout lors de Défi, en partie publique, cette composition est presque imbattable sauf par des joueurs extrêmement expérimentés ou ayant des fonds illimités sur leurs cartes bancaires. L'atout majeur de cette composition est qu'elle permet de vaincre n'importe quelle armée avec un nombre d'unités limités. Elle permet aussi de mettre en pratique le principe clé : <strong>"Save troops = Save ressources"</strong>. À savoir que moins vous perderez de troupes au combat et plus vous pourrez vous développer.
       </p>
     </div>
   </section>
 
-  <section class="grid" style="margin-top:18px">
-    <div class="card" style="grid-column: 1 / -1">
+  <section class="grid" style="margin-top:24px">
+    <div class="card" style="grid-column:1/-1">
       <div class="hd">
-        <h2>⚔️ Compositions Optimales</h2>
-        <div class="small">Builds testés et approuvés</div>
+        <h2>⚔️ Stacks & Compositions Tactiques</h2>
+        <div class="small">Guides de compositions optimales</div>
       </div>
       <div class="bd">
-        <p class="small" style="margin-bottom:20px">
-          Les meilleures compositions d'armée selon la phase de jeu et votre stratégie. Adaptez selon les ressources disponibles.
-        </p>
-        
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px">
-          <!-- Early Game Rush -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--brand)">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">🚀</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:var(--brand)">Early Game Rush</div>
-                <div style="font-size:12px; color:var(--muted)">Jour 1-3</div>
-              </div>
+        <!-- Accordéon Container -->
+        <div class="accordion-container">
+          
+          <!-- Triangle Meta -->
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span style="font-size:24px; margin-right:12px">🔺</span>
+              <span style="flex:1; font-weight:700; font-size:16px">Triangle Meta - Terrestre</span>
+              <span class="accordion-icon">▼</span>
             </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>3x Infanterie Motorisée</li>
-              <li>2x Artillerie Mobile</li>
-              <li>1x Reconnaissance Hélico</li>
-              <li>1x Chasseur Multi-rôle (optionnel)</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(94,234,212,.08); border-radius:8px; font-size:13px; color:var(--brand)">
-              💡 Focus vitesse et mobilité
+            <div class="accordion-content">
+              <div style="display:grid; grid-template-columns:120px 1fr; gap:16px; align-items:start; margin-bottom:16px">
+                <!-- Artillerie -->
+                <div style="text-align:center; padding:12px; background:var(--panel2); border-radius:8px">
+                  <div style="font-size:32px; margin-bottom:6px">💣</div>
+                  <div style="font-size:13px; font-weight:600; color:var(--brand)">Artillerie</div>
+                </div>
+                <div style="padding:12px; background:var(--panel2); border-radius:8px">
+                  <p style="font-size:14px; line-height:1.6; color:var(--muted); margin:0">
+                    L'artillerie permet d'attaquer l'ennemis à distance, par conséquent sans prendre de dégâts. La force de l'artillerie n'est tant pas le niveau des dégâts occasionnés (+/- 10 points au level 1) mais bien par la capacité à faire des dégâts à distance, donc sans en prendre en retour.
+                  </p>
+                </div>
+
+                <!-- SAM -->
+                <div style="text-align:center; padding:12px; background:var(--panel2); border-radius:8px">
+                  <div style="font-size:32px; margin-bottom:6px">🎯</div>
+                  <div style="font-size:13px; font-weight:600; color:var(--brand)">SAM</div>
+                </div>
+                <div style="padding:12px; background:var(--panel2); border-radius:8px">
+                  <p style="font-size:14px; line-height:1.6; color:var(--muted); margin:0">
+                    Le SAM permet d'éloigner tout risque d'attaque par avions (ASF, Strike Fights, Avion d'Elites). Le SAM (ou Lance Missile Sol Air Mobile) est dévastateur face aux avions. Un groupe de 4 SAM attaqué par des Strike Fighters vont générer jusqu'à 64 points de dégâts ! Le SAM donne aussi des points de défense contre les missiles de croisières.
+                  </p>
+                </div>
+
+                <!-- Radar -->
+                <div style="text-align:center; padding:12px; background:var(--panel2); border-radius:8px">
+                  <div style="font-size:32px; margin-bottom:6px">📡</div>
+                  <div style="font-size:13px; font-weight:600; color:var(--brand)">Radar</div>
+                </div>
+                <div style="padding:12px; background:var(--panel2); border-radius:8px">
+                  <p style="font-size:14px; line-height:1.6; color:var(--muted); margin:0">
+                    Le radar permet d'identifier la présence des troupes. À partir du niveau 3 (Jour 14), le Radar mobile permet de détecter les infantries. Le radar permet d'utiliser la portée de l'artillerie de manière optimale car sans radar, l'artillerie reste aveugle.
+                  </p>
+                </div>
+
+                <!-- ASF -->
+                <div style="text-align:center; padding:12px; background:var(--panel2); border-radius:8px">
+                  <div style="font-size:32px; margin-bottom:6px">✈️</div>
+                  <div style="font-size:13px; font-weight:600; color:var(--brand)">ASF</div>
+                </div>
+                <div style="padding:12px; background:var(--panel2); border-radius:8px">
+                  <p style="font-size:14px; line-height:1.6; color:var(--muted); margin:0">
+                    L'ASF ou Chasseur de Supériorité Aérienne permet de se défendre contre les attaques d'hélicoptères. Il peut aussi servir contre les avions, mais dans ce cas là la SAM est le plus efficaces.
+                  </p>
+                </div>
+              </div>
+
+              <div style="padding:20px; background:linear-gradient(135deg, rgba(94,234,212,.12), rgba(96,165,250,.12)); border-radius:12px; border-left:4px solid var(--brand); margin-bottom:16px">
+                <h3 style="color:var(--brand); margin-bottom:14px; font-size:17px; display:flex; align-items:center; gap:8px">
+                  <span>🎯</span> Stack Recommandé
+                </h3>
+                <p style="font-size:14px; line-height:1.7; color:var(--muted); margin:0">
+                  Afin d'optimiser les compositions, il est toujours recommandés de grouper (stack) ses unités par 10 pour les troupes au sol, et par 5 pour les unités aériennes. Un bon stack serait alors : <strong style="color:var(--text)">3 Artillerie, 3 SAM, 1 radar, accompagné par un stack de 5 ASF</strong> afin de contrer l'attaque d'hélicoptères. Quelques unités de la garde nationale devront en parallèle conquérir les territoires inoccupés.
+                </p>
+              </div>
+
+              <div style="padding:18px; background:var(--panel2); border-radius:12px; border:2px dashed #f97316; margin-bottom:16px">
+                <h4 style="color:#f97316; margin-bottom:10px; font-size:15px; display:flex; align-items:center; gap:8px">
+                  <span>🚁</span> Complément
+                </h4>
+                <p style="font-size:14px; line-height:1.6; color:var(--muted); margin:0">
+                  À titre personnel, j'ajoute souvent à cette composition, les Hélicoptères d'attaques surtout en partie publique face à des joueurs qui utilisent des unités lourdes comme le Main battle Tank (MBT). En effet, l'artillerie risque de mettre un certain temps à détruire un MBT. Dans ce tel cas, l'ajout d'un stack de 5 Hélicoptères d'attaques permet en cas de besoin, de réduire considérablement le temps nécessaire pour détruire un stack important d'unités adverses.
+                </p>
+              </div>
+
+              <div style="padding:18px; background:rgba(147,51,234,.08); border-radius:12px; border:2px solid rgba(147,51,234,.3); margin-bottom:16px">
+                <h4 style="color:#9333ea; margin-bottom:10px; font-size:15px; display:flex; align-items:center; gap:8px">
+                  <span>🏆</span> BONUS
+                </h4>
+                <p style="font-size:14px; line-height:1.6; color:var(--muted); margin:0">
+                  Si vous avez activé le Conseil de Sécurité (abonnement payant à CoN) vous avez alors l'option qui vaut tout l'Or du monde : le contrôle de Tir. En mettant le contrôle de tir sur Agressivité, votre Triangle Meta avancera en territoire ennemi. Dès qu'une unité sera à porter de tir, votre stack s'arrêtera et vos artilleries se mettent alors automatiquement au travail jusqu'à ce que l'unité adverse soit détruite. Une fois l'unité détruite, le stack reprendra alors sa marche en avant. Magique !
+                </p>
+              </div>
+
+              <div style="padding:14px; background:rgba(251,191,36,.08); border-radius:8px; border-left:3px solid var(--warn); font-size:13px; color:var(--muted); font-style:italic">
+                📌 <strong style="color:var(--warn)">Note :</strong> Triangle Méta V1.6. Préparé par Katriak avec l'aide et le support de l'alliance Nelva et Les Francophones
+              </div>
             </div>
           </div>
 
-          <!-- Mid Game Équilibrée -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--brand2)">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">⚖️</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:var(--brand2)">Mid Game Équilibrée</div>
-                <div style="font-size:12px; color:var(--muted)">Jour 4-10</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>2x MBT (Blindés principaux)</li>
-              <li>2x Infanterie mécanisée</li>
-              <li>1x DCA Mobile</li>
-              <li>2x Artillerie automotrice</li>
-              <li>1x Hélico d'attaque</li>
-              <li>2x Chasseurs ASF</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(96,165,250,.08); border-radius:8px; font-size:13px; color:var(--brand2)">
-              💡 Polyvalence maximale
-            </div>
-          </div>
-
-          <!-- Late Game Puissance -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--warn)">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">💥</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:var(--warn)">Late Game Puissance</div>
-                <div style="font-size:12px; color:var(--muted)">Jour 10+</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>3x MBT Tier 3</li>
-              <li>2x MLRS (Artillerie lourde)</li>
-              <li>2x SAM avancés</li>
-              <li>3x Avions de supériorité aérienne</li>
-              <li>2x Bombardiers furtifs</li>
-              <li>1x Système de missiles balistiques</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(251,191,36,.08); border-radius:8px; font-size:13px; color:var(--warn)">
-              💡 Firepower avant tout
-            </div>
-          </div>
-
-          <!-- Défense en Profondeur -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #8b5cf6">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">🛡️</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:#8b5cf6">Stack Défensif</div>
-                <div style="font-size:12px; color:var(--muted)">Position fortifiée</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>4x Infanterie (dans ville)</li>
-              <li>2x DCA/SAM superposés</li>
-              <li>2x Artillerie statique</li>
-              <li>1x MBT en réserve</li>
-              <li>2x Chasseurs patrouille</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(139,92,246,.08); border-radius:8px; font-size:13px; color:#8b5cf6">
-              💡 Tenir à tout prix
-            </div>
-          </div>
-
-          <!-- Domination Aérienne -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--ok)">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">✈️</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:var(--ok)">Domination Aérienne</div>
-                <div style="font-size:12px; color:var(--muted)">Contrôle du ciel</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>4x ASF (Air Superiority Fighters)</li>
-              <li>3x Bombardiers tactiques</li>
-              <li>1x AWACS (Détection)</li>
-              <li>2x Chasseurs SEAD (Anti-DCA)</li>
-              <li>1x Ravitailleur en vol</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(52,211,153,.08); border-radius:8px; font-size:13px; color:var(--ok)">
-              💡 Nettoyer puis frapper
-            </div>
-          </div>
-
-          <!-- Naval Strike Group -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--danger)">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">⚓</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:var(--danger)">Naval Strike Group</div>
-                <div style="font-size:12px; color:var(--muted)">Flotte complète</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>1x Porte-avions + 2 Avions</li>
-              <li>2x Croiseurs lance-missiles</li>
-              <li>3x Destroyers (escorte)</li>
-              <li>2x Sous-marins d'attaque</li>
-              <li>1x Frégate ASW (Anti-sous-marin)</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(239,68,68,.08); border-radius:8px; font-size:13px; color:var(--danger)">
-              💡 Toujours en groupe
-            </div>
-          </div>
-
-          <!-- Blitzkrieg Blindé -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #f97316">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">⚡</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:#f97316">Blitzkrieg Blindé</div>
-                <div style="font-size:12px; color:var(--muted)">Percée rapide</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>4x MBT (Blindés lourds)</li>
-              <li>2x Hélicos d'attaque</li>
-              <li>1x Infanterie mécanisée</li>
-              <li>1x DCA Mobile</li>
-              <li>2x Artillerie automotrice</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(249,115,22,.08); border-radius:8px; font-size:13px; color:#f97316">
-              💡 Vitesse = Survie
-            </div>
-          </div>
-
-          <!-- Mur Anti-Aérien -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #06b6d4">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">🎯</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:#06b6d4">Mur Anti-Aérien</div>
-                <div style="font-size:12px; color:var(--muted)">No-fly zone</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>3x SAM longue portée</li>
-              <li>2x DCA mobile courte portée</li>
-              <li>2x Chasseurs ASF (patrouille)</li>
-              <li>1x AWACS (détection précoce)</li>
-              <li>2x Infanterie (protection au sol)</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(6,182,212,.08); border-radius:8px; font-size:13px; color:#06b6d4">
-              💡 Couches de défense
-            </div>
-          </div>
-
-          <!-- Artillerie Longue Portée -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #dc2626">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">🎆</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:#dc2626">Artillerie Longue Portée</div>
-                <div style="font-size:12px; color:var(--muted)">Bombardement massif</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>4x MLRS (Lance-roquettes multiple)</li>
-              <li>2x Artillerie automotrice</li>
-              <li>2x Drones de reconnaissance</li>
-              <li>1x DCA (protection)</li>
-              <li>1x Ravitaillement (munitions)</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(220,38,38,.08); border-radius:8px; font-size:13px; color:#dc2626">
-              💡 Rester hors de portée
-            </div>
-          </div>
-
-          <!-- Strike Team Spécialisé -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #65a30d">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">🎭</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:#65a30d">Strike Team Spécialisé</div>
-                <div style="font-size:12px; color:var(--muted)">Forces spéciales</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>3x Special Forces (Infiltration)</li>
-              <li>2x Hélicos de transport</li>
-              <li>1x Drone armé</li>
-              <li>2x Chasseurs SEAD (supprimer DCA)</li>
-              <li>1x Hélico d'attaque (support)</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(101,163,13,.08); border-radius:8px; font-size:13px; color:#65a30d">
-              💡 Furtivité & Précision
-            </div>
-          </div>
-
-          <!-- Contre-Attaque Mobile -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #ea580c">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">🔄</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:#ea580c">Contre-Attaque Mobile</div>
-                <div style="font-size:12px; color:var(--muted)">Réserve stratégique</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>2x MBT rapides</li>
-              <li>3x Infanterie motorisée</li>
-              <li>2x Hélicos d'attaque</li>
-              <li>1x Artillerie mobile</li>
-              <li>1x DCA mobile</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(234,88,12,.08); border-radius:8px; font-size:13px; color:#ea580c">
-              💡 Réactivité maximale
-            </div>
-          </div>
-
-          <!-- Saturation Missiles -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #9333ea">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">🚀</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:#9333ea">Saturation Missiles</div>
-                <div style="font-size:12px; color:var(--muted)">Frappe massive</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>3x Lanceurs de missiles balistiques</li>
-              <li>2x Lanceurs de missiles de croisière</li>
-              <li>2x Drones de reconnaissance</li>
-              <li>1x DCA (défense du site)</li>
-              <li>1x Camouflage/Decoy</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(147,51,234,.08); border-radius:8px; font-size:13px; color:#9333ea">
-              💡 Première frappe décisive
-            </div>
-          </div>
-
-          <!-- Siège Urbain -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #78716c">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">🏙️</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:#78716c">Siège Urbain</div>
-                <div style="font-size:12px; color:var(--muted)">Prise de ville</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>5x Infanterie (combat urbain)</li>
-              <li>1x Blindé léger (support)</li>
-              <li>2x Artillerie (pilonnage)</li>
-              <li>1x Drone de reconnaissance</li>
-              <li>1x Hélico d'attaque</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(120,113,108,.08); border-radius:8px; font-size:13px; color:#78716c">
-              💡 Infanterie = Roi en ville
-            </div>
-          </div>
-
-          <!-- Hunter-Killer Naval -->
-          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #0891b2">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
-              <div style="font-size:28px">🦈</div>
-              <div>
-                <div style="font-weight:700; font-size:16px; color:#0891b2">Hunter-Killer Submarine</div>
-                <div style="font-size:12px; color:var(--muted)">Guerre sous-marine</div>
-              </div>
-            </div>
-            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-              <li>3x Sous-marins d'attaque</li>
-              <li>2x Frégates ASW</li>
-              <li>1x Hélico ASW</li>
-              <li>1x Avion de patrouille maritime</li>
-              <li>1x Destroyer (coordination)</li>
-            </ul>
-            <div style="margin-top:12px; padding:10px; background:rgba(8,145,178,.08); border-radius:8px; font-size:13px; color:#0891b2">
-              💡 Silent but deadly
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:24px; padding:16px; background:rgba(94,234,212,.06); border-radius:12px; border:2px dashed var(--brand)">
-          <h3 style="color:var(--brand); margin-bottom:10px; font-size:16px">⚠️ Règles d'Or</h3>
-          <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
-            <li><strong>Jamais seul :</strong> Toujours combiner infanterie + blindés + support aérien</li>
-            <li><strong>DCA obligatoire :</strong> 1 DCA minimum par stack après jour 3</li>
-            <li><strong>Reconnaissance :</strong> Toujours savoir ce qui vous attend avant d'attaquer</li>
-            <li><strong>Logistique :</strong> Garder 20-30% de vos forces en réserve</li>
-            <li><strong>Adaptabilité :</strong> Ajuster selon l'ennemi (plus d'aviation si il joue blindés, etc.)</li>
-          </ul>
         </div>
       </div>
     </div>
   </section>
+
+  <style>
+    .accordion-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .accordion-item {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-item:hover {
+      border-color: var(--brand);
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      padding: 18px 20px;
+      cursor: pointer;
+      user-select: none;
+      background: var(--panel2);
+      transition: background 0.2s;
+    }
+
+    .accordion-header:hover {
+      background: rgba(94,234,212,.08);
+    }
+
+    .accordion-icon {
+      color: var(--brand);
+      font-size: 14px;
+      transition: transform 0.3s ease;
+    }
+
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 20px;
+    }
+
+    .accordion-item.active .accordion-content {
+      max-height: 5000px;
+      padding: 20px;
+    }
+  </style>
 
   <footer class="main-footer">
     <div class="footer-content">
@@ -565,6 +401,15 @@ window.addEventListener('scroll', () => {
       }
     }
   }
+
+  // Accordion functionality
+  const accordionHeaders = document.querySelectorAll('.accordion-header');
+  accordionHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+      const accordionItem = header.parentElement;
+      accordionItem.classList.toggle('active');
+    });
+  });
 </script>
 </body>
 </html>
