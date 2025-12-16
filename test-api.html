@@ -15,7 +15,7 @@
       result.textContent = 'Chargement...';
       
       try {
-        const res = await fetch("https://script.google.com/macros/s/AKfycbx_2BpqRU45AsJKhm64YsFXsv-j7L_B-kcULPliSN6Tl6lLS-_8YCq6DGwY5ti3X9g/exec", { cache: "no-store" });
+        const res = await fetch("https://script.google.com/macros/s/AKfycbwtTUlQysKpwXDZV614qWx1-0B6lei4s5mowpl-jBRryvliIGFkU947xUihbm2bElll/exec", { cache: "no-store" });
         const data = await res.json();
         result.textContent = JSON.stringify(data, null, 2);
       } catch (e) {

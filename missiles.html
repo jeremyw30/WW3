@@ -1,14 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Doctrine NAVAL — Alliance Napoléoniens</title>
+  <title>Doctrine MISSILES — Alliance Napoléoniens</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<!-- ✅ ICI : on met la catégorie sur le body principal -->
-<body data-cat="naval">
+<body data-cat="missiles">
 
 <header class="topbar">
   <div class="inner">
@@ -26,16 +25,15 @@
       <a class="navlink" href="infanterie.html">🪖 Infanterie</a>
       <a class="navlink" href="blindes.html">🛡️ Blindés</a>
       <a class="navlink" href="soutien.html">💣 Soutien</a>
-      <a class="navlink" href="missiles.html">🚀 Missiles</a>
+      <a class="navlink active" href="missiles.html">🚀 Missiles</a>
       <a class="navlink" href="chasseurs.html">✈️ Chasseurs</a>
       <a class="navlink" href="bombardiers.html">🛩️ Bombardiers</a>
-      <a class="navlink active" href="naval.html">⚓ Naval</a>
+      <a class="navlink" href="naval.html">⚓ Naval</a>
     </nav>
   </div>
 </header>
 
 <script>
-// Hamburger menu
 const burger = document.getElementById('burgerMenu');
 const nav = document.getElementById('nav');
 if (burger && nav) {
@@ -45,7 +43,6 @@ if (burger && nav) {
   });
 }
 
-// Header compact au scroll
 const topbar = document.querySelector('.topbar');
 let lastScroll = 0;
 window.addEventListener('scroll', () => {
@@ -61,21 +58,20 @@ window.addEventListener('scroll', () => {
 
 <main class="container">
   <section class="hero"><div class="pad">
-    <h1 class="h-title">⚓ Armée navale</h1>
-    <p class="h-sub">Recherche : <b>corvette</b>, <b>frégate</b>, <b>destroyer</b>, <b>croiseur</b>, <b>sous-marin</b>…</p>
+    <h1 class="h-title">🚀 Armée Missiles</h1>
+    <p class="h-sub">Recherche : <b>ICBM</b>, <b>croisière</b>, <b>balistique</b>, <b>nucléaire</b>…</p>
 
     <div class="search">
-      <input data-search type="text" placeholder="Rechercher une unité (ex: frégate, croiseur, sous-marin)..." />      <button class="btn" data-search-btn>Rechercher</button>      <button class="btn" data-clear>Effacer</button>
+      <input data-search type="text" placeholder="Rechercher une unité..." />
+      <button class="btn" data-search-btn>Rechercher</button>
+      <button class="btn" data-clear>Effacer</button>
     </div>
   </div></section>
 
   <section class="units" style="margin-top:16px">
-
-    <!-- ✅ Ici : les unités venant de Google Sheets seront injectées -->
     <div id="liste"></div>
   </section>
 
-  <!-- Footer complet -->
   <footer class="main-footer">
     <div class="footer-content">
       <div class="footer-col">
@@ -128,7 +124,6 @@ window.addEventListener('scroll', () => {
     </div>
   </footer>
 
-  <!-- Modal Admin -->
   <div id="adminModal" class="modal">
     <div class="modal-content">
       <span class="modal-close">&times;</span>
@@ -200,69 +195,26 @@ window.addEventListener('scroll', () => {
 
 <script src="app.js"></script>
 <script>
-  // Modal Admin
   const modal = document.getElementById('adminModal');
   const openBtn = document.getElementById('openAdminModal');
   const closeBtn = document.querySelector('.modal-close');
 
-  openBtn.onclick = function(e) {
-    e.preventDefault();
-    modal.style.display = 'block';
-  }
+  if (openBtn && modal && closeBtn) {
+    openBtn.onclick = function(e) {
+      e.preventDefault();
+      modal.style.display = 'block';
+    }
 
-  closeBtn.onclick = function() {
-    modal.style.display = 'none';
-  }
-
-  window.onclick = function(event) {
-    if (event.target == modal) {
+    closeBtn.onclick = function() {
       modal.style.display = 'none';
     }
-  }
 
-  // Charger les unités depuis localStorage
-  document.addEventListener('DOMContentLoaded', function() {
-    const units = JSON.parse(localStorage.getItem('ww3_units') || '{}');
-    const navalUnits = Object.entries(units).filter(([id, unit]) => unit.category === 'naval');
-    
-    if (navalUnits.length > 0) {
-      const unitsContainer = document.querySelector('.units');
-      
-      // Ajouter les unités dynamiques
-      navalUnits.forEach(([id, unit]) => {
-        const article = document.createElement('article');
-        article.className = 'unit';
-        article.setAttribute('data-unit', '');
-        article.setAttribute('data-keywords', unit.keywords);
-        
-        article.innerHTML = `
-          <div class="u-top">
-            <div>
-              <p class="u-name">${unit.name}</p>
-              <div class="small">${unit.description}</div>
-            </div>
-            ${unit.tag ? `<span class="u-tag">${unit.tag}</span>` : ''}
-          </div>
-          <div class="u-body">
-            <div class="cols">
-              <div class="block ok">
-                <h3>Efficace contre</h3>
-                <ul>${unit.effective.map(item => `<li>${item}</li>`).join('')}</ul>
-              </div>
-              <div class="block warn">
-                <h3>Faible contre</h3>
-                <ul>${unit.weak.map(item => `<li>${item}</li>`).join('')}</ul>
-              </div>
-              <div class="block bad">
-            </div>
-          </div>
-        `;
-        
-        unitsContainer.appendChild(article);
-      });
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
     }
-  });
+  }
 </script>
-<body data-cat="mer"></body>
 </body>
 </html>
