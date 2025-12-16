@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Demande de Prof — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <div class="brand">
+      <img src="napo.png" alt="Logo Alliance" style="height:150px; margin-right:8px">
+      <span style="display:flex; align-items:center; justify-content:center; height:150px; flex:1; font-size:42px; font-weight:900; color:#fbbf24; text-shadow:2px 2px 4px rgba(0,0,0,0.5); font-family:Georgia, serif; letter-spacing:1px">Alliance Napoléoniens</span>
+    </div>
+    <div class="burger-menu" id="burgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="nav">
+      <div class="dropdown">
+        <div class="dropdown-toggle">📚 Documentation</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="infanterie.html">🪖 Infanterie</a>
+          <a class="dropdown-item" href="blindes.html">🛡️ Blindés</a>
+          <a class="dropdown-item" href="artillerie.html">💣 Soutien</a>
+          <a class="dropdown-item" href="missiles.html">🚀 Missiles</a>
+          <a class="dropdown-item" href="chasseurs.html">✈️ Chasseurs</a>
+          <a class="dropdown-item" href="bombardiers.html">🛩️ Bombardiers</a>
+          <a class="dropdown-item" href="naval.html">⚓ Naval</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <div class="dropdown-toggle">🎓 École</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="demande-prof.html">👨‍🏫 Demande de prof</a>
+          <a class="dropdown-item" href="idee1.html">💡 Idée 1</a>
+          <a class="dropdown-item" href="idee2.html">💡 Idée 2</a>
+        </div>
+      </div>
+      <a class="navlink" href="tactiques.html">🎯 Tactiques</a>
+      <a class="navlink" href="media.html">📸 Média</a>
+      <a class="navlink" href="communaute.html">👥 Communauté</a>
+      <a class="navlink" href="outils.html">🧮 Outils</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+const burger = document.getElementById('burgerMenu');
+const nav = document.getElementById('nav');
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+}
+
+// Dropdown menus
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+dropdownToggles.forEach(toggle => {
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const menu = toggle.nextElementSibling;
+    // Fermer les autres dropdowns
+    document.querySelectorAll('.dropdown-menu').forEach(m => {
+      if (m !== menu) m.classList.remove('show');
+    });
+    menu.classList.toggle('show');
+  });
+});
+// Fermer tous les dropdowns en cliquant ailleurs
+document.addEventListener('click', () => {
+  document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    menu.classList.remove('show');
+  });
+});
+
+const topbar = document.querySelector('.topbar');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 100) {
+    topbar.classList.add('compact');
+  } else {
+    topbar.classList.remove('compact');
+  }
+  lastScroll = currentScroll;
+});
+</script>
+
+<main class="container">
+  <section class="hero">
+    <div class="pad">
+      <h1 class="h-title">👨‍🏫 Demande de Professeur</h1>
+      <p class="h-sub">
+        Tu veux progresser ? Demande un professeur expérimenté pour t'accompagner et améliorer ton gameplay !
+      </p>
+    </div>
+  </section>
+
+  <section class="grid" style="margin-top:18px">
+    <div class="card" style="grid-column: 1 / -1">
+      <div class="hd">
+        <h2>📋 Comment ça marche ?</h2>
+        <div class="small">Processus simple et rapide</div>
+      </div>
+      <div class="bd">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-top:14px">
+          <div style="padding:20px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--brand)">
+            <div style="font-size:32px; margin-bottom:10px">1️⃣</div>
+            <h3 style="color:var(--brand); margin-bottom:8px; font-size:16px">Fais ta demande</h3>
+            <p style="color:var(--muted); font-size:14px; line-height:1.6">
+              Remplis le formulaire ci-dessous avec ton niveau, ce que tu veux apprendre et tes disponibilités.
+            </p>
+          </div>
+          
+          <div style="padding:20px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--brand2)">
+            <div style="font-size:32px; margin-bottom:10px">2️⃣</div>
+            <h3 style="color:var(--brand2); margin-bottom:8px; font-size:16px">Attribution d'un prof</h3>
+            <p style="color:var(--muted); font-size:14px; line-height:1.6">
+              Un professeur disponible te sera assigné sous 24-48h selon ton niveau et ta demande.
+            </p>
+          </div>
+          
+          <div style="padding:20px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--warn)">
+            <div style="font-size:32px; margin-bottom:10px">3️⃣</div>
+            <h3 style="color:var(--warn); margin-bottom:8px; font-size:16px">Cours & Progression</h3>
+            <p style="color:var(--muted); font-size:14px; line-height:1.6">
+              Sessions de coaching personnalisées par Discord/partie privée. Apprends à ton rythme !
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="grid-column: 1 / -1">
+      <div class="hd">
+        <h2>📝 Formulaire de Demande</h2>
+        <div class="small">Complète tes infos</div>
+      </div>
+      <div class="bd">
+        <form id="demandeForm" style="max-width:700px; margin:0 auto">
+          <div style="margin-bottom:20px">
+            <label style="display:block; font-weight:600; margin-bottom:8px; color:var(--text)">Pseudo Discord *</label>
+            <input type="text" id="pseudo" required style="width:100%; padding:12px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px">
+          </div>
+
+          <div style="margin-bottom:20px">
+            <label style="display:block; font-weight:600; margin-bottom:8px; color:var(--text)">Ton niveau actuel *</label>
+            <select id="niveau" required style="width:100%; padding:12px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px">
+              <option value="">-- Sélectionne --</option>
+              <option value="debutant">🌱 Débutant (0-50h de jeu)</option>
+              <option value="intermediaire">📈 Intermédiaire (50-200h)</option>
+              <option value="avance">⚡ Avancé (200h+)</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:20px">
+            <label style="display:block; font-weight:600; margin-bottom:8px; color:var(--text)">Que veux-tu apprendre ? *</label>
+            <div style="display:flex; flex-direction:column; gap:8px">
+              <label style="display:flex; align-items:center; padding:10px; background:var(--panel2); border-radius:8px; cursor:pointer">
+                <input type="checkbox" name="objectif" value="bases" style="margin-right:10px">
+                <span style="font-size:14px">🎯 Les bases du jeu</span>
+              </label>
+              <label style="display:flex; align-items:center; padding:10px; background:var(--panel2); border-radius:8px; cursor:pointer">
+                <input type="checkbox" name="objectif" value="strategie" style="margin-right:10px">
+                <span style="font-size:14px">🧠 Stratégies avancées</span>
+              </label>
+              <label style="display:flex; align-items:center; padding:10px; background:var(--panel2); border-radius:8px; cursor:pointer">
+                <input type="checkbox" name="objectif" value="economie" style="margin-right:10px">
+                <span style="font-size:14px">💰 Gestion économie</span>
+              </label>
+              <label style="display:flex; align-items:center; padding:10px; background:var(--panel2); border-radius:8px; cursor:pointer">
+                <input type="checkbox" name="objectif" value="combat" style="margin-right:10px">
+                <span style="font-size:14px">⚔️ Tactiques de combat</span>
+              </label>
+              <label style="display:flex; align-items:center; padding:10px; background:var(--panel2); border-radius:8px; cursor:pointer">
+                <input type="checkbox" name="objectif" value="diplomatie" style="margin-right:10px">
+                <span style="font-size:14px">🤝 Diplomatie</span>
+              </label>
+            </div>
+          </div>
+
+          <div style="margin-bottom:20px">
+            <label style="display:block; font-weight:600; margin-bottom:8px; color:var(--text)">Tes disponibilités</label>
+            <textarea id="disponibilites" rows="3" placeholder="Ex: Lundi-Mercredi soirs 20h-22h, Weekend après-midis..." style="width:100%; padding:12px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px; resize:vertical"></textarea>
+          </div>
+
+          <div style="margin-bottom:24px">
+            <label style="display:block; font-weight:600; margin-bottom:8px; color:var(--text)">Message additionnel (optionnel)</label>
+            <textarea id="message" rows="4" placeholder="Détails supplémentaires, questions, préférences..." style="width:100%; padding:12px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px; resize:vertical"></textarea>
+          </div>
+
+          <div style="text-align:center">
+            <button type="button" onclick="envoyerDemande()" style="padding:14px 32px; background:var(--brand); color:var(--bg); border:none; border-radius:10px; font-size:16px; font-weight:700; cursor:pointer; transition:all 0.2s">
+              📨 Envoyer ma demande
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>👥 Nos Professeurs</h2>
+        <div class="small">Experts disponibles</div>
+      </div>
+      <div class="bd">
+        <div style="display:flex; flex-direction:column; gap:12px">
+          <div style="padding:14px; background:var(--panel2); border-radius:10px; border-left:4px solid var(--brand)">
+            <div style="font-weight:700; color:var(--brand); margin-bottom:4px">YtbCrocomc</div>
+            <div style="font-size:13px; color:var(--muted)">Spécialités : Rush, Blitzkrieg, Stratégie globale</div>
+          </div>
+          <div style="padding:14px; background:var(--panel2); border-radius:10px; border-left:4px solid var(--brand)">
+            <div style="font-weight:700; color:var(--brand); margin-bottom:4px">nicotena</div>
+            <div style="font-size:13px; color:var(--muted)">Spécialités : Défense, Économie, Late game</div>
+          </div>
+          <div style="padding:14px; background:var(--panel2); border-radius:10px; border-left:4px solid var(--brand)">
+            <div style="font-weight:700; color:var(--brand); margin-bottom:4px">PUFRUH</div>
+            <div style="font-size:13px; color:var(--muted)">Spécialités : Aviation, Naval, Débutants</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>❓ Questions Fréquentes</h2>
+        <div class="small">FAQ</div>
+      </div>
+      <div class="bd">
+        <div style="display:flex; flex-direction:column; gap:14px">
+          <div>
+            <div style="font-weight:600; color:var(--brand); margin-bottom:6px">C'est gratuit ?</div>
+            <p style="font-size:14px; color:var(--muted); margin:0">Oui, 100% gratuit ! C'est de l'entraide entre membres de l'alliance.</p>
+          </div>
+          <div>
+            <div style="font-weight:600; color:var(--brand); margin-bottom:6px">Combien de temps dure une session ?</div>
+            <p style="font-size:14px; color:var(--muted); margin:0">Entre 30min et 2h selon ton besoin. C'est flexible.</p>
+          </div>
+          <div>
+            <div style="font-weight:600; color:var(--brand); margin-bottom:6px">Je peux changer de prof ?</div>
+            <p style="font-size:14px; color:var(--muted); margin:0">Oui, si le feeling ne passe pas, on te trouve quelqu'un d'autre.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>À propos</h3>
+        <p class="footer-text">
+          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC. 
+          84 membres actifs sur Discord. Rejoignez-nous pour lancer des parties entre membres !
+        </p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="infanterie.html">🪖 Infanterie</a></li>
+          <li><a href="blindes.html">🛡️ Blindés</a></li>
+          <li><a href="artillerie.html">💣 Soutien</a></li>
+          <li><a href="missiles.html">🚀 Missiles</a></li>
+          <li><a href="chasseurs.html">✈️ Chasseurs</a></li>
+          <li><a href="bombardiers.html">🛩️ Bombardiers</a></li>
+          <li><a href="naval.html">⚓ Naval</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Communauté</h3>
+        <ul class="footer-links">
+          <li><a href="https://discord.gg/z99qUe52PN" target="_blank">💬 Discord</a></li>
+          <li><a href="#">📧 Contact (lien à ajouter)</a></li>
+          <li><a href="login.html">🔐 Connexion Admin</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Informations</h3>
+        <ul class="footer-links">
+          <li>📅 Dernière MAJ : Déc. 2025</li>
+          <li>🎮 Jeu : Conflict of Nations WW3</li>
+          <li>⚔️ Alliance : Les Napoléoniens</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      © Alliance Napoléoniens — développé par Jerem32 & déployé par Cloudflare Pages
+      <span style="margin-left: 20px">|</span>
+      <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+      <span style="margin-left: 10px">|</span>
+      <a href="#" id="openAdminModal" style="margin-left: 10px; color: var(--brand)">👥 Équipe d'admin</a>
+    </div>
+  </footer>
+
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2 style="color: var(--brand); margin-bottom: 20px;">👥 Administrateurs</h2>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">1.</strong> YtbCrocomc
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">2.</strong> nicotena
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">3.</strong> PUFRUH
+        </li>
+      </ul>
+      <a href="login.html" style="display: block; margin-top: 20px; padding: 12px; background: var(--brand); color: var(--bg); text-align: center; border-radius: 8px; text-decoration: none; font-weight: 600;">🔐 Connexion Admin</a>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: var(--panel);
+      margin: 10% auto;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: slideDown 0.3s;
+    }
+
+    .modal-close {
+      color: var(--muted);
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--brand);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</main>
+
+<script>
+  const modal = document.getElementById('adminModal');
+  const openBtn = document.getElementById('openAdminModal');
+  const closeBtn = document.querySelector('.modal-close');
+
+  if (openBtn && modal && closeBtn) {
+    openBtn.onclick = function(e) {
+      e.preventDefault();
+      modal.style.display = 'block';
+    }
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  }
+
+  function envoyerDemande() {
+    const pseudo = document.getElementById('pseudo').value;
+    const niveau = document.getElementById('niveau').value;
+    const objectifs = Array.from(document.querySelectorAll('input[name="objectif"]:checked')).map(cb => cb.value);
+    const disponibilites = document.getElementById('disponibilites').value;
+    const message = document.getElementById('message').value;
+
+    if (!pseudo || !niveau || objectifs.length === 0) {
+      alert('⚠️ Remplis tous les champs obligatoires (*)');
+      return;
+    }
+
+    // Rediriger vers Discord avec message pré-rempli
+    const discordUrl = 'https://discord.gg/z99qUe52PN';
+    alert('✅ Formulaire prêt ! Tu vas être redirigé vers Discord.\n\nPoste ta demande dans le canal #demande-prof avec ces infos:\n\n' +
+          '👤 Pseudo: ' + pseudo + '\n' +
+          '📊 Niveau: ' + niveau + '\n' +
+          '🎯 Objectifs: ' + objectifs.join(', ') + '\n' +
+          (disponibilites ? '📅 Disponibilités: ' + disponibilites + '\n' : '') +
+          (message ? '💬 Message: ' + message : ''));
+    
+    window.open(discordUrl, '_blank');
+  }
+</script>
+</body>
+</html>
