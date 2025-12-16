@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Test API Google Sheets</title>
+</head>
+<body>
+  <h1>Test API</h1>
+  <button onclick="testAPI()">Tester l'API</button>
+  <pre id="result"></pre>
+
+  <script>
+    async function testAPI() {
+      const result = document.getElementById('result');
+      result.textContent = 'Chargement...';
+      
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbx_2BpqRU45AsJKhm64YsFXsv-j7L_B-kcULPliSN6Tl6lLS-_8YCq6DGwY5ti3X9g/exec", { cache: "no-store" });
+        const data = await res.json();
+        result.textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        result.textContent = 'Erreur: ' + e.message;
+      }
+    }
+  </script>
+</body>
+</html>
