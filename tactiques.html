@@ -86,7 +86,159 @@ window.addEventListener('scroll', () => {
     </div>
   </section>
 
+  <section class="grid" style="margin-top:18px">
+    <div class="card" style="grid-column: 1 / -1">
+      <div class="hd">
+        <h2>⚔️ Compositions Optimales</h2>
+        <div class="small">Builds testés et approuvés</div>
+      </div>
+      <div class="bd">
+        <p class="small" style="margin-bottom:20px">
+          Les meilleures compositions d'armée selon la phase de jeu et votre stratégie. Adaptez selon les ressources disponibles.
+        </p>
+        
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px">
+          <!-- Early Game Rush -->
+          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--brand)">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
+              <div style="font-size:28px">🚀</div>
+              <div>
+                <div style="font-weight:700; font-size:16px; color:var(--brand)">Early Game Rush</div>
+                <div style="font-size:12px; color:var(--muted)">Jour 1-3</div>
+              </div>
+            </div>
+            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
+              <li>3x Infanterie Motorisée</li>
+              <li>2x Artillerie Mobile</li>
+              <li>1x Reconnaissance Hélico</li>
+              <li>1x Chasseur Multi-rôle (optionnel)</li>
+            </ul>
+            <div style="margin-top:12px; padding:10px; background:rgba(94,234,212,.08); border-radius:8px; font-size:13px; color:var(--brand)">
+              💡 Focus vitesse et mobilité
+            </div>
+          </div>
 
+          <!-- Mid Game Équilibrée -->
+          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--brand2)">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
+              <div style="font-size:28px">⚖️</div>
+              <div>
+                <div style="font-weight:700; font-size:16px; color:var(--brand2)">Mid Game Équilibrée</div>
+                <div style="font-size:12px; color:var(--muted)">Jour 4-10</div>
+              </div>
+            </div>
+            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
+              <li>2x MBT (Blindés principaux)</li>
+              <li>2x Infanterie mécanisée</li>
+              <li>1x DCA Mobile</li>
+              <li>2x Artillerie automotrice</li>
+              <li>1x Hélico d'attaque</li>
+              <li>2x Chasseurs ASF</li>
+            </ul>
+            <div style="margin-top:12px; padding:10px; background:rgba(96,165,250,.08); border-radius:8px; font-size:13px; color:var(--brand2)">
+              💡 Polyvalence maximale
+            </div>
+          </div>
+
+          <!-- Late Game Puissance -->
+          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--warn)">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
+              <div style="font-size:28px">💥</div>
+              <div>
+                <div style="font-weight:700; font-size:16px; color:var(--warn)">Late Game Puissance</div>
+                <div style="font-size:12px; color:var(--muted)">Jour 10+</div>
+              </div>
+            </div>
+            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
+              <li>3x MBT Tier 3</li>
+              <li>2x MLRS (Artillerie lourde)</li>
+              <li>2x SAM avancés</li>
+              <li>3x Avions de supériorité aérienne</li>
+              <li>2x Bombardiers furtifs</li>
+              <li>1x Système de missiles balistiques</li>
+            </ul>
+            <div style="margin-top:12px; padding:10px; background:rgba(251,191,36,.08); border-radius:8px; font-size:13px; color:var(--warn)">
+              💡 Firepower avant tout
+            </div>
+          </div>
+
+          <!-- Défense en Profondeur -->
+          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid #8b5cf6">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
+              <div style="font-size:28px">🛡️</div>
+              <div>
+                <div style="font-weight:700; font-size:16px; color:#8b5cf6">Stack Défensif</div>
+                <div style="font-size:12px; color:var(--muted)">Position fortifiée</div>
+              </div>
+            </div>
+            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
+              <li>4x Infanterie (dans ville)</li>
+              <li>2x DCA/SAM superposés</li>
+              <li>2x Artillerie statique</li>
+              <li>1x MBT en réserve</li>
+              <li>2x Chasseurs patrouille</li>
+            </ul>
+            <div style="margin-top:12px; padding:10px; background:rgba(139,92,246,.08); border-radius:8px; font-size:13px; color:#8b5cf6">
+              💡 Tenir à tout prix
+            </div>
+          </div>
+
+          <!-- Domination Aérienne -->
+          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--ok)">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
+              <div style="font-size:28px">✈️</div>
+              <div>
+                <div style="font-weight:700; font-size:16px; color:var(--ok)">Domination Aérienne</div>
+                <div style="font-size:12px; color:var(--muted)">Contrôle du ciel</div>
+              </div>
+            </div>
+            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
+              <li>4x ASF (Air Superiority Fighters)</li>
+              <li>3x Bombardiers tactiques</li>
+              <li>1x AWACS (Détection)</li>
+              <li>2x Chasseurs SEAD (Anti-DCA)</li>
+              <li>1x Ravitailleur en vol</li>
+            </ul>
+            <div style="margin-top:12px; padding:10px; background:rgba(52,211,153,.08); border-radius:8px; font-size:13px; color:var(--ok)">
+              💡 Nettoyer puis frapper
+            </div>
+          </div>
+
+          <!-- Naval Strike Group -->
+          <div style="padding:18px; background:var(--panel2); border-radius:12px; border-left:4px solid var(--danger)">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px">
+              <div style="font-size:28px">⚓</div>
+              <div>
+                <div style="font-weight:700; font-size:16px; color:var(--danger)">Naval Strike Group</div>
+                <div style="font-size:12px; color:var(--muted)">Flotte complète</div>
+              </div>
+            </div>
+            <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
+              <li>1x Porte-avions + 2 Avions</li>
+              <li>2x Croiseurs lance-missiles</li>
+              <li>3x Destroyers (escorte)</li>
+              <li>2x Sous-marins d'attaque</li>
+              <li>1x Frégate ASW (Anti-sous-marin)</li>
+            </ul>
+            <div style="margin-top:12px; padding:10px; background:rgba(239,68,68,.08); border-radius:8px; font-size:13px; color:var(--danger)">
+              💡 Toujours en groupe
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; padding:16px; background:rgba(94,234,212,.06); border-radius:12px; border:2px dashed var(--brand)">
+          <h3 style="color:var(--brand); margin-bottom:10px; font-size:16px">⚠️ Règles d'Or</h3>
+          <ul style="color:var(--muted); font-size:14px; line-height:1.8; margin-left:20px">
+            <li><strong>Jamais seul :</strong> Toujours combiner infanterie + blindés + support aérien</li>
+            <li><strong>DCA obligatoire :</strong> 1 DCA minimum par stack après jour 3</li>
+            <li><strong>Reconnaissance :</strong> Toujours savoir ce qui vous attend avant d'attaquer</li>
+            <li><strong>Logistique :</strong> Garder 20-30% de vos forces en réserve</li>
+            <li><strong>Adaptabilité :</strong> Ajuster selon l'ennemi (plus d'aviation si il joue blindés, etc.)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <footer class="main-footer">
     <div class="footer-content">
