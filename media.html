@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Média — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <div class="brand">
+      <img src="napo.png" alt="Logo Alliance" style="height:150px; margin-right:8px">
+      <span style="display:flex; align-items:center; justify-content:center; height:150px; flex:1; font-size:42px; font-weight:900; color:#fbbf24; text-shadow:2px 2px 4px rgba(0,0,0,0.5); font-family:Georgia, serif; letter-spacing:1px">Alliance Napoléoniens</span>
+    </div>
+    <div class="burger-menu" id="burgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="nav">
+      <a class="navlink" href="index.html">Accueil</a>
+      <div class="dropdown">
+        <div class="dropdown-toggle">📚 Documentation</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="infanterie.html">🪖 Infanterie</a>
+          <a class="dropdown-item" href="blindes.html">🛡️ Blindés</a>
+          <a class="dropdown-item" href="artillerie.html">💣 Soutien</a>
+          <a class="dropdown-item" href="missiles.html">🚀 Missiles</a>
+          <a class="dropdown-item" href="chasseurs.html">✈️ Chasseurs</a>
+          <a class="dropdown-item" href="bombardiers.html">🛩️ Bombardiers</a>
+          <a class="dropdown-item" href="naval.html">⚓ Naval</a>
+        </div>
+      </div>
+      <a class="navlink" href="tactiques.html">🎯 Tactiques</a>
+      <a class="navlink active" href="media.html">📸 Média</a>
+      <a class="navlink" href="communaute.html">👥 Communauté</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+const burger = document.getElementById('burgerMenu');
+const nav = document.getElementById('nav');
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+}
+
+// Dropdown menu
+const dropdownToggle = document.querySelector('.dropdown-toggle');
+const dropdownMenu = document.querySelector('.dropdown-menu');
+if (dropdownToggle && dropdownMenu) {
+  dropdownToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdownMenu.classList.toggle('show');
+  });
+  document.addEventListener('click', () => {
+    dropdownMenu.classList.remove('show');
+  });
+}
+
+const topbar = document.querySelector('.topbar');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 100) {
+    topbar.classList.add('compact');
+  } else {
+    topbar.classList.remove('compact');
+  }
+  lastScroll = currentScroll;
+});
+</script>
+
+<main class="container">
+  <section class="hero">
+    <div class="pad">
+      <h1 class="h-title">📸 Galerie & Média</h1>
+      <p class="h-sub">
+        Screenshots épiques, replays commentés, tutoriels vidéo et bien plus. Revivez les meilleurs moments de l'alliance !
+      </p>
+    </div>
+  </section>
+
+  <section class="grid" style="margin-top:18px">
+    <div class="card">
+      <div class="hd">
+        <h2>🎥 Vidéos & Tutoriels</h2>
+        <div class="small">YouTube</div>
+      </div>
+      <div class="bd">
+        <p class="small" style="margin-bottom:14px">
+          Retrouvez nos tutoriels, guides stratégiques et replays commentés sur notre chaîne YouTube.
+        </p>
+        <div style="padding:14px; background:rgba(255,0,0,.08); border-radius:10px; border:1px solid rgba(255,0,0,.2)">
+          <div style="font-weight:700; margin-bottom:8px">📺 Chaîne YouTube</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.6">
+            • Tutoriels pour débutants<br>
+            • Analyses de parties<br>
+            • Guides avancés<br>
+            • Lives & événements
+          </div>
+          <a href="#" style="display:inline-block; margin-top:12px; padding:8px 16px; background:rgba(255,0,0,.15); color:#ff5555; border:1px solid rgba(255,0,0,.3); border-radius:8px; font-weight:650; text-decoration:none">
+            🚀 Visiter la chaîne
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>📸 Screenshots Épiques</h2>
+        <div class="small">Galerie</div>
+      </div>
+      <div class="bd">
+        <p class="small" style="margin-bottom:14px">
+          Les meilleurs moments capturés par nos membres.
+        </p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px">
+          <div style="aspect-ratio:16/9; background:linear-gradient(135deg, rgba(94,234,212,.2), rgba(96,165,250,.2)); border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line)">
+            <span style="font-size:24px">🎯</span>
+          </div>
+          <div style="aspect-ratio:16/9; background:linear-gradient(135deg, rgba(251,191,36,.2), rgba(251,113,133,.2)); border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line)">
+            <span style="font-size:24px">💥</span>
+          </div>
+          <div style="aspect-ratio:16/9; background:linear-gradient(135deg, rgba(96,165,250,.2), rgba(139,92,246,.2)); border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line)">
+            <span style="font-size:24px">🚀</span>
+          </div>
+          <div style="aspect-ratio:16/9; background:linear-gradient(135deg, rgba(52,211,153,.2), rgba(34,197,94,.2)); border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid var(--line)">
+            <span style="font-size:24px">⚡</span>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--muted); margin-top:10px; text-align:center">
+          Galerie complète sur Discord
+        </p>
+      </div>
+    </div>
+
+    <div class="card" style="grid-column:1/-1">
+      <div class="hd">
+        <h2>🎮 Replays Commentés</h2>
+        <div class="small">Apprends des meilleurs</div>
+      </div>
+      <div class="bd">
+        <p class="small" style="margin-bottom:14px">
+          Analyse détaillée de parties réelles jouées par nos meilleurs joueurs.
+        </p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px">
+          <div style="padding:16px; background:var(--panel2); border-radius:10px; border:1px solid var(--line)">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px">
+              <div style="width:50px; height:50px; background:linear-gradient(135deg, var(--brand), var(--brand2)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:24px">🎯</div>
+              <div>
+                <div style="font-weight:700; font-size:14px">Rush Victorieux</div>
+                <div style="font-size:12px; color:var(--muted)">Par YtbCrocomc</div>
+              </div>
+            </div>
+            <p style="font-size:13px; color:var(--muted); line-height:1.5">
+              Comment dominer l'early game avec un rush bien exécuté. Timing parfait et pression constante.
+            </p>
+            <div style="margin-top:10px; display:flex; gap:8px">
+              <span style="padding:4px 8px; background:rgba(94,234,212,.12); color:var(--brand); border-radius:6px; font-size:11px; font-weight:650">15 min</span>
+              <span style="padding:4px 8px; background:rgba(251,191,36,.12); color:var(--warn); border-radius:6px; font-size:11px; font-weight:650">Avancé</span>
+            </div>
+          </div>
+
+          <div style="padding:16px; background:var(--panel2); border-radius:10px; border:1px solid var(--line)">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px">
+              <div style="width:50px; height:50px; background:linear-gradient(135deg, var(--brand2), #8b5cf6); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:24px">🛡️</div>
+              <div>
+                <div style="font-weight:700; font-size:14px">Défense Héroïque</div>
+                <div style="font-size:12px; color:var(--muted)">Par nicotena</div>
+              </div>
+            </div>
+            <p style="font-size:13px; color:var(--muted); line-height:1.5">
+              Tenir face à une offensive massive 3v1. Stratégie défensive et contre-attaque dévastatrice.
+            </p>
+            <div style="margin-top:10px; display:flex; gap:8px">
+              <span style="padding:4px 8px; background:rgba(94,234,212,.12); color:var(--brand); border-radius:6px; font-size:11px; font-weight:650">22 min</span>
+              <span style="padding:4px 8px; background:rgba(96,165,250,.12); color:var(--brand2); border-radius:6px; font-size:11px; font-weight:650">Intermédiaire</span>
+            </div>
+          </div>
+
+          <div style="padding:16px; background:var(--panel2); border-radius:10px; border:1px solid var(--line)">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px">
+              <div style="width:50px; height:50px; background:linear-gradient(135deg, var(--warn), var(--danger)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:24px">✈️</div>
+              <div>
+                <div style="font-weight:700; font-size:14px">Domination Aérienne</div>
+                <div style="font-size:12px; color:var(--muted)">Par PUFRUH</div>
+              </div>
+            </div>
+            <p style="font-size:13px; color:var(--muted); line-height:1.5">
+              Contrôler le ciel pour paralyser l'ennemi. Utilisation optimale de l'aviation tactique.
+            </p>
+            <div style="margin-top:10px; display:flex; gap:8px">
+              <span style="padding:4px 8px; background:rgba(94,234,212,.12); color:var(--brand); border-radius:6px; font-size:11px; font-weight:650">18 min</span>
+              <span style="padding:4px 8px; background:rgba(52,211,153,.12); color:var(--ok); border-radius:6px; font-size:11px; font-weight:650">Débutant</span>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top:14px; text-align:center">
+          <a href="https://discord.gg/z99qUe52PN" target="_blank" style="display:inline-block; padding:10px 20px; background:var(--brand); color:var(--bg); border-radius:10px; font-weight:700; text-decoration:none">
+            📚 Voir tous les replays sur Discord
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>📊 Stats & Classements</h2>
+        <div class="small">Top Players</div>
+      </div>
+      <div class="bd">
+        <p class="small" style="margin-bottom:14px">
+          Classement mensuel des meilleurs joueurs de l'alliance.
+        </p>
+        <div style="display:flex; flex-direction:column; gap:10px">
+          <div style="display:flex; align-items:center; gap:12px; padding:12px; background:linear-gradient(90deg, rgba(255,215,0,.15), transparent); border-radius:8px; border-left:3px solid #ffd700">
+            <div style="font-size:24px; font-weight:900; color:#ffd700; width:30px">🥇</div>
+            <div style="flex:1">
+              <div style="font-weight:700">YtbCrocomc</div>
+              <div style="font-size:12px; color:var(--muted)">2450 ELO • 47 victoires</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:12px; background:linear-gradient(90deg, rgba(192,192,192,.15), transparent); border-radius:8px; border-left:3px solid #c0c0c0">
+            <div style="font-size:24px; font-weight:900; color:#c0c0c0; width:30px">🥈</div>
+            <div style="flex:1">
+              <div style="font-weight:700">nicotena</div>
+              <div style="font-size:12px; color:var(--muted)">2380 ELO • 43 victoires</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:12px; background:linear-gradient(90deg, rgba(205,127,50,.15), transparent); border-radius:8px; border-left:3px solid #cd7f32">
+            <div style="font-size:24px; font-weight:900; color:#cd7f32; width:30px">🥉</div>
+            <div style="flex:1">
+              <div style="font-weight:700">PUFRUH</div>
+              <div style="font-size:12px; color:var(--muted)">2310 ELO • 39 victoires</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>🎨 Fan Art & Créations</h2>
+        <div class="small">Par la communauté</div>
+      </div>
+      <div class="bd">
+        <p class="small" style="margin-bottom:14px">
+          Créations artistiques de nos membres talentueux.
+        </p>
+        <div style="padding:20px; background:var(--panel2); border-radius:10px; text-align:center; border:2px dashed var(--line)">
+          <div style="font-size:48px; margin-bottom:10px">🎨</div>
+          <p style="color:var(--muted); font-size:14px">
+            Partagez vos créations sur Discord !<br>
+            Fan art, montages, memes...
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>À propos</h3>
+        <p class="footer-text">
+          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC. 
+          84 membres actifs sur Discord. Rejoignez-nous pour lancer des parties entre membres !
+        </p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="infanterie.html">🪖 Infanterie</a></li>
+          <li><a href="blindes.html">🛡️ Blindés</a></li>
+          <li><a href="artillerie.html">💣 Soutien</a></li>
+          <li><a href="missiles.html">🚀 Missiles</a></li>
+          <li><a href="chasseurs.html">✈️ Chasseurs</a></li>
+          <li><a href="bombardiers.html">🛩️ Bombardiers</a></li>
+          <li><a href="naval.html">⚓ Naval</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Communauté</h3>
+        <ul class="footer-links">
+          <li><a href="https://discord.gg/z99qUe52PN" target="_blank">💬 Discord</a></li>
+          <li><a href="#">📧 Contact (lien à ajouter)</a></li>
+          <li><a href="login.html">🔐 Connexion Admin</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Informations</h3>
+        <ul class="footer-links">
+          <li>📅 Dernière MAJ : Déc. 2025</li>
+          <li>🎮 Jeu : Conflict of Nations WW3</li>
+          <li>⚔️ Alliance : Les Napoléoniens</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      © Alliance Napoléoniens — développé par Jerem32 & déployé par Cloudflare Pages
+      <span style="margin-left: 20px">|</span>
+      <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+      <span style="margin-left: 10px">|</span>
+      <a href="#" id="openAdminModal" style="margin-left: 10px; color: var(--brand)">👥 Équipe d'admin</a>
+    </div>
+  </footer>
+
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2 style="color: var(--brand); margin-bottom: 20px;">👥 Administrateurs</h2>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">1.</strong> YtbCrocomc
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">2.</strong> nicotena
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">3.</strong> PUFRUH
+        </li>
+      </ul>
+      <a href="login.html" style="display: block; margin-top: 20px; padding: 12px; background: var(--brand); color: var(--bg); text-align: center; border-radius: 8px; text-decoration: none; font-weight: 600;">🔐 Connexion Admin</a>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: var(--panel);
+      margin: 10% auto;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: slideDown 0.3s;
+    }
+
+    .modal-close {
+      color: var(--muted);
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--brand);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</main>
+
+<script>
+  const modal = document.getElementById('adminModal');
+  const openBtn = document.getElementById('openAdminModal');
+  const closeBtn = document.querySelector('.modal-close');
+
+  if (openBtn && modal && closeBtn) {
+    openBtn.onclick = function(e) {
+      e.preventDefault();
+      modal.style.display = 'block';
+    }
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  }
+</script>
+</body>
+</html>
