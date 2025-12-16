@@ -22,13 +22,18 @@
     </div>
     <nav id="nav">
       <a class="navlink" href="index.html">Accueil</a>
-      <a class="navlink active" href="infanterie.html">🪖 Infanterie</a>
-      <a class="navlink" href="blindes.html">🛡️ Blindés</a>
-      <a class="navlink" href="soutien.html">💣 Soutien</a>
-      <a class="navlink" href="missiles.html">🚀 Missiles</a>
-      <a class="navlink" href="chasseurs.html">✈️ Chasseurs</a>
-      <a class="navlink" href="bombardiers.html">🛩️ Bombardiers</a>
-      <a class="navlink" href="naval.html">⚓ Naval</a>
+      <div class="dropdown">
+        <div class="dropdown-toggle">📚 Documentation</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item active" href="infanterie.html">🪖 Infanterie</a>
+          <a class="dropdown-item" href="blindes.html">🛡️ Blindés</a>
+          <a class="dropdown-item" href="soutien.html">💣 Soutien</a>
+          <a class="dropdown-item" href="missiles.html">🚀 Missiles</a>
+          <a class="dropdown-item" href="chasseurs.html">✈️ Chasseurs</a>
+          <a class="dropdown-item" href="bombardiers.html">🛩️ Bombardiers</a>
+          <a class="dropdown-item" href="naval.html">⚓ Naval</a>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
@@ -43,6 +48,19 @@ if (burger && nav) {
   });
 }
 
+// Dropdown menu
+const dropdownToggle = document.querySelector('.dropdown-toggle');
+const dropdownMenu = document.querySelector('.dropdown-menu');
+if (dropdownToggle && dropdownMenu) {
+  dropdownToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdownMenu.classList.toggle('show');
+  });
+  document.addEventListener('click', () => {
+    dropdownMenu.classList.remove('show');
+  });
+}
+
 const topbar = document.querySelector('.topbar');
 let lastScroll = 0;
 window.addEventListener('scroll', () => {
@@ -53,6 +71,7 @@ window.addEventListener('scroll', () => {
     topbar.classList.remove('compact');
   }
   lastScroll = currentScroll;
+});
 });
 </script>
 
