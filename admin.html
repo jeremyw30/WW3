@@ -567,70 +567,24 @@
       <section id="units" class="section">
         <div class="content-card">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h2 style="margin: 0;">Ajouter / Modifier une unité</h2>
-            <a href="#" id="backToPage" class="btn-secondary" style="display: none; text-decoration: none;">
-              ← Retour à la page
-            </a>
-          </div>
-          
-          <!-- Quick Add Badge -->
-          <div id="quickAddBadge" style="display: none; background: var(--brand); color: white; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; font-weight: 600;">
-            <span id="badgeIcon"></span> Ajout rapide : <span id="badgeCategory"></span>
+            <h2 style="margin: 0;">Gestion des unités</h2>
           </div>
           
           <div class="info-box">
-            <strong>💾 Stockage local</strong> : Les données sont sauvegardées dans votre navigateur.
+            <strong>📊 Google Sheets</strong> : Les unités sont maintenant gérées via Google Sheets pour faciliter la collaboration.
           </div>
 
-          <form id="unitForm">
-            <div class="form-group" id="categoryGroup">
-              <label>Catégorie</label>
-              <select id="unitCategory" required>
-                <option value="">Sélectionner...</option>
-                <option value="air">✈️ Air</option>
-                <option value="terre">🪖 Terre</option>
-                <option value="naval">⚓ Naval</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Nom de l'unité</label>
-              <input type="text" id="unitName" required placeholder="Ex: ASF, Chars, Croiseur">
-            </div>
-
-            <div class="form-group">
-              <label>Description courte</label>
-              <input type="text" id="unitDesc" required placeholder="Ex: Supériorité aérienne">
-            </div>
-
-            <div class="form-group">
-              <label>Efficace contre (liste séparée par des virgules)</label>
-              <textarea id="unitEffective" placeholder="Ex: Chasseurs, Bombardiers, Hélicoptères"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label>Faible contre (liste séparée par des virgules)</label>
-              <textarea id="unitWeak" placeholder="Ex: ASF, Missiles AA"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label>À ne pas faire (liste séparée par des virgules)</label>
-              <textarea id="unitDont" placeholder="Ex: Engager sans couverture, Rester immobile"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label>Mots-clés pour la recherche</label>
-              <input type="text" id="unitKeywords" placeholder="Ex: asf chasseur superiority avion">
-            </div>
-
-            <button type="submit" class="btn-primary" id="submitBtn">Ajouter l'unité</button>
-            <button type="button" class="btn-secondary hidden" id="cancelEdit">Annuler</button>
-          </form>
+          <a href="LIEN_GOOGLE_SHEET_ICI" target="_blank" class="btn-primary" style="display: inline-block; text-decoration: none; margin-top: 20px;">
+            📝 Ouvrir le Google Sheet
+          </a>
         </div>
 
         <!-- Units List -->
         <div class="content-card">
-          <h2>Liste des unités</h2>
+          <h2>Aperçu des unités</h2>
+          <p style="color: var(--muted); margin-bottom: 15px;">
+            Les unités affichées proviennent du Google Sheet. Modifiez-les directement dans le tableur.
+          </p>
           <div id="unitsList"></div>
         </div>
       </section>
