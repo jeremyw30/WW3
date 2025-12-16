@@ -55,23 +55,164 @@ window.addEventListener('scroll', () => {
 });
 </script>
 
-<main class="main-content">
-  <section class="hero">
-    <h1>🛩️ Doctrine BOMBARDIERS</h1>
-    <p>Guide tactique des bombardiers</p>
-  </section>
+<main class="container">
+  <section class="hero"><div class="pad">
+    <h1 class="h-title">🛩️ Armée Aérienne</h1>
+    <p class="h-sub">Recherche : <b>bombardier tactique</b>, <b>stratégique</b>, <b>AWACS</b>…</p>
 
-  <section class="controls">
-    <div class="search-box">
-      <input type="text" data-search placeholder="Rechercher une unité..." />
-      <button data-clear title="Effacer">✕</button>
-      <button data-search-btn>🔍</button>
+    <div class="search">
+      <input data-search type="text" placeholder="Rechercher une unité..." />
+      <button class="btn" data-search-btn>Rechercher</button>
+      <button class="btn" data-clear>Effacer</button>
     </div>
+  </div></section>
+
+  <section class="units" style="margin-top:16px">
+    <div id="liste"></div>
   </section>
 
-  <section id="liste" class="liste"></section>
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>À propos</h3>
+        <p class="footer-text">
+          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC. 
+          84 membres actifs sur Discord. Rejoignez-nous pour lancer des parties entre membres !
+        </p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="infanterie.html">🪖 Infanterie</a></li>
+          <li><a href="blindes.html">🛡️ Blindés</a></li>
+          <li><a href="artillerie.html">💣 Artillerie</a></li>
+          <li><a href="chasseurs.html">✈️ Chasseurs</a></li>
+          <li><a href="bombardiers.html">🛩️ Bombardiers</a></li>
+          <li><a href="naval.html">⚓ Naval</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Communauté</h3>
+        <ul class="footer-links">
+          <li><a href="https://discord.gg/z99qUe52PN" target="_blank">💬 Discord</a></li>
+          <li><a href="#">📧 Contact (lien à ajouter)</a></li>
+          <li><a href="login.html">🔐 Connexion Admin</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Informations</h3>
+        <ul class="footer-links">
+          <li>📅 Dernière MAJ : Déc. 2025</li>
+          <li>🎮 Jeu : Conflict of Nations WW3</li>
+          <li>⚔️ Alliance : Les Napoléoniens</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      © Alliance Napoléoniens — développé par Jerem32 & déployé par Cloudflare Pages
+      <span style="margin-left: 20px">|</span>
+      <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+      <span style="margin-left: 10px">|</span>
+      <a href="#" id="openAdminModal" style="margin-left: 10px; color: var(--brand)">👥 Équipe d'admin</a>
+    </div>
+  </footer>
+
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2 style="color: var(--brand); margin-bottom: 20px;">👥 Administrateurs</h2>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">1.</strong> YtbCrocomc
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">2.</strong> nicotena
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">3.</strong> PUFRUH
+        </li>
+      </ul>
+      <a href="login.html" style="display: block; margin-top: 20px; padding: 12px; background: var(--brand); color: var(--bg); text-align: center; border-radius: 8px; text-decoration: none; font-weight: 600;">🔐 Connexion Admin</a>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: var(--panel);
+      margin: 10% auto;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: slideDown 0.3s;
+    }
+
+    .modal-close {
+      color: var(--muted);
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--brand);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
 </main>
 
 <script src="app.js"></script>
+<script>
+  const modal = document.getElementById('adminModal');
+  const openBtn = document.getElementById('openAdminModal');
+  const closeBtn = document.querySelector('.modal-close');
+
+  if (openBtn && modal && closeBtn) {
+    openBtn.onclick = function(e) {
+      e.preventDefault();
+      modal.style.display = 'block';
+    }
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  }
+</script>
 </body>
 </html>
