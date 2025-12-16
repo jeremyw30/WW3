@@ -604,11 +604,6 @@
             </div>
 
             <div class="form-group">
-              <label>Tag (ex: SUPERIORITY, CAPTURE, etc.)</label>
-              <input type="text" id="unitTag" placeholder="Optionnel">
-            </div>
-
-            <div class="form-group">
               <label>Efficace contre (liste séparée par des virgules)</label>
               <textarea id="unitEffective" placeholder="Ex: Chasseurs, Bombardiers, Hélicoptères"></textarea>
             </div>
@@ -839,7 +834,6 @@
         category: document.getElementById('unitCategory').value,
         name: document.getElementById('unitName').value,
         description: document.getElementById('unitDesc').value,
-        tag: document.getElementById('unitTag').value,
         effective: document.getElementById('unitEffective').value.split(',').map(s => s.trim()).filter(s => s),
         weak: document.getElementById('unitWeak').value.split(',').map(s => s.trim()).filter(s => s),
         dont: document.getElementById('unitDont').value.split(',').map(s => s.trim()).filter(s => s),
@@ -938,7 +932,6 @@
       document.getElementById('unitCategory').value = unit.category;
       document.getElementById('unitName').value = unit.name;
       document.getElementById('unitDesc').value = unit.description;
-      document.getElementById('unitTag').value = unit.tag || '';
       document.getElementById('unitEffective').value = unit.effective.join(', ');
       document.getElementById('unitWeak').value = unit.weak.join(', ');
       document.getElementById('unitDont').value = unit.dont.join(', ');
