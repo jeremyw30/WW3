@@ -115,13 +115,102 @@
     <div class="footer-bottom">
       © Alliance Napoléoniens — développé par Jerem32 & déployé par Netlify
       <span style="margin-left: 20px">|</span>
-      <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+      <a href="#" id="openAdminModal" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
     </div>
   </footer>
+
+  <!-- Modal Admin -->
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2 style="color: var(--brand); margin-bottom: 20px;">👥 Administrateurs</h2>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">1.</strong> YtbCrocomc
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">2.</strong> nicotena
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">3.</strong> PUFRUH
+        </li>
+      </ul>
+      <a href="login.html" style="display: block; margin-top: 20px; padding: 12px; background: var(--brand); color: var(--bg); text-align: center; border-radius: 8px; text-decoration: none; font-weight: 600;">🔐 Connexion Admin</a>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: var(--panel);
+      margin: 10% auto;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: slideDown 0.3s;
+    }
+
+    .modal-close {
+      color: var(--muted);
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--brand);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
 </main>
 
 <script src="app.js"></script>
 <script>
+  // Modal Admin
+  const modal = document.getElementById('adminModal');
+  const openBtn = document.getElementById('openAdminModal');
+  const closeBtn = document.querySelector('.modal-close');
+
+  openBtn.onclick = function(e) {
+    e.preventDefault();
+    modal.style.display = 'block';
+  }
+
+  closeBtn.onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+
   // Charger les unités depuis localStorage
   document.addEventListener('DOMContentLoaded', function() {
     const units = JSON.parse(localStorage.getItem('ww3_units') || '{}');
