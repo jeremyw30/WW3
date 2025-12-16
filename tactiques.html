@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tactiques — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <div class="brand">
+      <img src="napo.png" alt="Logo Alliance" style="height:150px; margin-right:8px">
+      <span style="display:flex; align-items:center; justify-content:center; height:150px; flex:1; font-size:42px; font-weight:900; color:#fbbf24; text-shadow:2px 2px 4px rgba(0,0,0,0.5); font-family:Georgia, serif; letter-spacing:1px">Alliance Napoléoniens</span>
+    </div>
+    <div class="burger-menu" id="burgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="nav">
+      <a class="navlink" href="index.html">Accueil</a>
+      <div class="dropdown">
+        <div class="dropdown-toggle">📚 Documentation</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="infanterie.html">🪖 Infanterie</a>
+          <a class="dropdown-item" href="blindes.html">🛡️ Blindés</a>
+          <a class="dropdown-item" href="artillerie.html">💣 Soutien</a>
+          <a class="dropdown-item" href="missiles.html">🚀 Missiles</a>
+          <a class="dropdown-item" href="chasseurs.html">✈️ Chasseurs</a>
+          <a class="dropdown-item" href="bombardiers.html">🛩️ Bombardiers</a>
+          <a class="dropdown-item" href="naval.html">⚓ Naval</a>
+        </div>
+      </div>
+      <a class="navlink active" href="tactiques.html">🎯 Tactiques</a>
+      <a class="navlink" href="communaute.html">👥 Communauté</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+const burger = document.getElementById('burgerMenu');
+const nav = document.getElementById('nav');
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+}
+
+// Dropdown menu
+const dropdownToggle = document.querySelector('.dropdown-toggle');
+const dropdownMenu = document.querySelector('.dropdown-menu');
+if (dropdownToggle && dropdownMenu) {
+  dropdownToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dropdownMenu.classList.toggle('show');
+  });
+  document.addEventListener('click', () => {
+    dropdownMenu.classList.remove('show');
+  });
+}
+
+const topbar = document.querySelector('.topbar');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 100) {
+    topbar.classList.add('compact');
+  } else {
+    topbar.classList.remove('compact');
+  }
+  lastScroll = currentScroll;
+});
+</script>
+
+<main class="container">
+  <section class="hero">
+    <div class="pad">
+      <h1 class="h-title">🎯 Tactiques & Stratégies</h1>
+      <p class="h-sub">
+        Les meilleures stratégies pour dominer sur Conflict of Nations. Rush, défense, contre-attaque : tout est ici.
+      </p>
+    </div>
+  </section>
+
+  <section class="grid" style="margin-top:18px; grid-template-columns:1fr">
+    <div class="card">
+      <div class="hd">
+        <h2>🚀 Rush Early Game</h2>
+        <div class="small">Jour 1-3</div>
+      </div>
+      <div class="bd">
+        <p class="small">
+          <strong>Objectif :</strong> Prendre l'avantage dès le début en capturant des villes clés.
+        </p>
+        <ul style="margin-top:10px; color:var(--muted); font-size:14px; line-height:1.6">
+          <li><strong>Unités prioritaires :</strong> Infanterie motorisée + Artillerie mobile</li>
+          <li><strong>Cibles :</strong> Villes inactives ou mal défendues à 1-2 territoires</li>
+          <li><strong>Timing :</strong> Attaquer avant que l'ennemi ne produise de la DCA</li>
+          <li><strong>Support :</strong> Reconnaissance aérienne pour localiser les faiblesses</li>
+          <li><strong>Contre :</strong> Ne pas s'étendre trop vite, garder une ligne de front solide</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>🛡️ Défense en Profondeur</h2>
+        <div class="small">Mid-Late Game</div>
+      </div>
+      <div class="bd">
+        <p class="small">
+          <strong>Objectif :</strong> Épuiser l'attaquant en créant plusieurs lignes défensives.
+        </p>
+        <ul style="margin-top:10px; color:var(--muted); font-size:14px; line-height:1.6">
+          <li><strong>Structure :</strong> 3 lignes - avant-poste, DCA/SAM, blindés lourds en réserve</li>
+          <li><strong>Pièges :</strong> Placer de la DCA cachée près des villes importantes</li>
+          <li><strong>Aviation :</strong> Chasseurs en patrouille pour intercepter les bombardiers</li>
+          <li><strong>Contre-attaque :</strong> Attendre que l'ennemi soit fatigué puis frapper avec des blindés</li>
+          <li><strong>Logistique :</strong> Garder des réserves pour renforcer rapidement</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>✈️ Supériorité Aérienne</h2>
+        <div class="small">Contrôle stratégique</div>
+      </div>
+      <div class="bd">
+        <p class="small">
+          <strong>Objectif :</strong> Dominer le ciel pour paralyser l'ennemi.
+        </p>
+        <ul style="margin-top:10px; color:var(--muted); font-size:14px; line-height:1.6">
+          <li><strong>Priorité 1 :</strong> Détruire les aérodromes ennemis</li>
+          <li><strong>Priorité 2 :</strong> Éliminer les DCA et SAM</li>
+          <li><strong>Combo gagnant :</strong> ASF pour nettoyer + Bombardiers tactiques pour frapper</li>
+          <li><strong>AWACS :</strong> Indispensable pour détecter les menaces à l'avance</li>
+          <li><strong>Ravitaillement :</strong> Tankers pour étendre la portée</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>⚡ Blitzkrieg Moderne</h2>
+        <div class="small">Offensive rapide</div>
+      </div>
+      <div class="bd">
+        <p class="small">
+          <strong>Objectif :</strong> Percer les lignes ennemies avec vitesse et puissance.
+        </p>
+        <ul style="margin-top:10px; color:var(--muted); font-size:14px; line-height:1.6">
+          <li><strong>Composition :</strong> Blindés principaux + Hélicos d'attaque + Artillerie automotrice</li>
+          <li><strong>Phase 1 :</strong> Bombardement massif pour affaiblir</li>
+          <li><strong>Phase 2 :</strong> Percée rapide avec blindés</li>
+          <li><strong>Phase 3 :</strong> Encerclement et capture des villes</li>
+          <li><strong>Clé du succès :</strong> Vitesse > Force brute, ne pas s'arrêter</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>🚢 Contrôle Naval</h2>
+        <div class="small">Domination maritime</div>
+      </div>
+      <div class="bd">
+        <p class="small">
+          <strong>Objectif :</strong> Contrôler les mers pour bloquer l'ennemi et frapper ses côtes.
+        </p>
+        <ul style="margin-top:10px; color:var(--muted); font-size:14px; line-height:1.6">
+          <li><strong>Strike Group :</strong> Porte-avions + Croiseurs + Destroyers + Sous-marins</li>
+          <li><strong>Défense côtière :</strong> Placer des batteries de missiles anti-navire</li>
+          <li><strong>Projection :</strong> Débarquements amphibies avec infanterie navale</li>
+          <li><strong>Reconnaissance :</strong> Drones navals pour détecter les sous-marins</li>
+          <li><strong>Blocus :</strong> Couper les routes commerciales ennemies</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="hd">
+        <h2>🎯 Conseils Généraux</h2>
+        <div class="small">Règles d'or</div>
+      </div>
+      <div class="bd">
+        <ul style="margin-top:10px; color:var(--muted); font-size:14px; line-height:1.6">
+          <li><strong>Reconnaissance :</strong> Ne jamais attaquer sans savoir ce qui vous attend</li>
+          <li><strong>Logistique :</strong> Une armée sans ravitaillement est une armée morte</li>
+          <li><strong>Diversité :</strong> Avoir tous les types d'unités pour contrer tout</li>
+          <li><strong>Patience :</strong> Attendre le bon moment vaut mieux que se précipiter</li>
+          <li><strong>Diplomatie :</strong> Un allié fort > une victoire seul</li>
+          <li><strong>Économie :</strong> Gérer ses ressources, ne pas tout dépenser en rush</li>
+          <li><strong>Moral :</strong> Surveiller le moral de vos troupes (temps de repos)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>À propos</h3>
+        <p class="footer-text">
+          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC. 
+          84 membres actifs sur Discord. Rejoignez-nous pour lancer des parties entre membres !
+        </p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="infanterie.html">🪖 Infanterie</a></li>
+          <li><a href="blindes.html">🛡️ Blindés</a></li>
+          <li><a href="artillerie.html">💣 Soutien</a></li>
+          <li><a href="missiles.html">🚀 Missiles</a></li>
+          <li><a href="chasseurs.html">✈️ Chasseurs</a></li>
+          <li><a href="bombardiers.html">🛩️ Bombardiers</a></li>
+          <li><a href="naval.html">⚓ Naval</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Communauté</h3>
+        <ul class="footer-links">
+          <li><a href="https://discord.gg/z99qUe52PN" target="_blank">💬 Discord</a></li>
+          <li><a href="#">📧 Contact (lien à ajouter)</a></li>
+          <li><a href="login.html">🔐 Connexion Admin</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Informations</h3>
+        <ul class="footer-links">
+          <li>📅 Dernière MAJ : Déc. 2025</li>
+          <li>🎮 Jeu : Conflict of Nations WW3</li>
+          <li>⚔️ Alliance : Les Napoléoniens</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      © Alliance Napoléoniens — développé par Jerem32 & déployé par Cloudflare Pages
+      <span style="margin-left: 20px">|</span>
+      <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+      <span style="margin-left: 10px">|</span>
+      <a href="#" id="openAdminModal" style="margin-left: 10px; color: var(--brand)">👥 Équipe d'admin</a>
+    </div>
+  </footer>
+
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2 style="color: var(--brand); margin-bottom: 20px;">👥 Administrateurs</h2>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">1.</strong> YtbCrocomc
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">2.</strong> nicotena
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">3.</strong> PUFRUH
+        </li>
+      </ul>
+      <a href="login.html" style="display: block; margin-top: 20px; padding: 12px; background: var(--brand); color: var(--bg); text-align: center; border-radius: 8px; text-decoration: none; font-weight: 600;">🔐 Connexion Admin</a>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: var(--panel);
+      margin: 10% auto;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: slideDown 0.3s;
+    }
+
+    .modal-close {
+      color: var(--muted);
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--brand);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</main>
+
+<script>
+  const modal = document.getElementById('adminModal');
+  const openBtn = document.getElementById('openAdminModal');
+  const closeBtn = document.querySelector('.modal-close');
+
+  if (openBtn && modal && closeBtn) {
+    openBtn.onclick = function(e) {
+      e.preventDefault();
+      modal.style.display = 'block';
+    }
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  }
+</script>
+</body>
+</html>
