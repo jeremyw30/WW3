@@ -6,7 +6,9 @@
   <title>Doctrine NAVAL — Alliance Napoléoniens</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+
+<!-- ✅ ICI : on met la catégorie sur le body principal -->
+<body data-cat="mer">
 
 <header class="topbar">
   <div class="inner">
@@ -68,6 +70,8 @@
       </article>
     </div>
 
+    <!-- ✅ Ici : les unités venant de Google Sheets seront injectées -->
+    <div id="liste"></div>
   </section>
 
   <!-- Footer complet -->
