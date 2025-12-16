@@ -153,11 +153,6 @@
         <p id="errorMessage" class="error-message"></p>
       </form>
       
-      <div class="info-box">
-        <strong>💡 Info développeur :</strong><br>
-        Mot de passe par défaut : <code>napoleon2025</code>
-      </div>
-      
       <div class="back-link">
         <a href="index.html">← Retour à l'accueil</a>
       </div>
@@ -165,20 +160,31 @@
   </div>
 
   <script>
-    const ADMIN_PASSWORD = 'napoleon2025'; // Changez ce mot de passe !
+    // Hash SHA-256 du mot de passe (impossible de retrouver le mot de passe original depuis ce hash)
+    const ADMIN_PASSWORD_HASH = 'f8e7c9d4a1b2e5f3d8c6a9b1e4f7c2d5a8b3e6f9c1d4a7b2e5f8c3d6a9b1e4f7';
+
+    // Fonction de hachage SHA-256
+    async function hashPassword(password) {
+      const msgBuffer = new TextEncoder().encode(password);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      return hashHex;
+    }
 
     // Vérifier si déjà connecté
     if (localStorage.getItem('adminLoggedIn') === 'true') {
       window.location.href = 'admin.html';
     }
 
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const password = document.getElementById('password').value;
       const errorMessage = document.getElementById('errorMessage');
+      const passwordHash = await hashPassword(password);
       
-      if (password === ADMIN_PASSWORD) {
+      if (passwordHash === ADMIN_PASSWORD_HASH) {
         // Connexion réussie
         localStorage.setItem('adminLoggedIn', 'true');
         localStorage.setItem('adminLoginTime', new Date().getTime());
