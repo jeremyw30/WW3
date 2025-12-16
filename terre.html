@@ -6,7 +6,9 @@
   <title>Doctrine TERRE — Alliance Napoléoniens</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+
+<!-- ✅ ICI : on met la catégorie sur le body principal -->
+<body data-cat="terre">
 
 <header class="topbar">
   <div class="inner">
@@ -43,32 +45,35 @@
       <p style="margin: 0 0 20px 0; color: var(--muted); font-size: 14px;">
         Ceci est un exemple de structure d'unité. Utilisez le bouton <strong>+</strong> jaune en bas à droite pour ajouter vos propres unités via le panneau admin.
       </p>
-      
+
       <article class="unit" data-unit data-keywords="infanterie soldats ville urbain capture défense" style="margin: 0;">
-      <div class="u-top">
-        <div>
-          <p class="u-name">Infanterie (EXEMPLE)</p>
-          <div class="small">Base pour capturer / tenir des villes</div>
-        </div>
-      </div>
-      <div class="u-body">
-        <div class="cols">
-          <div class="block ok">
-            <h3>Efficace contre</h3>
-            <ul><li>Villes</li><li>Infanterie ennemie</li><li>Terrains urbains</li></ul>
-          </div>
-          <div class="block warn">
-            <h3>Faible contre</h3>
-            <ul><li>Chars lourds</li><li>Hélicoptères d’attaque</li><li>Artillerie</li></ul>
-          </div>
-          <div class="block bad">
-            <h3>À ne pas faire</h3>
-            <ul><li>Avancer à découvert</li><li>Affronter des chars en terrain ouvert</li></ul>
+        <div class="u-top">
+          <div>
+            <p class="u-name">Infanterie (EXEMPLE)</p>
+            <div class="small">Base pour capturer / tenir des villes</div>
           </div>
         </div>
-      </div>
+        <div class="u-body">
+          <div class="cols">
+            <div class="block ok">
+              <h3>Efficace contre</h3>
+              <ul><li>Villes</li><li>Infanterie ennemie</li><li>Terrains urbains</li></ul>
+            </div>
+            <div class="block warn">
+              <h3>Faible contre</h3>
+              <ul><li>Chars lourds</li><li>Hélicoptères d’attaque</li><li>Artillerie</li></ul>
+            </div>
+            <div class="block bad">
+              <h3>À ne pas faire</h3>
+              <ul><li>Avancer à découvert</li><li>Affronter des chars en terrain ouvert</li></ul>
+            </div>
+          </div>
+        </div>
       </article>
     </div>
+
+    <!-- ✅ Ici : les unités venant de Google Sheets seront injectées -->
+    <div id="liste"></div>
 
   </section>
 
@@ -78,11 +83,11 @@
       <div class="footer-col">
         <h3>À propos</h3>
         <p class="footer-text">
-          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC. 
+          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC.
           84 membres actifs sur Discord. Rejoignez-nous pour lancer des parties entre membres !
         </p>
       </div>
-      
+
       <div class="footer-col">
         <h3>Navigation</h3>
         <ul class="footer-links">
@@ -92,7 +97,7 @@
           <li><a href="naval.html">⚓ Armée navale</a></li>
         </ul>
       </div>
-      
+
       <div class="footer-col">
         <h3>Communauté</h3>
         <ul class="footer-links">
@@ -101,7 +106,7 @@
           <li><a href="login.html">🔐 Connexion Admin</a></li>
         </ul>
       </div>
-      
+
       <div class="footer-col">
         <h3>Informations</h3>
         <ul class="footer-links">
@@ -111,7 +116,7 @@
         </ul>
       </div>
     </div>
-    
+
     <div class="footer-bottom">
       © Alliance Napoléoniens — développé par Jerem32 & déployé par Cloudflare Pages
       <span style="margin-left: 20px">|</span>
@@ -191,7 +196,9 @@
   </style>
 </main>
 
+<!-- ✅ On garde app.js (il doit charger Google Sheets et remplir #liste) -->
 <script src="app.js"></script>
+
 <script>
   // Modal Admin
   const modal = document.getElementById('adminModal');
@@ -212,54 +219,7 @@
       modal.style.display = 'none';
     }
   }
-
-  // Charger les unités depuis localStorage
-  document.addEventListener('DOMContentLoaded', function() {
-    const units = JSON.parse(localStorage.getItem('ww3_units') || '{}');
-    const terreUnits = Object.entries(units).filter(([id, unit]) => unit.category === 'terre');
-    
-    if (terreUnits.length > 0) {
-      const unitsContainer = document.querySelector('.units');
-      
-      // Ajouter les unités dynamiques
-      terreUnits.forEach(([id, unit]) => {
-        const article = document.createElement('article');
-        article.className = 'unit';
-        article.setAttribute('data-unit', '');
-        article.setAttribute('data-keywords', unit.keywords);
-        
-        article.innerHTML = `
-          <div class="u-top">
-            <div>
-              <p class="u-name">${unit.name}</p>
-              <div class="small">${unit.description}</div>
-            </div>
-            ${unit.tag ? `<span class="u-tag">${unit.tag}</span>` : ''}
-          </div>
-          <div class="u-body">
-            <div class="cols">
-              <div class="block ok">
-                <h3>Efficace contre</h3>
-                <ul>${unit.effective.map(item => `<li>${item}</li>`).join('')}</ul>
-              </div>
-              <div class="block ko">
-                <h3>Faible contre</h3>
-                <ul>${unit.weak.map(item => `<li>${item}</li>`).join('')}</ul>
-              </div>
-              <div class="block no">
-                <h3>À ne pas faire</h3>
-                <ul>${unit.dont.map(item => `<li>${item}</li>`).join('')}</ul>
-              </div>
-            </div>
-          </div>
-        `;
-        
-        unitsContainer.appendChild(article);
-      });
-    }
-  });
 </script>
-<body data-cat="terre"></body>
+
 </body>
 </html>
-
