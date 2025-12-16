@@ -759,6 +759,8 @@
       switchSection('units');
       
       // Mode "Quick Add"
+      // Pré-sélectionner la catégorie AVANT de masquer
+      document.getElementById('unitCategory').value = categoryParam;
       document.getElementById('categoryGroup').style.display = 'none';
       document.getElementById('quickAddBadge').style.display = 'block';
       
