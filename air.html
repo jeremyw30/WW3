@@ -33,15 +33,94 @@
     </div>
   </div></section>
 
+  <!-- Bouton flottant pour ajouter une unité -->
+  <a href="admin.html?category=air" class="floating-add-btn" title="Ajouter une unité aérienne">
+    <span style="font-size: 32px; font-weight: bold;">+</span>
+  </a>
+
   <section class="units" style="margin-top:16px">
 
-    </section>
+    <!-- Bloc exemple pour les admins -->
+    <div style="background: var(--panel2); padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--warn); opacity: 0.7;">
+      <h3 style="margin: 0 0 15px 0; color: var(--warn);">📝 Exemple pour les administrateurs</h3>
+      <p style="margin: 0 0 20px 0; color: var(--muted); font-size: 14px;">
+        Ceci est un exemple de structure d'unité. Utilisez le bouton <strong>+</strong> jaune en bas à droite pour ajouter vos propres unités via le panneau admin.
+      </p>
+      
+      <article class="unit" data-unit data-keywords="asf chasseur supériorité aérienne superiority fighters" style="margin: 0;">
+      <div class="u-top">
+        <div>
+          <p class="u-name">ASF (EXEMPLE)</p>
+          <div class="small">Chasseur de supériorité aérienne</div>
+        </div>
+      </div>
+      <div class="u-body">
+        <div class="cols">
+          <div class="block ok">
+            <h3>Efficace contre</h3>
+            <ul><li>Chasseurs</li><li>Bombardiers</li><li>Hélicoptères</li></ul>
+          </div>
+          <div class="block warn">
+            <h3>Faible contre</h3>
+            <ul><li>SAM avancés</li><li>DCA lourde</li></ul>
+          </div>
+          <div class="block bad">
+            <h3>À ne pas faire</h3>
+            <ul><li>Engager sans AWACS</li><li>Voler dans les SAM</li></ul>
+          </div>
+        </div>
+      </div>
+      </article>
+    </div>
 
-  <div class="footer">
-    Astuce : cherche "SAM" pour voir rapidement ce qui craint l'anti-aérien.
-    <span style="margin-left: 20px">|</span>
-    <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
-  </div>
+  </section>
+
+  <!-- Footer complet -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>À propos</h3>
+        <p class="footer-text">
+          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC. 
+          84 membres actifs sur Discord. Rejoignez-nous pour lancer des parties entre membres !
+        </p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="terre.html">🪖 Armée terrestre</a></li>
+          <li><a href="air.html">✈️ Armée aérienne</a></li>
+          <li><a href="naval.html">⚓ Armée navale</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Communauté</h3>
+        <ul class="footer-links">
+          <li><a href="#" target="_blank">💬 Discord (lien à ajouter)</a></li>
+          <li><a href="#">📧 Contact (lien à ajouter)</a></li>
+          <li><a href="login.html">🔐 Connexion Admin</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Informations</h3>
+        <ul class="footer-links">
+          <li>📅 Dernière MAJ : Déc. 2025</li>
+          <li>🎮 Jeu : Conflict of Nations WW3</li>
+          <li>⚔️ Alliance : Les Napoléoniens</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      © Alliance Napoléoniens — développé par Jerem32 & déployé par Netlify
+      <span style="margin-left: 20px">|</span>
+      <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+    </div>
+  </footer>
 </main>
 
 <script src="app.js"></script>

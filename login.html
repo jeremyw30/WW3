@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion Admin - Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .login-container {
+      max-width: 450px;
+      width: 100%;
+    }
+    
+    .login-box {
+      background: var(--panel);
+      padding: 40px;
+      border-radius: var(--r);
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .login-header h1 {
+      margin: 0 0 10px 0;
+      color: var(--brand);
+      font-size: 28px;
+    }
+    
+    .login-header p {
+      color: var(--muted);
+      margin: 0;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-weight: 600;
+    }
+    
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--brand);
+    }
+    
+    .btn-login {
+      width: 100%;
+      background: var(--brand);
+      color: var(--bg);
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 16px;
+      transition: opacity 0.2s;
+    }
+    
+    .btn-login:hover {
+      opacity: 0.9;
+    }
+    
+    .error-message {
+      color: var(--danger);
+      margin-top: 15px;
+      text-align: center;
+      display: none;
+    }
+    
+    .error-message.show {
+      display: block;
+    }
+    
+    .info-box {
+      background: var(--panel2);
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      border-left: 4px solid var(--warn);
+    }
+    
+    .info-box strong {
+      color: var(--brand);
+    }
+    
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .back-link a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+    
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="login-container">
+    <div class="login-box">
+      <div class="login-header">
+        <h1>🔐 Connexion Admin</h1>
+        <p>Accès réservé aux administrateurs</p>
+      </div>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            required 
+            placeholder="Entrez le mot de passe admin"
+            autocomplete="current-password"
+          >
+        </div>
+        
+        <button type="submit" class="btn-login">Se connecter</button>
+        
+        <p id="errorMessage" class="error-message"></p>
+      </form>
+      
+      <div class="info-box">
+        <strong>💡 Info développeur :</strong><br>
+        Mot de passe par défaut : <code>napoleon2025</code>
+      </div>
+      
+      <div class="back-link">
+        <a href="index.html">← Retour à l'accueil</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ADMIN_PASSWORD = 'napoleon2025'; // Changez ce mot de passe !
+
+    // Vérifier si déjà connecté
+    if (localStorage.getItem('adminLoggedIn') === 'true') {
+      window.location.href = 'admin.html';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('errorMessage');
+      
+      if (password === ADMIN_PASSWORD) {
+        // Connexion réussie
+        localStorage.setItem('adminLoggedIn', 'true');
+        localStorage.setItem('adminLoginTime', new Date().getTime());
+        window.location.href = 'admin.html';
+      } else {
+        // Mot de passe incorrect
+        errorMessage.textContent = '❌ Mot de passe incorrect';
+        errorMessage.classList.add('show');
+        document.getElementById('password').value = '';
+        document.getElementById('password').focus();
+        
+        // Masquer le message après 3 secondes
+        setTimeout(() => {
+          errorMessage.classList.remove('show');
+        }, 3000);
+      }
+    });
+  </script>
+
+</body>
+</html>

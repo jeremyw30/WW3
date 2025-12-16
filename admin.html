@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Simple - Alliance Napoléoniens</title>
+  <title>Gestion des Unités - Alliance Napoléoniens</title>
   <link rel="stylesheet" href="style.css">
   <style>
     .admin-container {
@@ -11,22 +11,29 @@
       margin: 50px auto;
       padding: 30px;
     }
-    .login-box, .admin-panel {
+    
+    .admin-panel {
       background: var(--panel);
       padding: 30px;
       border-radius: var(--r);
       border: 1px solid var(--line);
+      position: relative;
     }
+    
     .form-group {
       margin-bottom: 20px;
     }
+    
     .form-group label {
       display: block;
       margin-bottom: 8px;
       color: var(--text);
       font-weight: 600;
     }
-    .form-group input, .form-group textarea, .form-group select {
+    
+    .form-group input, 
+    .form-group textarea, 
+    .form-group select {
       width: 100%;
       padding: 12px;
       background: var(--panel2);
@@ -34,11 +41,14 @@
       border-radius: 8px;
       color: var(--text);
       font-family: inherit;
+      box-sizing: border-box;
     }
+    
     .form-group textarea {
       min-height: 80px;
       resize: vertical;
     }
+    
     .btn-primary {
       background: var(--brand);
       color: var(--bg);
@@ -48,10 +58,13 @@
       font-weight: 700;
       cursor: pointer;
       font-size: 16px;
+      transition: opacity 0.2s;
     }
+    
     .btn-primary:hover {
       opacity: 0.9;
     }
+    
     .btn-danger {
       background: var(--danger);
       color: white;
@@ -61,12 +74,15 @@
       cursor: pointer;
       margin-left: 10px;
     }
+    
     .hidden {
       display: none;
     }
+    
     .unit-list {
       margin-top: 30px;
     }
+    
     .unit-item {
       background: var(--panel2);
       padding: 15px;
@@ -77,15 +93,29 @@
       justify-content: space-between;
       align-items: center;
     }
+    
     .unit-info h3 {
       margin: 0 0 5px 0;
       color: var(--brand);
     }
-    .logout-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+    
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
     }
+    
+    .logout-btn {
+      background: var(--danger);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    
     .info-box {
       background: var(--panel2);
       padding: 15px;
@@ -98,32 +128,13 @@
 <body>
   
   <div class="admin-container">
-    <!-- Login Form -->
-    <div id="loginBox" class="login-box">
-      <h1>🔐 Admin Simple - Connexion</h1>
-      <p style="color: var(--muted); margin-bottom: 30px">Mot de passe partagé pour tous les admins</p>
-      
-      <form id="loginForm">
-        <div class="form-group">
-          <label>Mot de passe</label>
-          <input type="password" id="loginPassword" required placeholder="Entrez le mot de passe admin">
-        </div>
-        <button type="submit" class="btn-primary">Se connecter</button>
-        <p id="loginError" style="color: var(--danger); margin-top: 15px"></p>
-      </form>
-      
-      <div class="info-box" style="margin-top: 20px">
-        <strong>📌 Mot de passe par défaut :</strong> <code>napoleon2025</code><br>
-        <small style="color: var(--muted)">Changez-le dans le code si nécessaire</small>
+    <div class="admin-panel">
+      <div class="header-bar">
+        <h1>⚙️ Gestion des Unités</h1>
+        <button class="logout-btn" id="logoutBtn">🚪 Déconnexion</button>
       </div>
-    </div>
-
-    <!-- Admin Panel -->
-    <div id="adminPanel" class="admin-panel hidden">
-      <button class="btn-danger logout-btn" id="logoutBtn">Déconnexion</button>
       
-      <h1>⚙️ Gestion des Unités</h1>
-      <p style="color: var(--muted); margin-bottom: 20px">Ajouter, modifier ou supprimer des unités</p>
+      <p style="color: var(--muted); margin-bottom: 20px">Ajouter, modifier ou supprimer des unités militaires</p>
 
       <div class="info-box">
         <strong>💾 Stockage local</strong> : Les données sont sauvegardées dans votre navigateur. 
@@ -198,14 +209,19 @@
   </div>
 
   <script>
-    // MOT DE PASSE ADMIN - CHANGEZ-LE ICI
-    const ADMIN_PASSWORD = 'napoleon2025';
-    
+    // Vérifier l'authentification au chargement
+    if (localStorage.getItem('adminLoggedIn') !== 'true') {
+      window.location.href = 'login.html';
+    }
+
+    // Pré-sélectionner la catégorie si passée en paramètre URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get('category');
+    if (categoryParam) {
+      document.getElementById('unitCategory').value = categoryParam;
+    }
+
     // Elements
-    const loginBox = document.getElementById('loginBox');
-    const adminPanel = document.getElementById('adminPanel');
-    const loginForm = document.getElementById('loginForm');
-    const loginError = document.getElementById('loginError');
     const logoutBtn = document.getElementById('logoutBtn');
     const unitForm = document.getElementById('unitForm');
     const unitsList = document.getElementById('unitsList');
@@ -215,42 +231,15 @@
     let currentEditId = null;
     let units = JSON.parse(localStorage.getItem('ww3_units') || '{}');
 
-    // Check if already logged in
-    if (sessionStorage.getItem('ww3_logged_in') === 'true') {
-      showAdmin();
-    }
-
-    // Login
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const password = document.getElementById('loginPassword').value;
-      
-      if (password === ADMIN_PASSWORD) {
-        sessionStorage.setItem('ww3_logged_in', 'true');
-        showAdmin();
-        loginError.textContent = '';
-      } else {
-        loginError.textContent = 'Mot de passe incorrect';
-      }
-    });
-
     // Logout
     logoutBtn.addEventListener('click', () => {
-      sessionStorage.removeItem('ww3_logged_in');
-      hideAdmin();
+      localStorage.removeItem('adminLoggedIn');
+      localStorage.removeItem('adminLoginTime');
+      window.location.href = 'login.html';
     });
 
-    function showAdmin() {
-      loginBox.classList.add('hidden');
-      adminPanel.classList.remove('hidden');
-      loadUnits();
-    }
-
-    function hideAdmin() {
-      loginBox.classList.remove('hidden');
-      adminPanel.classList.add('hidden');
-      document.getElementById('loginPassword').value = '';
-    }
+    // Charger les unités au démarrage
+    displayUnits();
 
     // Add/Edit Unit
     unitForm.addEventListener('submit', (e) => {
