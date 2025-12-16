@@ -14,16 +14,16 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       // Filtrer catégorie (terre / air / mer)
       const unites = (Array.isArray(data) ? data : []).filter(u =>
-        String(u.categorie || "").trim().toLowerCase() === cat
+        String(u.Categorie || "").trim().toLowerCase() === cat
       );
 
       // Rendu (cartes compatibles avec ton style)
       liste.innerHTML = unites.map(u => {
-        const nom = (u.nom ?? "").toString().trim() || "Unité sans nom";
+        const nom = (u["Unité"] ?? "").toString().trim() || "Unité sans nom";
         const desc = (u.description ?? "").toString().trim() || "Aucune description.";
-        const efficace = (u.efficace_contre ?? "").toString().trim();
-        const faible = (u.faible_contre ?? "").toString().trim();
-        const erreurs = (u.a_ne_pas_faire ?? "").toString().trim();
+        const efficace = (u["Efficace contre"] ?? "").toString().trim();
+        const faible = (u["Faible contre"] ?? "").toString().trim();
+        const erreurs = (u["À ne pas faire"] ?? "").toString().trim();
 
         // Keywords = nom + description + catégorie (pour ta recherche)
         const keywords = `${cat} ${nom} ${desc}`.toLowerCase();
