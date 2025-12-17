@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Outils — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <a href="index.html" class="brand" style="text-decoration:none; color:inherit; display:flex; align-items:center; cursor:pointer;">
+      <img src="napo.png" alt="Logo Alliance" style="height:150px; margin-right:8px">
+      <span style="display:flex; align-items:center; justify-content:center; height:150px; flex:1; font-size:42px; font-weight:900; color:#fbbf24; text-shadow:2px 2px 4px rgba(0,0,0,0.5); font-family:Georgia, serif; letter-spacing:1px">Alliance Napoléoniens</span>
+    </a>
+    <div class="burger-menu" id="burgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="nav">
+      <div class="dropdown">
+        <div class="dropdown-toggle">📚 Documentation</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="infanterie.html">Infanterie</a>
+          <a class="dropdown-item" href="blindes.html">Blindés</a>
+          <a class="dropdown-item" href="soutien.html">Soutien</a>
+          <a class="dropdown-item" href="missiles.html">Missiles</a>
+          <a class="dropdown-item" href="chasseurs.html">Chasseurs</a>
+          <a class="dropdown-item" href="bombardiers.html">Bombardiers</a>
+          <a class="dropdown-item" href="naval.html">Naval</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <div class="dropdown-toggle">🎓 École</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="demande-prof.html">👨‍🏫 Demande de prof</a>
+          <a class="dropdown-item" href="idee1.html">💡 Idée 1</a>
+          <a class="dropdown-item" href="idee2.html">💡 Idée 2</a>
+        </div>
+      </div>
+      <a class="navlink" href="tactiques.html">🎯 Tactiques</a>
+      <a class="navlink" href="guide.html">📖 Guide</a>
+      <a class="navlink" href="communaute.html">👥 Communauté</a>
+      <a class="navlink active" href="outils.html">🧮 Outils</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+const burger = document.getElementById('burgerMenu');
+const nav = document.getElementById('nav');
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+}
+
+// Dropdown menus
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+dropdownToggles.forEach(toggle => {
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const menu = toggle.nextElementSibling;
+    document.querySelectorAll('.dropdown-menu').forEach(m => {
+      if (m !== menu) m.classList.remove('show');
+    });
+    menu.classList.toggle('show');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    menu.classList.remove('show');
+  });
+});
+</script>
+
+<main class="container">
+  <section class="hero">
+    <div class="pad">
+      <h1 class="h-title">🧮 Calculateur de Combat</h1>
+      <p class="h-sub">Simulez des batailles entre unités et estimez les résultats</p>
+    </div>
+  </section>
+
+  <section style="margin-top:20px;">
+    <div class="card">
+      <div class="hd">
+        <h2 style="margin:0; font-size:20px;">⚔️ Configuration du Combat</h2>
+      </div>
+      <div class="bd" style="padding:20px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-bottom:25px;">
+          <!-- Attaquant -->
+          <div>
+            <h3 style="color:var(--danger); margin-bottom:15px;">🗡️ Attaquant</h3>
+            <div style="margin-bottom:15px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Type d'unité</label>
+              <select id="attackerType" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+                <option value="infanterie">Infanterie</option>
+                <option value="blindes">Blindés</option>
+                <option value="artillerie">Artillerie</option>
+                <option value="aviation">Aviation</option>
+                <option value="naval">Naval</option>
+              </select>
+            </div>
+            <div style="margin-bottom:15px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
+              <input type="number" id="attackerCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Puissance d'attaque</label>
+              <input type="number" id="attackerPower" value="100" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+            </div>
+          </div>
+
+          <!-- Défenseur -->
+          <div>
+            <h3 style="color:var(--ok); margin-bottom:15px;">🛡️ Défenseur</h3>
+            <div style="margin-bottom:15px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Type d'unité</label>
+              <select id="defenderType" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+                <option value="infanterie">Infanterie</option>
+                <option value="blindes">Blindés</option>
+                <option value="artillerie">Artillerie</option>
+                <option value="aviation">Aviation</option>
+                <option value="naval">Naval</option>
+              </select>
+            </div>
+            <div style="margin-bottom:15px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
+              <input type="number" id="defenderCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Défense</label>
+              <input type="number" id="defenderDefense" value="80" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Terrain -->
+        <div style="margin-bottom:25px;">
+          <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">🗺️ Type de terrain</label>
+          <select id="terrain" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+            <option value="degage">Terrain Dégagé (Neutre)</option>
+            <option value="urbain">Urbain (+20% défense)</option>
+            <option value="montagne">Montagnes (+30% défense)</option>
+            <option value="foret">Forêts (+15% défense)</option>
+            <option value="desert">Désert (-10% mouvement)</option>
+          </select>
+        </div>
+
+        <button onclick="simulateCombat()" class="btn" style="width:100%; padding:15px; font-size:16px; font-weight:600;">⚔️ Simuler le Combat</button>
+      </div>
+    </div>
+
+    <!-- Résultats -->
+    <div id="results" style="margin-top:20px; display:none;">
+      <div class="card">
+        <div class="hd">
+          <h2 style="margin:0; font-size:20px;">📊 Résultats de la Simulation</h2>
+        </div>
+        <div class="bd" style="padding:20px;">
+          <div id="resultsContent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>À propos</h3>
+        <p class="footer-text">
+          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC. 
+          84 membres actifs sur Discord. Rejoignez-nous pour lancer des parties entre membres !
+        </p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="infanterie.html">🪖 Infanterie</a></li>
+          <li><a href="blindes.html">🛡️ Blindés</a></li>
+          <li><a href="soutien.html">💣 Soutien</a></li>
+          <li><a href="missiles.html">🚀 Missiles</a></li>
+          <li><a href="chasseurs.html">✈️ Chasseurs</a></li>
+          <li><a href="bombardiers.html">🛩️ Bombardiers</a></li>
+          <li><a href="naval.html">⚓ Naval</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Communauté</h3>
+        <ul class="footer-links">
+          <li><a href="https://discord.gg/z99qUe52PN" target="_blank">💬 Discord</a></li>
+          <li><a href="#">📧 Contact (lien à ajouter)</a></li>
+          <li><a href="login.html">🔐 Connexion Admin</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Informations</h3>
+        <ul class="footer-links">
+          <li>📅 Dernière MAJ : Déc. 2025</li>
+          <li>🎮 Jeu : Conflict of Nations WW3</li>
+          <li>⚔️ Alliance : Les Napoléoniens</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      © Alliance Napoléoniens — développé par Jerem32 & déployé par Cloudflare Pages
+      <span style="margin-left: 20px">|</span>
+      <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+      <span style="margin-left: 10px">|</span>
+      <a href="#" id="openAdminModal" style="margin-left: 10px; color: var(--brand)">👥 Équipe d'admin</a>
+    </div>
+  </footer>
+
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2 style="color: var(--brand); margin-bottom: 20px;">👥 Administrateurs</h2>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">1.</strong> YtbCrocomc
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">2.</strong> nicotena
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+          <strong style="color: var(--brand)">3.</strong> PUFRUH
+        </li>
+      </ul>
+      <a href="login.html" style="display: block; margin-top: 20px; padding: 12px; background: var(--brand); color: var(--bg); text-align: center; border-radius: 8px; text-decoration: none; font-weight: 600;">🔐 Connexion Admin</a>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: var(--panel);
+      margin: 10% auto;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: slideDown 0.3s;
+    }
+
+    .modal-close {
+      color: var(--muted);
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--brand);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      .bd > div:first-child {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</main>
+
+<script>
+  const modal = document.getElementById('adminModal');
+  const openBtn = document.getElementById('openAdminModal');
+  const closeBtn = document.querySelector('.modal-close');
+
+  if (openBtn && modal && closeBtn) {
+    openBtn.onclick = function(e) {
+      e.preventDefault();
+      modal.style.display = 'block';
+    }
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  }
+
+  function simulateCombat() {
+    // Récupérer les valeurs
+    const attackerCount = parseInt(document.getElementById('attackerCount').value);
+    const attackerPower = parseInt(document.getElementById('attackerPower').value);
+    const attackerType = document.getElementById('attackerType').value;
+    
+    const defenderCount = parseInt(document.getElementById('defenderCount').value);
+    const defenderDefense = parseInt(document.getElementById('defenderDefense').value);
+    const defenderType = document.getElementById('defenderType').value;
+    
+    const terrain = document.getElementById('terrain').value;
+
+    // Modificateurs de terrain
+    let defenseBonus = 1;
+    let terrainName = "Terrain Dégagé";
+    
+    switch(terrain) {
+      case 'urbain':
+        defenseBonus = 1.2;
+        terrainName = "Urbain";
+        break;
+      case 'montagne':
+        defenseBonus = 1.3;
+        terrainName = "Montagnes";
+        break;
+      case 'foret':
+        defenseBonus = 1.15;
+        terrainName = "Forêts";
+        break;
+      case 'desert':
+        defenseBonus = 0.9;
+        terrainName = "Désert";
+        break;
+    }
+
+    // Calcul des dégâts
+    const totalAttackPower = attackerCount * attackerPower;
+    const totalDefensePower = defenderCount * defenderDefense * defenseBonus;
+    
+    // Ratio d'efficacité
+    const attackEfficiency = totalAttackPower / (totalDefensePower + 1);
+    const defenseEfficiency = totalDefensePower / (totalAttackPower + 1);
+
+    // Calcul des pertes
+    let attackerLosses = Math.min(attackerCount, Math.round(attackerCount * defenseEfficiency * 0.5));
+    let defenderLosses = Math.min(defenderCount, Math.round(defenderCount * attackEfficiency * 0.7));
+
+    // Déterminer le vainqueur
+    const attackerSurvivors = attackerCount - attackerLosses;
+    const defenderSurvivors = defenderCount - defenderLosses;
+    
+    let winner = "";
+    let winnerColor = "";
+    
+    if (attackerSurvivors > defenderSurvivors * 1.5) {
+      winner = "Victoire de l'Attaquant";
+      winnerColor = "var(--danger)";
+    } else if (defenderSurvivors > attackerSurvivors * 1.5) {
+      winner = "Victoire du Défenseur";
+      winnerColor = "var(--ok)";
+    } else if (attackerSurvivors > defenderSurvivors) {
+      winner = "Victoire Serrée de l'Attaquant";
+      winnerColor = "var(--warn)";
+    } else if (defenderSurvivors > attackerSurvivors) {
+      winner = "Victoire Serrée du Défenseur";
+      winnerColor = "var(--warn)";
+    } else {
+      winner = "Égalité / Combat Indécis";
+      winnerColor = "var(--muted)";
+    }
+
+    // Afficher les résultats
+    const resultsDiv = document.getElementById('results');
+    const resultsContent = document.getElementById('resultsContent');
+    
+    resultsContent.innerHTML = `
+      <div style="text-align:center; padding:20px; background:var(--panel2); border-radius:12px; margin-bottom:20px;">
+        <h3 style="font-size:28px; margin:0; color:${winnerColor};">${winner}</h3>
+        <p style="color:var(--muted); margin-top:5px;">Terrain: ${terrainName}</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
+        <div style="padding:20px; background:rgba(251,113,133,0.1); border:2px solid var(--danger); border-radius:12px;">
+          <h4 style="color:var(--danger); margin:0 0 15px 0;">🗡️ Attaquant (${attackerType})</h4>
+          <div style="margin-bottom:10px;">
+            <span style="color:var(--muted); font-size:14px;">Unités initiales:</span>
+            <span style="float:right; font-weight:bold;">${attackerCount}</span>
+          </div>
+          <div style="margin-bottom:10px;">
+            <span style="color:var(--muted); font-size:14px;">Pertes:</span>
+            <span style="float:right; font-weight:bold; color:var(--danger);">-${attackerLosses}</span>
+          </div>
+          <div style="padding-top:10px; border-top:1px solid var(--line);">
+            <span style="color:var(--muted); font-size:14px;">Survivants:</span>
+            <span style="float:right; font-weight:bold; font-size:18px; color:var(--brand);">${attackerSurvivors}</span>
+          </div>
+        </div>
+
+        <div style="padding:20px; background:rgba(52,211,153,0.1); border:2px solid var(--ok); border-radius:12px;">
+          <h4 style="color:var(--ok); margin:0 0 15px 0;">🛡️ Défenseur (${defenderType})</h4>
+          <div style="margin-bottom:10px;">
+            <span style="color:var(--muted); font-size:14px;">Unités initiales:</span>
+            <span style="float:right; font-weight:bold;">${defenderCount}</span>
+          </div>
+          <div style="margin-bottom:10px;">
+            <span style="color:var(--muted); font-size:14px;">Pertes:</span>
+            <span style="float:right; font-weight:bold; color:var(--danger);">-${defenderLosses}</span>
+          </div>
+          <div style="padding-top:10px; border-top:1px solid var(--line);">
+            <span style="color:var(--muted); font-size:14px;">Survivants:</span>
+            <span style="float:right; font-weight:bold; font-size:18px; color:var(--brand);">${defenderSurvivors}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:15px; background:var(--panel2); border-radius:8px; border-left:4px solid var(--brand);">
+        <p style="margin:0; font-size:13px; color:var(--muted); font-style:italic;">
+          ⚠️ Cette simulation est approximative et basée sur des calculs simplifiés. 
+          Les résultats réels peuvent varier selon les doctrines, niveaux d'unités et autres facteurs du jeu.
+        </p>
+      </div>
+    `;
+
+    resultsDiv.style.display = 'block';
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+</body>
+</html>
