@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Guide — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Styles pour les onglets */
+    .tabs-container {
+      margin-top: 20px;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid var(--line);
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .tab-button {
+      padding: 12px 24px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+      bottom: -2px;
+    }
+
+    .tab-button:hover {
+      color: var(--text);
+      background: rgba(94,234,212,.05);
+    }
+
+    .tab-button.active {
+      color: var(--brand);
+      border-bottom-color: var(--brand);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Sous-onglets */
+    .subtabs-nav {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 12px;
+      background: var(--panel2);
+      border-radius: 8px;
+      flex-wrap: wrap;
+    }
+
+    .subtab-button {
+      padding: 8px 16px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .subtab-button:hover {
+      background: rgba(94,234,212,.1);
+      border-color: var(--brand);
+    }
+
+    .subtab-button.active {
+      background: var(--brand);
+      color: var(--bg);
+      border-color: var(--brand);
+    }
+
+    .subtab-content {
+      display: none;
+    }
+
+    .subtab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Contenu du guide */
+    .guide-section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .guide-section h3 {
+      color: var(--brand);
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .guide-section p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .guide-card {
+      background: var(--panel2);
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid var(--brand);
+    }
+
+    .guide-card h4 {
+      color: var(--text);
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .guide-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <div class="brand">
+      <img src="napo.png" alt="Logo Alliance" style="height:150px; margin-right:8px">
+      <span style="display:flex; align-items:center; justify-content:center; height:150px; flex:1; font-size:42px; font-weight:900; color:#fbbf24; text-shadow:2px 2px 4px rgba(0,0,0,0.5); font-family:Georgia, serif; letter-spacing:1px">Alliance Napoléoniens</span>
+    </div>
+    <div class="burger-menu" id="burgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="nav">
+      <div class="dropdown">
+        <div class="dropdown-toggle">📚 Documentation</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="infanterie.html">🪖 Infanterie</a>
+          <a class="dropdown-item" href="blindes.html">🛡️ Blindés</a>
+          <a class="dropdown-item" href="soutien.html">💣 Soutien</a>
+          <a class="dropdown-item" href="missiles.html">🚀 Missiles</a>
+          <a class="dropdown-item" href="chasseurs.html">✈️ Chasseurs</a>
+          <a class="dropdown-item" href="bombardiers.html">🛩️ Bombardiers</a>
+          <a class="dropdown-item" href="naval.html">⚓ Naval</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <div class="dropdown-toggle">🎓 École</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="demande-prof.html">👨‍🏫 Demande de prof</a>
+          <a class="dropdown-item" href="idee1.html">💡 Idée 1</a>
+          <a class="dropdown-item" href="idee2.html">💡 Idée 2</a>
+        </div>
+      </div>
+      <a class="navlink" href="tactiques.html">🎯 Tactiques</a>
+      <a class="navlink active" href="guide.html">📖 Guide</a>
+      <a class="navlink" href="communaute.html">👥 Communauté</a>
+      <a class="navlink" href="outils.html">🧮 Outils</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+const burger = document.getElementById('burgerMenu');
+const nav = document.getElementById('nav');
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+}
+
+// Dropdown menus
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+dropdownToggles.forEach(toggle => {
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const menu = toggle.nextElementSibling;
+    document.querySelectorAll('.dropdown-menu').forEach(m => {
+      if (m !== menu) m.classList.remove('show');
+    });
+    menu.classList.toggle('show');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    menu.classList.remove('show');
+  });
+});
+
+const topbar = document.querySelector('.topbar');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 100) {
+    topbar.classList.add('compact');
+  } else {
+    topbar.classList.remove('compact');
+  }
+  lastScroll = currentScroll;
+});
+</script>
+
+<main class="container">
+  <section class="hero">
+    <div class="pad">
+      <h1 class="h-title">📖 Guide Wiki</h1>
+      <p class="h-sub">
+        Toutes les connaissances essentielles pour maîtriser Conflict of Nations WW3
+      </p>
+    </div>
+  </section>
+
+  <section class="tabs-container">
+    <!-- Navigation des onglets principaux -->
+    <div class="tabs-nav">
+      <button class="tab-button active" data-tab="terrain">🗺️ Type de Terrain</button>
+      <button class="tab-button" data-tab="economie">💰 Économie</button>
+      <button class="tab-button" data-tab="ressources">📦 Ressources</button>
+    </div>
+
+    <!-- Contenu de l'onglet "Type de Terrain" -->
+    <div class="tab-content active" id="terrain">
+      <div class="guide-section" style="margin-bottom: 24px;">
+        <h3>🗺️ Types de Terrain dans Conflict of Nations</h3>
+        <p>Chaque province possède un type de terrain qui modifie directement les caractéristiques des unités : attaque, défense, points de vie, portée de vue et surtout vitesse de déplacement. Le jeu distingue une dizaine d'environnements différents.</p>
+        <p><strong>💡 Conseil clé :</strong> La géographie est un élément stratégique majeur. Choisissez le bon outil pour le bon terrain et planifiez vos mouvements en conséquence.</p>
+      </div>
+
+      <!-- Sous-onglets pour Type de Terrain -->
+      <div class="subtabs-nav">
+        <button class="subtab-button active" data-subtab="terrain-degage">🌾 Terrain Dégagé</button>
+        <button class="subtab-button" data-subtab="terrain-montagne">⛰️ Montagnes</button>
+        <button class="subtab-button" data-subtab="terrain-foret">🌲 Forêts</button>
+        <button class="subtab-button" data-subtab="terrain-urbain">🏙️ Urbain</button>
+        <button class="subtab-button" data-subtab="terrain-banlieue">🏘️ Banlieue</button>
+        <button class="subtab-button" data-subtab="terrain-jungle">🌿 Jungle</button>
+        <button class="subtab-button" data-subtab="terrain-toundra">❄️ Toundra</button>
+        <button class="subtab-button" data-subtab="terrain-desert">🏜️ Désert</button>
+        <button class="subtab-button" data-subtab="terrain-mer">🌊 Mer</button>
+        <button class="subtab-button" data-subtab="terrain-aviation">✈️ Aviation</button>
+      </div>
+
+      <!-- Sous-contenu: Terrain Dégagé -->
+      <div class="subtab-content active" id="terrain-degage">
+        <div class="guide-section">
+          <h3>🌾 Terrain Dégagé</h3>
+          <p><strong>Les terrains dégagés favorisent la guerre mobile. Les unités (infanterie motorisée, blindés) y conservent une vitesse élevée.</strong></p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Montagnes -->
+      <div class="subtab-content" id="terrain-montagne">
+        <div class="guide-section">
+          <h3>⛰️ Montagnes</h3>
+          <p><strong>Les montagnes ralentissent fortement les troupes : les blindés y avancent péniblement et l'infanterie devient plus vulnérable.</strong></p>
+          <p>💡 Utiliser des commandos spécialisés pour les montagnes.</p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Forêts -->
+      <div class="subtab-content" id="terrain-foret">
+        <div class="guide-section">
+          <h3>🌲 Forêts</h3>
+          <p><strong>Les forêts ralentissent fortement les troupes : les blindés y avancent péniblement et l'infanterie devient plus vulnérable.</strong></p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Urbain -->
+      <div class="subtab-content" id="terrain-urbain">
+        <div class="guide-section">
+          <h3>🏙️ Zones Urbaines</h3>
+          <p><strong>Les zones urbaines ralentissent fortement les troupes : les blindés y avancent péniblement et l'infanterie devient plus vulnérable.</strong></p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Banlieue -->
+      <div class="subtab-content" id="terrain-banlieue">
+        <div class="guide-section">
+          <h3>🏘️ Banlieue</h3>
+          <p><strong>Les banlieues partagent les caractéristiques des villes : forte densité, déplacement très lent et avantage à la défense.</strong></p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Jungle -->
+      <div class="subtab-content" id="terrain-jungle">
+        <div class="guide-section">
+          <h3>🌿 Jungle</h3>
+          <p><strong>Les jungles ralentissent fortement les troupes : les blindés y avancent péniblement et l'infanterie devient plus vulnérable.</strong></p>
+          <p>💡 Utiliser des commandos spécialisés pour la jungle.</p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Toundra -->
+      <div class="subtab-content" id="terrain-toundra">
+        <div class="guide-section">
+          <h3>❄️ Toundra</h3>
+          <p><strong>La toundra pénalise l'infanterie, tandis que les unités motorisées la traversent un peu mieux.</strong></p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Désert -->
+      <div class="subtab-content" id="terrain-desert">
+        <div class="guide-section">
+          <h3>🏜️ Désert</h3>
+          <p><strong>Les déserts favorisent la guerre mobile. Les unités (infanterie motorisée, blindés) y conservent une vitesse élevée.</strong></p>
+          <p>💡 Privilégier les blindés sur terrain ouvert (désert).</p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Mer -->
+      <div class="subtab-content" id="terrain-mer">
+        <div class="guide-section">
+          <h3>🌊 Environnement Maritime</h3>
+          <p><strong>En mer, les navires se déplacent plus vite au large (hautes mers) qu'en eaux côtières.</strong></p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Aviation -->
+      <div class="subtab-content" id="terrain-aviation">
+        <div class="guide-section">
+          <h3>✈️ Aviation</h3>
+          <p><strong>Les avions ne sont pas affectés par le terrain lorsqu'ils sont en vol, mais deviennent plus fragiles une fois posés (au sol).</strong></p>
+        </div>
+      </div>
+
+      <!-- Section : Optimisation -->
+      <div class="guide-section" style="margin-top: 24px;">
+        <h3>💡 Optimisation des Déplacements</h3>
+        <p><strong>Le bâtiment Logistique militaire augmente la vitesse des unités terrestres dans une province.</strong></p>
+        
+        <h4 style="color: var(--brand); margin-top: 16px; margin-bottom: 12px;">Conseils pour optimiser vos manœuvres :</h4>
+        <ul style="color: var(--muted); line-height: 1.8;">
+          <li>Privilégier des itinéraires sur terrain favorable</li>
+          <li>Utiliser des unités adaptées (commandos en jungle/montagne, blindés sur terrain ouvert)</li>
+          <li>Construire des infrastructures logistiques</li>
+          <li>Recourir à l'aviation ou aux débarquements pour contourner les zones difficiles</li>
+        </ul>
+        
+        <p style="margin-top: 16px; padding: 16px; background: var(--panel2); border-left: 4px solid var(--brand); border-radius: 8px;">
+          <strong>📌 Résumé :</strong> La géographie est un élément clé de vos stratégies. Choisissez le bon outil pour le bon terrain et planifiez vos mouvements en conséquence.
+        </p>
+      </div>
+    </div>
+
+    <!-- Contenu de l'onglet "Économie" -->
+    <div class="tab-content" id="economie">
+      <div class="guide-section">
+        <h3>💰 Économie</h3>
+        <p>Section en cours de développement...</p>
+      </div>
+    </div>
+
+    <!-- Contenu de l'onglet "Ressources" (à remplir) -->
+    <div class="tab-content" id="ressources">
+      <div class="guide-section" style="margin-bottom: 24px;">
+        <h3>📦 Les Ressources dans Conflict of Nations</h3>
+        <p>Le jeu utilise 7 types de ressources principales qui sont essentielles pour votre développement, votre recherche, la construction de bâtiments et la mobilisation d'unités.</p>
+      </div>
+
+      <!-- Sous-onglets pour Ressources -->
+      <div class="subtabs-nav">
+        <button class="subtab-button active" data-subtab="res-supplies">📦 Approvisionnements</button>
+        <button class="subtab-button" data-subtab="res-components">⚙️ Composants</button>
+        <button class="subtab-button" data-subtab="res-manpower">👥 Main-d'œuvre</button>
+        <button class="subtab-button" data-subtab="res-rare">💎 Matériaux Rares</button>
+        <button class="subtab-button" data-subtab="res-fuel">⛽ Carburant</button>
+        <button class="subtab-button" data-subtab="res-electronics">🔌 Électronique</button>
+        <button class="subtab-button" data-subtab="res-money">💵 Argent</button>
+      </div>
+
+      <!-- Sous-contenu: Approvisionnements -->
+      <div class="subtab-content active" id="res-supplies">
+        <div class="guide-section">
+          <h3>📦 Approvisionnements (Supplies)</h3>
+          <p><strong>Cette ressource constitue le socle de votre développement et sert à la recherche comme à la construction.</strong></p>
+          
+          <h4 style="color: var(--brand); margin-top: 20px; margin-bottom: 12px;">💡 Stratégie de début de partie</h4>
+          <p>Au début d'une partie, il faut investir judicieusement : dépenser 1 000 approvisionnements pour un aéroport peut être moins rentable que bâtir une industrie d'armement dans une ville productrice de supplies ou une base militaire pour la défense précoce.</p>
+          
+          <h4 style="color: var(--brand); margin-top: 20px; margin-bottom: 12px;">⚠️ Gestion de l'expansion</h4>
+          <p>Plus votre armée est grande, plus elle consomme d'approvisionnements, et une expansion militaire trop rapide peut bloquer votre croissance, voire vous empêcher d'entretenir vos unités.</p>
+          
+          <h4 style="color: var(--brand); margin-top: 20px; margin-bottom: 12px;">🎯 Unités nécessitant des approvisionnements</h4>
+          <p>Pour la mobilisation, cette ressource est requise pour :</p>
+          <ul style="color: var(--muted); line-height: 1.8;">
+            <li>La majorité des unités d'infanterie (sauf les Airmobile et Forces spéciales)</li>
+            <li>Toutes les unités de soutien</li>
+            <li>La plupart des officiers</li>
+            <li>Quelques unités de début de partie (véhicules de reconnaissance CRV, corvettes et hélicoptère d'attaque)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Composants -->
+      <div class="subtab-content" id="res-components">
+        <div class="guide-section">
+          <h3>⚙️ Composants (Components)</h3>
+          <p><strong>Ils ne sont pas utilisés pour la recherche, mais sont indispensables pour construire n'importe quel bâtiment.</strong></p>
+          
+          <h4 style="color: var(--brand); margin-top: 20px; margin-bottom: 12px;">🎯 Unités nécessitant des composants</h4>
+          <p>Les composants sont très demandés lors de la mobilisation :</p>
+          <ul style="color: var(--muted); line-height: 1.8;">
+            <li>Toutes les unités d'infanterie</li>
+            <li>Toutes les unités blindées</li>
+            <li>Tous les chasseurs</li>
+            <li>Tous les bombardiers</li>
+            <li>Tous les sous-marins</li>
+            <li>Les hélicoptères</li>
+            <li>La marine</li>
+            <li>Les officiers</li>
+            <li>Les unités saisonnières</li>
+          </ul>
+          
+          <h4 style="color: var(--brand); margin-top: 20px; margin-bottom: 12px;">✅ Exceptions</h4>
+          <p>Quelques unités basiques du début de partie, les batteries AA mobiles et l'artillerie mobile sont les seules unités de soutien qui n'en requièrent pas, et les missiles n'en utilisent pas du tout.</p>
+          
+          <p style="margin-top: 16px; padding: 16px; background: var(--panel2); border-left: 4px solid var(--brand); border-radius: 8px;">
+            <strong>📌 Important :</strong> Cette ressource devient cruciale très tôt pour étendre votre armée et vos infrastructures.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Main-d'œuvre -->
+      <div class="subtab-content" id="res-manpower">
+        <div class="guide-section">
+          <h3>👥 Main-d'œuvre (Manpower)</h3>
+          <p><strong>Toutes les unités exigent de la main-d'œuvre pour leur mobilisation et leur entretien.</strong></p>
+          
+          <p style="margin-top: 16px; padding: 16px; background: var(--panel2); border-left: 4px solid var(--brand); border-radius: 8px;">
+            <strong>📌 Conseil :</strong> Si vous souhaitez disposer d'une forte présence militaire, surveillez attentivement ce stock.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Matériaux Rares -->
+      <div class="subtab-content" id="res-rare">
+        <div class="guide-section">
+          <h3>💎 Matériaux Rares (Rare Materials)</h3>
+          <p><strong>Ces ressources sont indispensables pour obtenir des unités avancées comme la furtivité, les sous-marins ou les missiles.</strong></p>
+          
+          <h4 style="color: var(--brand); margin-top: 20px; margin-bottom: 12px;">🔬 Recherche</h4>
+          <p>Elles conditionnent aussi la fréquence à laquelle vous pouvez lancer des recherches, puisque toutes les technologies en consomment.</p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Carburant -->
+      <div class="subtab-content" id="res-fuel">
+        <div class="guide-section">
+          <h3>⛽ Carburant (Fuel)</h3>
+          <p><strong>Le carburant n'est pas nécessaire pour la recherche, mais il est requis pour tous les bâtiments.</strong></p>
+          
+          <h4 style="color: var(--brand); margin-top: 20px; margin-bottom: 12px;">🚀 Missiles</h4>
+          <p>Les missiles sont la seule catégorie d'armement qui a besoin de carburant pour fabriquer des ogives.</p>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Électronique -->
+      <div class="subtab-content" id="res-electronics">
+        <div class="guide-section">
+          <h3>🔌 Électronique (Electronics)</h3>
+          <p><strong>On en a besoin pour construire n'importe quel bâtiment, sauf les bunkers.</strong></p>
+          
+          <h4 style="color: var(--brand); margin-top: 20px; margin-bottom: 12px;">🎯 Unités nécessitant de l'électronique</h4>
+          <p>Pour la mobilisation, l'électronique est généralement requise pour les unités dépendantes de véhicules :</p>
+          <ul style="color: var(--muted); line-height: 1.8;">
+            <li>Infanterie aéroportée</li>
+            <li>Forces spéciales</li>
+            <li>Unités blindées</li>
+            <li>Unités de soutien</li>
+            <li>Chasseurs</li>
+            <li>Avions lourds</li>
+            <li>Sous-marins</li>
+            <li>Navires</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sous-contenu: Argent -->
+      <div class="subtab-content" id="res-money">
+        <div class="guide-section">
+          <h3>💵 Argent (Money)</h3>
+          <p><strong>C'est la ressource universelle qui permet tout : recherche, construction, mobilisation et achat.</strong></p>
+          
+          <h4 style="color: var(--brand); margin-top: 20px; margin-bottom: 12px;">💱 Marché</h4>
+          <p>Elle sert aussi exclusivement à acheter d'autres ressources sur le marché ou à vendre vos surplus.</p>
+          
+          <p style="margin-top: 16px; padding: 16px; background: var(--panel2); border-left: 4px solid var(--brand); border-radius: 8px;">
+            <strong>📌 À retenir :</strong> L'argent est la ressource la plus polyvalente du jeu et permet de compenser les manques dans les autres ressources.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>À propos</h3>
+        <p class="footer-text">
+          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC. 
+          84 membres actifs sur Discord. Rejoignez-nous pour lancer des parties entre membres !
+        </p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="infanterie.html">🪖 Infanterie</a></li>
+          <li><a href="blindes.html">🛡️ Blindés</a></li>
+          <li><a href="soutien.html">💣 Soutien</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Communauté</h3>
+        <ul class="footer-links">
+          <li><a href="https://discord.gg/z99qUe52PN" target="_blank">💬 Discord</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Informations</h3>
+        <ul class="footer-links">
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      © Alliance Napoléoniens — développé par Jerem32 & déployé par Cloudflare Pages
+      <span style="margin-left: 20px">|</span>
+      <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+      <span style="margin-left: 10px">|</span>
+      <a href="#" id="openAdminModal" style="margin-left: 10px; color: var(--brand)">👥 Équipe d'admin</a>
+    </div>
+  </footer>
+
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2 style="color: var(--brand); margin-bottom: 20px;">👥 Administrateurs</h2>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+        </li>
+        <li style="padding: 15px; background: var(--panel2); margin-bottom: 10px; border-radius: 8px; border-left: 4px solid var(--brand);">
+        </li>
+      </ul>
+      <a href="login.html" style="display: block; margin-top: 20px; padding: 12px; background: var(--brand); color: var(--bg); text-align: center; border-radius: 8px; text-decoration: none; font-weight: 600;">🔐 Connexion Admin</a>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      animation: fadeIn 0.3s;
+    }
+
+    .modal-content {
+      background-color: var(--panel);
+      margin: 10% auto;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      animation: slideDown 0.3s;
+    }
+
+    .modal-close {
+      color: var(--muted);
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--brand);
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</main>
+
+<script>
+  // Modal Admin
+  const modal = document.getElementById('adminModal');
+  const openBtn = document.getElementById('openAdminModal');
+  const closeBtn = document.querySelector('.modal-close');
+
+  if (openBtn && modal && closeBtn) {
+    openBtn.onclick = function(e) {
+      e.preventDefault();
+      modal.style.display = 'block';
+    }
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+  }
+
+  // Gestion des onglets principaux
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Retirer la classe active de tous les boutons et contenus
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabContents.forEach(content => content.classList.remove('active'));
+
+      // Ajouter la classe active au bouton cliqué
+      button.classList.add('active');
+
+      // Afficher le contenu correspondant
+      const tabId = button.getAttribute('data-tab');
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+
+  // Gestion des sous-onglets
+  const subtabButtons = document.querySelectorAll('.subtab-button');
+  const subtabContents = document.querySelectorAll('.subtab-content');
+
+  subtabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Retirer la classe active de tous les sous-boutons et sous-contenus
+      subtabButtons.forEach(btn => btn.classList.remove('active'));
+      subtabContents.forEach(content => content.classList.remove('active'));
+
+      // Ajouter la classe active au bouton cliqué
+      button.classList.add('active');
+
+      // Afficher le sous-contenu correspondant
+      const subtabId = button.getAttribute('data-subtab');
+      document.getElementById(subtabId).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
