@@ -79,17 +79,6 @@ document.addEventListener('click', () => {
   });
 });
 
-const topbar = document.querySelector('.topbar');
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-  if (currentScroll > 100) {
-    topbar.classList.add('compact');
-  } else {
-    topbar.classList.remove('compact');
-  }
-  lastScroll = currentScroll;
-});
 </script>
 
 <main class="container">
