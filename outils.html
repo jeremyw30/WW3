@@ -353,17 +353,29 @@ document.addEventListener('click', () => {
       return;
     }
 
-    const filteredUnits = unitsData.filter(unit => unit.categorie.toLowerCase() === category.toLowerCase());
+    console.log('Catégorie sélectionnée:', category);
+    console.log('Données disponibles:', unitsData);
+
+    const filteredUnits = unitsData.filter(unit => {
+      const unitCat = String(unit.Categorie || '').trim().toLowerCase();
+      return unitCat === category.toLowerCase();
+    });
+    
+    console.log('Unités filtrées:', filteredUnits);
     
     unitSelect.innerHTML = '<option value="">Sélectionner une unité</option>';
     filteredUnits.forEach(unit => {
+      const nom = String(unit["Unité"] || unit.nom || '').trim();
+      const puissance = unit.puissance || unit.attaque || unit.Puissance || unit.Attaque || 100;
+      const defense = unit.defense || unit.Defense || unit.Défense || 80;
+      
       const option = document.createElement('option');
       option.value = JSON.stringify({
-        nom: unit.nom,
-        puissance: unit.puissance || unit.attaque || 100,
-        defense: unit.defense || 80
+        nom: nom,
+        puissance: puissance,
+        defense: defense
       });
-      option.textContent = `${unit.nom} (Att: ${unit.puissance || unit.attaque || '?'}, Def: ${unit.defense || '?'})`;
+      option.textContent = `${nom} (Att: ${puissance}, Def: ${defense})`;
       unitSelect.appendChild(option);
     });
   }
@@ -377,17 +389,29 @@ document.addEventListener('click', () => {
       return;
     }
 
-    const filteredUnits = unitsData.filter(unit => unit.categorie.toLowerCase() === category.toLowerCase());
+    console.log('Catégorie sélectionnée:', category);
+    console.log('Données disponibles:', unitsData);
+
+    const filteredUnits = unitsData.filter(unit => {
+      const unitCat = String(unit.Categorie || '').trim().toLowerCase();
+      return unitCat === category.toLowerCase();
+    });
+    
+    console.log('Unités filtrées:', filteredUnits);
     
     unitSelect.innerHTML = '<option value="">Sélectionner une unité</option>';
     filteredUnits.forEach(unit => {
+      const nom = String(unit["Unité"] || unit.nom || '').trim();
+      const puissance = unit.puissance || unit.attaque || unit.Puissance || unit.Attaque || 100;
+      const defense = unit.defense || unit.Defense || unit.Défense || 80;
+      
       const option = document.createElement('option');
       option.value = JSON.stringify({
-        nom: unit.nom,
-        puissance: unit.puissance || unit.attaque || 100,
-        defense: unit.defense || 80
+        nom: nom,
+        puissance: puissance,
+        defense: defense
       });
-      option.textContent = `${unit.nom} (Att: ${unit.puissance || unit.attaque || '?'}, Def: ${unit.defense || '?'})`;
+      option.textContent = `${nom} (Att: ${puissance}, Def: ${defense})`;
       unitSelect.appendChild(option);
     });
   }
