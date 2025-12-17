@@ -96,22 +96,26 @@ document.addEventListener('click', () => {
           <div>
             <h3 style="color:var(--danger); margin-bottom:15px;">🗡️ Attaquant</h3>
             <div style="margin-bottom:15px;">
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Type d'unité</label>
-              <select id="attackerType" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Catégorie</label>
+              <select id="attackerCategory" onchange="loadAttackerUnits()" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+                <option value="">Sélectionner une catégorie</option>
                 <option value="infanterie">Infanterie</option>
-                <option value="blindes">Blindés</option>
-                <option value="artillerie">Artillerie</option>
-                <option value="aviation">Aviation</option>
-                <option value="naval">Naval</option>
+                <option value="blindés">Blindés</option>
+                <option value="soutien">Soutien</option>
+                <option value="missiles">Missiles</option>
+                <option value="air">Aviation</option>
+                <option value="mer">Naval</option>
               </select>
             </div>
             <div style="margin-bottom:15px;">
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
-              <input type="number" id="attackerCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Unité</label>
+              <select id="attackerUnit" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+                <option value="">Choisir d'abord une catégorie</option>
+              </select>
             </div>
             <div>
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Puissance d'attaque</label>
-              <input type="number" id="attackerPower" value="100" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
+              <input type="number" id="attackerCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
             </div>
           </div>
 
@@ -119,22 +123,26 @@ document.addEventListener('click', () => {
           <div>
             <h3 style="color:var(--ok); margin-bottom:15px;">🛡️ Défenseur</h3>
             <div style="margin-bottom:15px;">
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Type d'unité</label>
-              <select id="defenderType" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Catégorie</label>
+              <select id="defenderCategory" onchange="loadDefenderUnits()" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+                <option value="">Sélectionner une catégorie</option>
                 <option value="infanterie">Infanterie</option>
-                <option value="blindes">Blindés</option>
-                <option value="artillerie">Artillerie</option>
-                <option value="aviation">Aviation</option>
-                <option value="naval">Naval</option>
+                <option value="blindés">Blindés</option>
+                <option value="soutien">Soutien</option>
+                <option value="missiles">Missiles</option>
+                <option value="air">Aviation</option>
+                <option value="mer">Naval</option>
               </select>
             </div>
             <div style="margin-bottom:15px;">
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
-              <input type="number" id="defenderCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Unité</label>
+              <select id="defenderUnit" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+                <option value="">Choisir d'abord une catégorie</option>
+              </select>
             </div>
             <div>
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Défense</label>
-              <input type="number" id="defenderDefense" value="80" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
+              <input type="number" id="defenderCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
             </div>
           </div>
         </div>
@@ -143,11 +151,16 @@ document.addEventListener('click', () => {
         <div style="margin-bottom:25px;">
           <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">🗺️ Type de terrain</label>
           <select id="terrain" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
-            <option value="degage">Terrain Dégagé (Neutre)</option>
-            <option value="urbain">Urbain (+20% défense)</option>
-            <option value="montagne">Montagnes (+30% défense)</option>
-            <option value="foret">Forêts (+15% défense)</option>
-            <option value="desert">Désert (-10% mouvement)</option>
+            <option value="degage">Terrain Dégagé</option>
+            <option value="montagnes">Montagnes</option>
+            <option value="forets">Forêts</option>
+            <option value="urbain">Urbain</option>
+            <option value="banlieue">Banlieue</option>
+            <option value="jungle">Jungle</option>
+            <option value="toundra">Toundra</option>
+            <option value="desert">Désert</option>
+            <option value="mer">Mer</option>
+            <option value="aviation">Aviation</option>
           </select>
         </div>
 
@@ -296,6 +309,20 @@ document.addEventListener('click', () => {
 </main>
 
 <script>
+  const API_URL = "https://script.google.com/macros/s/AKfycbzSjb1psqTLL5AqoWHAGNVDOWKPYAOXWJoT2dkV-NzS_aSWBdKKIjXXTAhgN5lUBVTV/exec";
+  let unitsData = [];
+
+  // Charger les données au chargement de la page
+  window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      unitsData = data;
+    } catch (error) {
+      console.error("Erreur lors du chargement des unités:", error);
+    }
+  });
+
   const modal = document.getElementById('adminModal');
   const openBtn = document.getElementById('openAdminModal');
   const closeBtn = document.querySelector('.modal-close');
@@ -317,16 +344,69 @@ document.addEventListener('click', () => {
     }
   }
 
+  function loadAttackerUnits() {
+    const category = document.getElementById('attackerCategory').value;
+    const unitSelect = document.getElementById('attackerUnit');
+    
+    if (!category) {
+      unitSelect.innerHTML = '<option value="">Choisir d'abord une catégorie</option>';
+      return;
+    }
+
+    const filteredUnits = unitsData.filter(unit => unit.categorie.toLowerCase() === category.toLowerCase());
+    
+    unitSelect.innerHTML = '<option value="">Sélectionner une unité</option>';
+    filteredUnits.forEach(unit => {
+      const option = document.createElement('option');
+      option.value = JSON.stringify({
+        nom: unit.nom,
+        puissance: unit.puissance || unit.attaque || 100,
+        defense: unit.defense || 80
+      });
+      option.textContent = `${unit.nom} (Att: ${unit.puissance || unit.attaque || '?'}, Def: ${unit.defense || '?'})`;
+      unitSelect.appendChild(option);
+    });
+  }
+
+  function loadDefenderUnits() {
+    const category = document.getElementById('defenderCategory').value;
+    const unitSelect = document.getElementById('defenderUnit');
+    
+    if (!category) {
+      unitSelect.innerHTML = '<option value="">Choisir d'abord une catégorie</option>';
+      return;
+    }
+
+    const filteredUnits = unitsData.filter(unit => unit.categorie.toLowerCase() === category.toLowerCase());
+    
+    unitSelect.innerHTML = '<option value="">Sélectionner une unité</option>';
+    filteredUnits.forEach(unit => {
+      const option = document.createElement('option');
+      option.value = JSON.stringify({
+        nom: unit.nom,
+        puissance: unit.puissance || unit.attaque || 100,
+        defense: unit.defense || 80
+      });
+      option.textContent = `${unit.nom} (Att: ${unit.puissance || unit.attaque || '?'}, Def: ${unit.defense || '?'})`;
+      unitSelect.appendChild(option);
+    });
+  }
+
   function simulateCombat() {
-    // Récupérer les valeurs
+    // Récupérer les unités sélectionnées
+    const attackerSelect = document.getElementById('attackerUnit');
+    const defenderSelect = document.getElementById('defenderUnit');
+    
+    if (!attackerSelect.value || !defenderSelect.value) {
+      alert("Veuillez sélectionner une unité attaquante et une unité défenseure.");
+      return;
+    }
+
+    const attackerUnit = JSON.parse(attackerSelect.value);
+    const defenderUnit = JSON.parse(defenderSelect.value);
+    
     const attackerCount = parseInt(document.getElementById('attackerCount').value);
-    const attackerPower = parseInt(document.getElementById('attackerPower').value);
-    const attackerType = document.getElementById('attackerType').value;
-    
     const defenderCount = parseInt(document.getElementById('defenderCount').value);
-    const defenderDefense = parseInt(document.getElementById('defenderDefense').value);
-    const defenderType = document.getElementById('defenderType').value;
-    
     const terrain = document.getElementById('terrain').value;
 
     // Modificateurs de terrain
@@ -338,23 +418,43 @@ document.addEventListener('click', () => {
         defenseBonus = 1.2;
         terrainName = "Urbain";
         break;
-      case 'montagne':
+      case 'montagnes':
         defenseBonus = 1.3;
         terrainName = "Montagnes";
         break;
-      case 'foret':
+      case 'forets':
         defenseBonus = 1.15;
         terrainName = "Forêts";
         break;
+      case 'banlieue':
+        defenseBonus = 1.1;
+        terrainName = "Banlieue";
+        break;
+      case 'jungle':
+        defenseBonus = 1.15;
+        terrainName = "Jungle";
+        break;
+      case 'toundra':
+        defenseBonus = 1.0;
+        terrainName = "Toundra";
+        break;
       case 'desert':
-        defenseBonus = 0.9;
+        defenseBonus = 0.95;
         terrainName = "Désert";
+        break;
+      case 'mer':
+        defenseBonus = 1.0;
+        terrainName = "Mer";
+        break;
+      case 'aviation':
+        defenseBonus = 1.0;
+        terrainName = "Aviation";
         break;
     }
 
     // Calcul des dégâts
-    const totalAttackPower = attackerCount * attackerPower;
-    const totalDefensePower = defenderCount * defenderDefense * defenseBonus;
+    const totalAttackPower = attackerCount * attackerUnit.puissance;
+    const totalDefensePower = defenderCount * defenderUnit.defense * defenseBonus;
     
     // Ratio d'efficacité
     const attackEfficiency = totalAttackPower / (totalDefensePower + 1);
@@ -400,10 +500,14 @@ document.addEventListener('click', () => {
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
         <div style="padding:20px; background:rgba(251,113,133,0.1); border:2px solid var(--danger); border-radius:12px;">
-          <h4 style="color:var(--danger); margin:0 0 15px 0;">🗡️ Attaquant (${attackerType})</h4>
+          <h4 style="color:var(--danger); margin:0 0 15px 0;">🗡️ ${attackerUnit.nom}</h4>
           <div style="margin-bottom:10px;">
             <span style="color:var(--muted); font-size:14px;">Unités initiales:</span>
             <span style="float:right; font-weight:bold;">${attackerCount}</span>
+          </div>
+          <div style="margin-bottom:10px;">
+            <span style="color:var(--muted); font-size:14px;">Puissance d'attaque:</span>
+            <span style="float:right; font-weight:bold;">${attackerUnit.puissance}</span>
           </div>
           <div style="margin-bottom:10px;">
             <span style="color:var(--muted); font-size:14px;">Pertes:</span>
@@ -416,10 +520,14 @@ document.addEventListener('click', () => {
         </div>
 
         <div style="padding:20px; background:rgba(52,211,153,0.1); border:2px solid var(--ok); border-radius:12px;">
-          <h4 style="color:var(--ok); margin:0 0 15px 0;">🛡️ Défenseur (${defenderType})</h4>
+          <h4 style="color:var(--ok); margin:0 0 15px 0;">🛡️ ${defenderUnit.nom}</h4>
           <div style="margin-bottom:10px;">
             <span style="color:var(--muted); font-size:14px;">Unités initiales:</span>
             <span style="float:right; font-weight:bold;">${defenderCount}</span>
+          </div>
+          <div style="margin-bottom:10px;">
+            <span style="color:var(--muted); font-size:14px;">Défense:</span>
+            <span style="float:right; font-weight:bold;">${defenderUnit.defense}</span>
           </div>
           <div style="margin-bottom:10px;">
             <span style="color:var(--muted); font-size:14px;">Pertes:</span>
