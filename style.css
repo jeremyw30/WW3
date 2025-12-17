@@ -305,6 +305,14 @@ nav{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
   display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
   border-bottom:1px solid var(--line);
 }
+.unit-image{
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--line);
+  flex-shrink: 0;
+}
 .unit .u-name{
   font-weight:900; letter-spacing:.2px;
   font-size:16px; margin:0;

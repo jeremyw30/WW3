@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   const liste = document.getElementById("liste");
 
   if (cat && liste) {
+    // Afficher le message de chargement
+    liste.innerHTML = `<p style="color: var(--muted); font-style: italic; margin-top: 20px; text-align: center;">Les données sont en cours de chargement, veuillez patienter...</p>`;
+    
     try {
       const res = await fetch(API_URL, { cache: "no-store" });
       if (!res.ok) throw new Error("API Google Sheets inaccessible");
@@ -28,6 +31,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Keywords = nom + description + catégorie (pour ta recherche)
         const keywords = `${cat} ${nom} ${desc}`.toLowerCase();
 
+        // Convertir nom en nom de fichier (enlever accents, espaces, etc.)
+        const imgName = nom.toLowerCase()
+          .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+        const imgPath = `images/unity-img/${imgName}.png`;
+
         // Fonction pour convertir liste virgule en <ul><li>
         const toList = (str) => {
           if (!str) return "<li>Aucune information</li>";
@@ -41,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <p class="u-name">${escapeHtml(nom)}</p>
                 <div class="small">${escapeHtml(desc)}</div>
               </div>
+              <img src="${imgPath}" alt="${escapeHtmlAttr(nom)}" class="unit-image" onerror="this.style.display='none'">
             </div>
             <div class="u-body">
               <div class="cols">
