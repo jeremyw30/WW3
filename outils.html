@@ -110,13 +110,15 @@ document.addEventListener('click', () => {
             <div style="margin-bottom:15px;">
               <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Unité</label>
               <select id="attackerUnit" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
-                <option value="">Choisir d'abord une catégorie</option>
+                <option value="">Choisir d\'abord une catégorie</option>
               </select>
             </div>
-            <div>
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
+            <div style="margin-bottom:15px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d\'unités</label>
               <input type="number" id="attackerCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
             </div>
+            <button onclick="addAttackerUnit()" class="btn" style="width:100%; padding:10px; font-size:14px; background:var(--danger);">+ Ajouter au Stack</button>
+            <div id="attackerStack" style="margin-top:15px; padding:10px; background:var(--panel2); border-radius:8px; min-height:50px;"></div>
           </div>
 
           <!-- Défenseur -->
@@ -137,13 +139,15 @@ document.addEventListener('click', () => {
             <div style="margin-bottom:15px;">
               <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Unité</label>
               <select id="defenderUnit" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
-                <option value="">Choisir d'abord une catégorie</option>
+                <option value="">Choisir d\'abord une catégorie</option>
               </select>
             </div>
-            <div>
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
+            <div style="margin-bottom:15px;">
+              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d\'unités</label>
               <input type="number" id="defenderCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
             </div>
+            <button onclick="addDefenderUnit()" class="btn" style="width:100%; padding:10px; font-size:14px; background:var(--ok);">+ Ajouter au Stack</button>
+            <div id="defenderStack" style="margin-top:15px; padding:10px; background:var(--panel2); border-radius:8px; min-height:50px;"></div>
           </div>
         </div>
 
@@ -311,6 +315,8 @@ document.addEventListener('click', () => {
 <script>
   const API_URL = "https://script.google.com/macros/s/AKfycbzSjb1psqTLL5AqoWHAGNVDOWKPYAOXWJoT2dkV-NzS_aSWBdKKIjXXTAhgN5lUBVTV/exec";
   let unitsData = [];
+  let attackerStack = [];
+  let defenderStack = [];
 
   // Charger les données au chargement de la page
   window.addEventListener('DOMContentLoaded', async () => {
@@ -386,6 +392,87 @@ document.addEventListener('click', () => {
     });
   }
 
+  function addAttackerUnit() {
+    const unitSelect = document.getElementById('attackerUnit');
+    const countInput = document.getElementById('attackerCount');
+    
+    if (!unitSelect.value) {
+      alert('Veuillez sélectionner une unité');
+      return;
+    }
+
+    const unit = JSON.parse(unitSelect.value);
+    const count = parseInt(countInput.value);
+
+    if (count <= 0) {
+      alert('Le nombre d\'unités doit être supérieur à 0');
+      return;
+    }
+
+    attackerStack.push({
+      ...unit,
+      count: count
+    });
+
+    updateStackDisplay('attacker');
+  }
+
+  function addDefenderUnit() {
+    const unitSelect = document.getElementById('defenderUnit');
+    const countInput = document.getElementById('defenderCount');
+    
+    if (!unitSelect.value) {
+      alert('Veuillez sélectionner une unité');
+      return;
+    }
+
+    const unit = JSON.parse(unitSelect.value);
+    const count = parseInt(countInput.value);
+
+    if (count <= 0) {
+      alert('Le nombre d\'unités doit être supérieur à 0');
+      return;
+    }
+
+    defenderStack.push({
+      ...unit,
+      count: count
+    });
+
+    updateStackDisplay('defender');
+  }
+
+  function removeFromStack(side, index) {
+    if (side === 'attacker') {
+      attackerStack.splice(index, 1);
+      updateStackDisplay('attacker');
+    } else {
+      defenderStack.splice(index, 1);
+      updateStackDisplay('defender');
+    }
+  }
+
+  function updateStackDisplay(side) {
+    const stack = side === 'attacker' ? attackerStack : defenderStack;
+    const container = document.getElementById(side + 'Stack');
+    
+    if (stack.length === 0) {
+      container.innerHTML = '<p style="color:var(--muted); font-size:13px; margin:0;">Aucune unité ajoutée</p>';
+      return;
+    }
+
+    container.innerHTML = stack.map((unit, index) => `
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:8px; background:var(--panel); border-radius:6px; margin-bottom:8px; border-left:3px solid ${side === 'attacker' ? 'var(--danger)' : 'var(--ok)'};">
+        <div>
+          <strong style="color:var(--text);">${unit.nom}</strong>
+          <span style="color:var(--muted); font-size:12px; margin-left:10px;">x${unit.count}</span>
+          <span style="color:var(--muted); font-size:12px; margin-left:10px;">(Att:${unit.puissance} / Def:${unit.defense})</span>
+        </div>
+        <button onclick="removeFromStack('${side}', ${index})" style="background:var(--danger); border:none; color:white; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:12px;">×</button>
+      </div>
+    `).join('');
+  }
+
   function loadDefenderUnits() {
     const category = document.getElementById('defenderCategory').value;
     const unitSelect = document.getElementById('defenderUnit');
@@ -423,20 +510,17 @@ document.addEventListener('click', () => {
   }
 
   function simulateCombat() {
-    // Récupérer les unités sélectionnées
-    const attackerSelect = document.getElementById('attackerUnit');
-    const defenderSelect = document.getElementById('defenderUnit');
-    
-    if (!attackerSelect.value || !defenderSelect.value) {
-      alert("Veuillez sélectionner une unité attaquante et une unité défenseure.");
+    // Vérifier qu'il y a des unités dans les stacks
+    if (attackerStack.length === 0) {
+      alert("Veuillez ajouter au moins une unité attaquante au stack.");
       return;
     }
 
-    const attackerUnit = JSON.parse(attackerSelect.value);
-    const defenderUnit = JSON.parse(defenderSelect.value);
-    
-    const attackerCount = parseInt(document.getElementById('attackerCount').value);
-    const defenderCount = parseInt(document.getElementById('defenderCount').value);
+    if (defenderStack.length === 0) {
+      alert("Veuillez ajouter au moins une unité défenseure au stack.");
+      return;
+    }
+
     const terrain = document.getElementById('terrain').value;
 
     // Modificateurs de terrain
@@ -482,35 +566,55 @@ document.addEventListener('click', () => {
         break;
     }
 
-    // Calcul des dégâts
-    const totalAttackPower = attackerCount * attackerUnit.puissance;
-    const totalDefensePower = defenderCount * defenderUnit.defense * defenseBonus;
+    // Calculer les puissances totales
+    const totalAttackPower = attackerStack.reduce((sum, unit) => sum + (unit.count * unit.puissance), 0);
+    const totalDefensePower = defenderStack.reduce((sum, unit) => sum + (unit.count * unit.defense * defenseBonus), 0);
+    const totalAttackerCount = attackerStack.reduce((sum, unit) => sum + unit.count, 0);
+    const totalDefenderCount = defenderStack.reduce((sum, unit) => sum + unit.count, 0);
     
     // Ratio d'efficacité
     const attackEfficiency = totalAttackPower / (totalDefensePower + 1);
     const defenseEfficiency = totalDefensePower / (totalAttackPower + 1);
 
-    // Calcul des pertes
-    let attackerLosses = Math.min(attackerCount, Math.round(attackerCount * defenseEfficiency * 0.5));
-    let defenderLosses = Math.min(defenderCount, Math.round(defenderCount * attackEfficiency * 0.7));
+    // Calculer les pertes pour chaque type d'unité
+    const attackerResults = attackerStack.map(unit => {
+      const losses = Math.min(unit.count, Math.round(unit.count * defenseEfficiency * 0.5));
+      return {
+        ...unit,
+        losses: losses,
+        survivors: unit.count - losses
+      };
+    });
+
+    const defenderResults = defenderStack.map(unit => {
+      const losses = Math.min(unit.count, Math.round(unit.count * attackEfficiency * 0.7));
+      return {
+        ...unit,
+        losses: losses,
+        survivors: unit.count - losses
+      };
+    });
+
+    // Calculer les totaux
+    const totalAttackerLosses = attackerResults.reduce((sum, u) => sum + u.losses, 0);
+    const totalDefenderLosses = defenderResults.reduce((sum, u) => sum + u.losses, 0);
+    const totalAttackerSurvivors = attackerResults.reduce((sum, u) => sum + u.survivors, 0);
+    const totalDefenderSurvivors = defenderResults.reduce((sum, u) => sum + u.survivors, 0);
 
     // Déterminer le vainqueur
-    const attackerSurvivors = attackerCount - attackerLosses;
-    const defenderSurvivors = defenderCount - defenderLosses;
-    
     let winner = "";
     let winnerColor = "";
     
-    if (attackerSurvivors > defenderSurvivors * 1.5) {
+    if (totalAttackerSurvivors > totalDefenderSurvivors * 1.5) {
       winner = "Victoire de l'Attaquant";
       winnerColor = "var(--danger)";
-    } else if (defenderSurvivors > attackerSurvivors * 1.5) {
+    } else if (totalDefenderSurvivors > totalAttackerSurvivors * 1.5) {
       winner = "Victoire du Défenseur";
       winnerColor = "var(--ok)";
-    } else if (attackerSurvivors > defenderSurvivors) {
+    } else if (totalAttackerSurvivors > totalDefenderSurvivors) {
       winner = "Victoire Serrée de l'Attaquant";
       winnerColor = "var(--warn)";
-    } else if (defenderSurvivors > attackerSurvivors) {
+    } else if (totalDefenderSurvivors > totalAttackerSurvivors) {
       winner = "Victoire Serrée du Défenseur";
       winnerColor = "var(--warn)";
     } else {
@@ -530,42 +634,46 @@ document.addEventListener('click', () => {
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px;">
         <div style="padding:20px; background:rgba(251,113,133,0.1); border:2px solid var(--danger); border-radius:12px;">
-          <h4 style="color:var(--danger); margin:0 0 15px 0;">🗡️ ${attackerUnit.nom}</h4>
-          <div style="margin-bottom:10px;">
-            <span style="color:var(--muted); font-size:14px;">Unités initiales:</span>
-            <span style="float:right; font-weight:bold;">${attackerCount}</span>
+          <h4 style="color:var(--danger); margin:0 0 15px 0;">🗡️ Stack Attaquant</h4>
+          <div style="margin-bottom:15px;">
+            ${attackerResults.map(unit => `
+              <div style="padding:8px; background:var(--panel2); border-radius:6px; margin-bottom:8px;">
+                <div style="font-weight:bold; margin-bottom:4px;">${unit.nom}</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; font-size:13px;">
+                  <div><span style="color:var(--muted);">Initial:</span> ${unit.count}</div>
+                  <div><span style="color:var(--danger);">Pertes:</span> -${unit.losses}</div>
+                  <div><span style="color:var(--brand);">Restant:</span> ${unit.survivors}</div>
+                </div>
+              </div>
+            `).join('')}
           </div>
-          <div style="margin-bottom:10px;">
-            <span style="color:var(--muted); font-size:14px;">Puissance d'attaque:</span>
-            <span style="float:right; font-weight:bold;">${attackerUnit.puissance}</span>
-          </div>
-          <div style="margin-bottom:10px;">
-            <span style="color:var(--muted); font-size:14px;">Pertes:</span>
-            <span style="float:right; font-weight:bold; color:var(--danger);">-${attackerLosses}</span>
-          </div>
-          <div style="padding-top:10px; border-top:1px solid var(--line);">
-            <span style="color:var(--muted); font-size:14px;">Survivants:</span>
-            <span style="float:right; font-weight:bold; font-size:18px; color:var(--brand);">${attackerSurvivors}</span>
+          <div style="padding-top:15px; border-top:2px solid var(--line);">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:16px;">
+              <span>TOTAL:</span>
+              <span style="color:var(--brand);">${totalAttackerSurvivors} / ${totalAttackerCount}</span>
+            </div>
           </div>
         </div>
 
         <div style="padding:20px; background:rgba(52,211,153,0.1); border:2px solid var(--ok); border-radius:12px;">
-          <h4 style="color:var(--ok); margin:0 0 15px 0;">🛡️ ${defenderUnit.nom}</h4>
-          <div style="margin-bottom:10px;">
-            <span style="color:var(--muted); font-size:14px;">Unités initiales:</span>
-            <span style="float:right; font-weight:bold;">${defenderCount}</span>
+          <h4 style="color:var(--ok); margin:0 0 15px 0;">🛡️ Stack Défenseur</h4>
+          <div style="margin-bottom:15px;">
+            ${defenderResults.map(unit => `
+              <div style="padding:8px; background:var(--panel2); border-radius:6px; margin-bottom:8px;">
+                <div style="font-weight:bold; margin-bottom:4px;">${unit.nom}</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; font-size:13px;">
+                  <div><span style="color:var(--muted);">Initial:</span> ${unit.count}</div>
+                  <div><span style="color:var(--danger);">Pertes:</span> -${unit.losses}</div>
+                  <div><span style="color:var(--brand);">Restant:</span> ${unit.survivors}</div>
+                </div>
+              </div>
+            `).join('')}
           </div>
-          <div style="margin-bottom:10px;">
-            <span style="color:var(--muted); font-size:14px;">Défense:</span>
-            <span style="float:right; font-weight:bold;">${defenderUnit.defense}</span>
-          </div>
-          <div style="margin-bottom:10px;">
-            <span style="color:var(--muted); font-size:14px;">Pertes:</span>
-            <span style="float:right; font-weight:bold; color:var(--danger);">-${defenderLosses}</span>
-          </div>
-          <div style="padding-top:10px; border-top:1px solid var(--line);">
-            <span style="color:var(--muted); font-size:14px;">Survivants:</span>
-            <span style="float:right; font-weight:bold; font-size:18px; color:var(--brand);">${defenderSurvivors}</span>
+          <div style="padding-top:15px; border-top:2px solid var(--line);">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:16px;">
+              <span>TOTAL:</span>
+              <span style="color:var(--brand);">${totalDefenderSurvivors} / ${totalDefenderCount}</span>
+            </div>
           </div>
         </div>
       </div>
