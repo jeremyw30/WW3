@@ -318,6 +318,12 @@ document.addEventListener('click', () => {
       const response = await fetch(API_URL);
       const data = await response.json();
       unitsData = data;
+      console.log('Données chargées depuis l\'API:', unitsData);
+      console.log('Nombre d\'unités:', unitsData.length);
+      if (unitsData.length > 0) {
+        console.log('Exemple de première unité:', unitsData[0]);
+        console.log('Clés disponibles:', Object.keys(unitsData[0]));
+      }
     } catch (error) {
       console.error("Erreur lors du chargement des unités:", error);
     }
@@ -349,7 +355,7 @@ document.addEventListener('click', () => {
     const unitSelect = document.getElementById('attackerUnit');
     
     if (!category) {
-      unitSelect.innerHTML = '<option value="">Choisir d'abord une catégorie</option>';
+      unitSelect.innerHTML = '<option value="">Choisir d\'abord une catégorie</option>';
       return;
     }
 
@@ -385,7 +391,7 @@ document.addEventListener('click', () => {
     const unitSelect = document.getElementById('defenderUnit');
     
     if (!category) {
-      unitSelect.innerHTML = '<option value="">Choisir d'abord une catégorie</option>';
+      unitSelect.innerHTML = '<option value="">Choisir d\'abord une catégorie</option>';
       return;
     }
 
