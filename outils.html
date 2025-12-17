@@ -113,9 +113,15 @@ document.addEventListener('click', () => {
                 <option value="">Choisir d\'abord une catégorie</option>
               </select>
             </div>
-            <div style="margin-bottom:15px;">
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d\'unités</label>
-              <input type="number" id="attackerCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+            <div style="display:grid; grid-template-columns:2fr 1fr; gap:10px; margin-bottom:15px;">
+              <div>
+                <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
+                <input type="number" id="attackerCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Niveau</label>
+                <input type="number" id="attackerLevel" value="1" min="1" max="10" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              </div>
             </div>
             <button onclick="addAttackerUnit()" class="btn" style="width:100%; padding:10px; font-size:14px; background:var(--danger);">+ Ajouter au Stack</button>
             <div id="attackerStack" style="margin-top:15px; padding:10px; background:var(--panel2); border-radius:8px; min-height:50px;"></div>
@@ -142,9 +148,15 @@ document.addEventListener('click', () => {
                 <option value="">Choisir d\'abord une catégorie</option>
               </select>
             </div>
-            <div style="margin-bottom:15px;">
-              <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d\'unités</label>
-              <input type="number" id="defenderCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+            <div style="display:grid; grid-template-columns:2fr 1fr; gap:10px; margin-bottom:15px;">
+              <div>
+                <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Nombre d'unités</label>
+                <input type="number" id="defenderCount" value="10" min="1" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:5px; color:var(--muted); font-size:14px;">Niveau</label>
+                <input type="number" id="defenderLevel" value="1" min="1" max="10" style="width:100%; padding:10px; background:var(--panel2); border:1px solid var(--line); border-radius:8px; color:var(--text); font-size:14px;">
+              </div>
             </div>
             <button onclick="addDefenderUnit()" class="btn" style="width:100%; padding:10px; font-size:14px; background:var(--ok);">+ Ajouter au Stack</button>
             <div id="defenderStack" style="margin-top:15px; padding:10px; background:var(--panel2); border-radius:8px; min-height:50px;"></div>
@@ -395,6 +407,7 @@ document.addEventListener('click', () => {
   function addAttackerUnit() {
     const unitSelect = document.getElementById('attackerUnit');
     const countInput = document.getElementById('attackerCount');
+    const levelInput = document.getElementById('attackerLevel');
     
     if (!unitSelect.value) {
       alert('Veuillez sélectionner une unité');
@@ -403,15 +416,22 @@ document.addEventListener('click', () => {
 
     const unit = JSON.parse(unitSelect.value);
     const count = parseInt(countInput.value);
+    const level = parseInt(levelInput.value);
 
     if (count <= 0) {
       alert('Le nombre d\'unités doit être supérieur à 0');
       return;
     }
 
+    if (level < 1 || level > 10) {
+      alert('Le niveau doit être entre 1 et 10');
+      return;
+    }
+
     attackerStack.push({
       ...unit,
-      count: count
+      count: count,
+      level: level
     });
 
     updateStackDisplay('attacker');
@@ -420,6 +440,7 @@ document.addEventListener('click', () => {
   function addDefenderUnit() {
     const unitSelect = document.getElementById('defenderUnit');
     const countInput = document.getElementById('defenderCount');
+    const levelInput = document.getElementById('defenderLevel');
     
     if (!unitSelect.value) {
       alert('Veuillez sélectionner une unité');
@@ -428,15 +449,22 @@ document.addEventListener('click', () => {
 
     const unit = JSON.parse(unitSelect.value);
     const count = parseInt(countInput.value);
+    const level = parseInt(levelInput.value);
 
     if (count <= 0) {
       alert('Le nombre d\'unités doit être supérieur à 0');
       return;
     }
 
+    if (level < 1 || level > 10) {
+      alert('Le niveau doit être entre 1 et 10');
+      return;
+    }
+
     defenderStack.push({
       ...unit,
-      count: count
+      count: count,
+      level: level
     });
 
     updateStackDisplay('defender');
@@ -466,6 +494,7 @@ document.addEventListener('click', () => {
         <div>
           <strong style="color:var(--text);">${unit.nom}</strong>
           <span style="color:var(--muted); font-size:12px; margin-left:10px;">x${unit.count}</span>
+          <span style="color:var(--brand); font-size:12px; margin-left:10px;">⭐Niv.${unit.level}</span>
           <span style="color:var(--muted); font-size:12px; margin-left:10px;">(Att:${unit.puissance} / Def:${unit.defense})</span>
         </div>
         <button onclick="removeFromStack('${side}', ${index})" style="background:var(--danger); border:none; color:white; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:12px;">×</button>
@@ -566,9 +595,15 @@ document.addEventListener('click', () => {
         break;
     }
 
-    // Calculer les puissances totales
-    const totalAttackPower = attackerStack.reduce((sum, unit) => sum + (unit.count * unit.puissance), 0);
-    const totalDefensePower = defenderStack.reduce((sum, unit) => sum + (unit.count * unit.defense * defenseBonus), 0);
+    // Calculer les puissances totales avec modificateur de niveau (+5% par niveau)
+    const totalAttackPower = attackerStack.reduce((sum, unit) => {
+      const levelBonus = 1 + ((unit.level - 1) * 0.05);
+      return sum + (unit.count * unit.puissance * levelBonus);
+    }, 0);
+    const totalDefensePower = defenderStack.reduce((sum, unit) => {
+      const levelBonus = 1 + ((unit.level - 1) * 0.05);
+      return sum + (unit.count * unit.defense * defenseBonus * levelBonus);
+    }, 0);
     const totalAttackerCount = attackerStack.reduce((sum, unit) => sum + unit.count, 0);
     const totalDefenderCount = defenderStack.reduce((sum, unit) => sum + unit.count, 0);
     
@@ -638,7 +673,7 @@ document.addEventListener('click', () => {
           <div style="margin-bottom:15px;">
             ${attackerResults.map(unit => `
               <div style="padding:8px; background:var(--panel2); border-radius:6px; margin-bottom:8px;">
-                <div style="font-weight:bold; margin-bottom:4px;">${unit.nom}</div>
+                <div style="font-weight:bold; margin-bottom:4px;">${unit.nom} <span style="color:var(--brand); font-size:12px;">⭐Niv.${unit.level}</span></div>
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; font-size:13px;">
                   <div><span style="color:var(--muted);">Initial:</span> ${unit.count}</div>
                   <div><span style="color:var(--danger);">Pertes:</span> -${unit.losses}</div>
@@ -660,7 +695,7 @@ document.addEventListener('click', () => {
           <div style="margin-bottom:15px;">
             ${defenderResults.map(unit => `
               <div style="padding:8px; background:var(--panel2); border-radius:6px; margin-bottom:8px;">
-                <div style="font-weight:bold; margin-bottom:4px;">${unit.nom}</div>
+                <div style="font-weight:bold; margin-bottom:4px;">${unit.nom} <span style="color:var(--brand); font-size:12px;">⭐Niv.${unit.level}</span></div>
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; font-size:13px;">
                   <div><span style="color:var(--muted);">Initial:</span> ${unit.count}</div>
                   <div><span style="color:var(--danger);">Pertes:</span> -${unit.losses}</div>
