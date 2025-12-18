@@ -316,6 +316,35 @@ document.addEventListener('click', () => {
 </div>
 
 <script>
+  // Données du Google Sheet
+  let unitsData = [];
+  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzNNxQXwWbV7JavgWBI4C9ulKdjXePZ_VzudlQDjTzpVILzVXpHri0fgjqqhh_mjNQ1tw/exec';
+
+  // Charger les données au démarrage
+  fetch(SHEET_API_URL)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Données chargées depuis Google Sheet:', data);
+      unitsData = data;
+    })
+    .catch(error => {
+      console.error('Erreur chargement données:', error);
+    });
+
+  // Calcul de l'efficacité selon le nombre d'unités
+  function calculateEfficiency() {
+    const nbUnites = parseInt(document.getElementById('nbUnites').value) || 1;
+    
+    // Logique d'efficacité : exemple simplifié
+    // Plus il y a d'unités, meilleure est l'efficacité (max 150%)
+    let efficiency = 100;
+    if (nbUnites >= 10) efficiency = 150;
+    else if (nbUnites >= 5) efficiency = 125;
+    else if (nbUnites >= 3) efficiency = 110;
+    
+    document.getElementById('efficiency').textContent = `Efficacité: ${efficiency}%`;
+  }
+
   // Modal pour équipe d'admin
   const modal = document.getElementById('adminModal');
   const openBtn = document.getElementById('openAdminModal');
