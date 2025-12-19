@@ -377,7 +377,7 @@ document.addEventListener('click', () => {
 <script>
   // Données du Google Sheet
   let unitsData = [];
-  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzNNxQXwWbV7JavgWBI4C9ulKdjXePZ_VzudlQDjTzpVILzVXpHri0fgjqqhh_mjNQ1tw/exec';
+  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzVig7wZfe5NLUj_Yk97bWYfLgeVlpCGN3D-4KGdqV8d2jX1nn3DZT1pyjx56oQ2JG3/exec';
 
   // Variables globales pour stocker les valeurs validées
   let stackSize = 10;
@@ -392,7 +392,9 @@ document.addEventListener('click', () => {
     .then(response => response.json())
     .then(data => {
       console.log('Données chargées depuis Google Sheet:', data);
-      unitsData = data;
+      // Filtrer seulement les lignes où "Unité" = "Unité" (en-têtes)
+      unitsData = data.filter(row => row["Unité"] && row["Unité"] !== "Unité");
+      console.log('Unités filtrées:', unitsData);
     })
     .catch(error => {
       console.error('Erreur chargement données:', error);
@@ -484,10 +486,33 @@ document.addEventListener('click', () => {
     for (let i = 1; i <= nbUnitesDifferentes; i++) {
       const lettre = String.fromCharCode(64 + i); // A=65, B=66, etc.
       html += `
-        <div style="width: 100%; margin-bottom: 8px; padding: 0 5%;">
-          <label style="color: #374151; font-size: 12px; font-weight: 600; text-align: center; display: block; margin-bottom: 4px;">Type ${lettre}:</label>
-          <select id="unite${i}" style="width: 100%; height: 38px; padding: 0 10px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 13px; box-sizing: border-box;">
-            <option value="">-- Choisir --</option>
+        <div style="width: 100%; margin-bottom: 12px; padding: 0 5%;">
+          <label style="color: #1f2937; font-size: 12px; font-weight: 700; text-align: left; display: block; margin-bottom: 6px; letter-spacing: 0.3px;">Type ${lettre}</label>
+          <select id="unite${i}" style="
+            width: 100%; 
+            height: 44px; 
+            padding: 0 14px; 
+            border: 2px solid #e5e7eb; 
+            border-radius: 10px; 
+            font-size: 13.5px; 
+            font-weight: 500;
+            color: #374151;
+            background: linear-gradient(to bottom, #ffffff, #f9fafb);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-sizing: border-box;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 viewBox=%220 0 12 8%22%3E%3Cpath fill=%22%236b7280%22 d=%22M6 8L0 0h12z%22/%3E%3C/svg%3E');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+          " 
+          onmouseover="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 4px 12px rgba(59,130,246,0.15)'; this.style.transform='translateY(-1px)';"
+          onmouseout="this.style.borderColor='#e5e7eb'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.08)'; this.style.transform='translateY(0)';"
+          onfocus="this.style.borderColor='#3b82f6'; this.style.boxShadow='0 0 0 3px rgba(59,130,246,0.1), 0 4px 12px rgba(59,130,246,0.15)';"
+          onblur="this.style.borderColor='#e5e7eb'; this.style.boxShadow='0 1px 3px rgba(0,0,0,0.08)';">
+            <option value="">-- Choisir une unité --</option>
           </select>
         </div>
       `;
@@ -505,15 +530,44 @@ document.addEventListener('click', () => {
     
     container.innerHTML = html;
     
-    // Remplir chaque menu avec les unités du Google Sheet
+    // Remplir chaque menu avec les unités groupées par catégorie
+    const unitesParCategorie = {};
+    const nomsVus = new Set();
+    
+    unitsData.forEach(unit => {
+      const nom = unit["Unité"] || unit.nom || 'Unité inconnue';
+      const categorie = unit["Categorie"] || 'Autre';
+      
+      if (!nomsVus.has(nom)) {
+        nomsVus.add(nom);
+        if (!unitesParCategorie[categorie]) {
+          unitesParCategorie[categorie] = [];
+        }
+        unitesParCategorie[categorie].push(nom);
+      }
+    });
+    
     for (let i = 1; i <= nbUnitesDifferentes; i++) {
       const select = document.getElementById(`unite${i}`);
-      unitsData.forEach(unit => {
-        const nom = unit["Unité"] || unit.nom || 'Unité inconnue';
-        const option = document.createElement('option');
-        option.value = nom;
-        option.textContent = nom;
-        select.appendChild(option);
+      
+      // Ordre personnalisé des catégories
+      const ordreCategories = ['Infanterie', 'Blindés', 'Soutien', 'Air', 'Naval', 'Missiles'];
+      
+      // Ajouter les unités groupées par catégorie dans l'ordre défini
+      ordreCategories.forEach(categorie => {
+        if (unitesParCategorie[categorie]) {
+          const optgroup = document.createElement('optgroup');
+          optgroup.label = categorie;
+          
+          unitesParCategorie[categorie].forEach(nom => {
+            const option = document.createElement('option');
+            option.value = nom;
+            option.textContent = nom;
+            optgroup.appendChild(option);
+          });
+          
+          select.appendChild(optgroup);
+        }
       });
     }
   }
