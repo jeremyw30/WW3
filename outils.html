@@ -664,17 +664,40 @@ document.addEventListener('click', () => {
     for (let i = 0; i < unitesSelectionnees.length; i++) {
       const lettre = String.fromCharCode(65 + i);
       const nomUnite = unitesSelectionnees[i];
+      
+      // Récupérer les stats de cette unité depuis unitsData
+      const statsUnite = unitsData.filter(u => u["Unité"] === nomUnite);
+      console.log(`Stats pour ${nomUnite}:`, statsUnite);
+      
       html += `
         <div style="width: 100%; margin-bottom: 12px; padding: 0 5%;">
           <label style="color: #374151; font-size: 12px; font-weight: 600; text-align: center; display: block; margin-bottom: 4px;">Type ${lettre}: ${nomUnite}</label>
           <select id="niveau${i}" style="width: 100%; height: 38px; padding: 0 10px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 13px; box-sizing: border-box;">
-            <option value="">-- Niveau --</option>
-            <option value="1">Niveau 1</option>
-            <option value="2">Niveau 2</option>
-            <option value="3">Niveau 3</option>
-            <option value="4">Niveau 4</option>
-            <option value="5">Niveau 5</option>
-            <option value="6">Niveau 6</option>
+            <option value="">-- Sélectionner niveau --</option>`;
+      
+      // Si on a des stats, les afficher
+      if (statsUnite.length > 0) {
+        // Générer niveaux 1 à 7 avec les stats correspondantes
+        for (let niv = 1; niv <= 7; niv++) {
+          const statNiveau = statsUnite.find(s => {
+            const lvlStr = (s["level 1à10 ATK"] || '').toString();
+            return lvlStr.includes(`level ${niv}`) || lvlStr === `level ${niv}`;
+          });
+          
+          if (statNiveau) {
+            const atkInf = statNiveau["atk inf"] || '-';
+            const atkBlinde = statNiveau["atk blinde"] || '-';
+            html += `<option value="${niv}">Niveau ${niv} (ATK inf: ${atkInf}, blindé: ${atkBlinde})</option>`;
+          }
+        }
+      } else {
+        // Pas de stats trouvées, afficher niveaux basiques
+        for (let niv = 1; niv <= 6; niv++) {
+          html += `<option value="${niv}">Niveau ${niv}</option>`;
+        }
+      }
+      
+      html += `
           </select>
         </div>
       `;
