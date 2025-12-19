@@ -776,6 +776,30 @@ document.addEventListener('click', () => {
       const quantite = quantitesParType[i];
       const niveau = niveauxRecherche[i];
       
+      // Récupérer les stats de cette unité au niveau sélectionné
+      const statUnite = unitsData.find(u => {
+        const lvlStr = (u["level 1à10 ATK"] || '').toString();
+        return u["Unité"] === nomUnite && (lvlStr.includes(`level ${niveau}`) || lvlStr === `level ${niveau}`);
+      });
+      
+      console.log(`Stats pour ${nomUnite} niveau ${niveau}:`, statUnite);
+      
+      let statsHTML = '';
+      if (statUnite) {
+        const atkInf = statUnite["atk inf"] || '-';
+        const atkBlinde = statUnite["atk blinde"] || '-';
+        const defInf = statUnite["def inf"] || '-';
+        const defBlinde = statUnite["def blinde"] || '-';
+        statsHTML = `
+          <div style="font-size: 10px; color: #6b7280; margin-top: 6px; padding-top: 6px; border-top: 1px solid #f3f4f6;">
+            <div style="margin-bottom: 2px;"><strong>ATK:</strong> Inf ${atkInf} | Blindé ${atkBlinde}</div>
+            <div><strong>DEF:</strong> Inf ${defInf} | Blindé ${defBlinde}</div>
+          </div>
+        `;
+      } else {
+        statsHTML = '<div style="font-size: 10px; color: #dc2626; margin-top: 4px;">Stats non trouvées</div>';
+      }
+      
       html += `
         <div style="background: white; border: 1px solid #e5e7eb; padding: 8px; border-radius: 4px; margin-bottom: 6px;">
           <div style="font-size: 11px; color: #6b7280; font-weight: 600; margin-bottom: 4px;">Type ${lettre}</div>
@@ -784,6 +808,7 @@ document.addEventListener('click', () => {
             <span style="margin-right: 8px;">● Qnté: ${quantite}</span>
             <span>● Niv: ${niveau}</span>
           </div>
+          ${statsHTML}
         </div>
       `;
     }
