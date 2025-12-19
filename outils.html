@@ -171,9 +171,38 @@ document.addEventListener('click', () => {
       <div style="display: flex; flex-direction: column; gap: 10px; min-height: 700px;">
         <!-- Rangée du haut - 6 colonnes -->
         <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; flex: 1;">
-          <div style="border: 1px dashed #999; padding: 10px; background: rgba(255,255,255,0.3); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: black; text-align: center;">Div 1</strong></div>
-          <div style="border: 1px dashed #999; padding: 10px; background: rgba(255,255,255,0.3); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: black; text-align: center;">Div 2</strong></div>
-          <div style="border: 1px dashed #999; padding: 10px; background: rgba(255,255,255,0.3); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: black; text-align: center;">Div 3</strong></div>
+          <div style="border: 1px dashed #999; padding: 10px; background: rgba(255,255,255,0.3); display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px;">
+              <label style="color: black; font-weight: bold; font-size: 16px;">Nombre d'unités dans le stack</label>
+              <input type="number" id="nbUnites" min="1" max="100" value="10" 
+                     style="width: 80%; padding: 10px; border: 2px solid #333; border-radius: 5px; text-align: center; font-size: 18px; font-weight: bold;" 
+                     oninput="updateEfficiency()">
+              <div id="efficacite" style="color: #16a34a; font-weight: bold; font-size: 18px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 5px; width: 80%; text-align: center;">
+                Efficacité: 100%
+              </div>
+              <button onclick="validerDiv1()" style="padding: 12px 24px; background: #16a34a; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer;">
+                ✓ Valider
+              </button>
+            </div>
+            <strong style="color: black; text-align: center;">Div 1</strong>
+          </div>
+          <div style="border: 1px dashed #999; padding: 10px; background: rgba(255,255,255,0.3); display: flex; flex-direction: column; justify-content: space-between;">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px;">
+              <label style="color: black; font-weight: bold; font-size: 16px; text-align: center;">Combien d'unités différentes ?</label>
+              <input type="number" id="nbUnitesDifferentes" min="1" max="100" value="1" 
+                     style="width: 80%; padding: 10px; border: 2px solid #333; border-radius: 5px; text-align: center; font-size: 18px; font-weight: bold;">
+              <button onclick="validerDiv2()" style="padding: 12px 24px; background: #2563eb; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 16px; cursor: pointer;">
+                ✓ Valider
+              </button>
+            </div>
+            <strong style="color: black; text-align: center;">Div 2</strong>
+          </div>
+          <div style="border: 1px dashed #999; padding: 10px; background: rgba(255,255,255,0.3); display: flex; flex-direction: column; justify-content: space-between;">
+            <div id="div3Content" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; overflow-y: auto;">
+              <p style="color: #666; font-size: 14px; text-align: center;">Validez d'abord la Div 2</p>
+            </div>
+            <strong style="color: black; text-align: center;">Div 3</strong>
+          </div>
           <div style="border: 1px dashed #999; padding: 10px; background: rgba(255,255,255,0.3); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: black; text-align: center;">Div 4</strong></div>
           <div style="border: 1px dashed #999; padding: 10px; background: rgba(255,255,255,0.3); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: black; text-align: center;">Div 5</strong></div>
           <div style="border: 1px dashed #999; padding: 10px; background: rgba(255,255,255,0.3); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: black; text-align: center;">Div 6</strong></div>
@@ -320,6 +349,12 @@ document.addEventListener('click', () => {
   let unitsData = [];
   const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzNNxQXwWbV7JavgWBI4C9ulKdjXePZ_VzudlQDjTzpVILzVXpHri0fgjqqhh_mjNQ1tw/exec';
 
+  // Variables globales pour stocker les valeurs validées
+  let stackSize = 10;
+  let stackEfficiency = 100;
+  let nbUnitesDifferentes = 1;
+  let unitesSelectionnees = [];
+
   // Charger les données au démarrage
   fetch(SHEET_API_URL)
     .then(response => response.json())
@@ -331,18 +366,124 @@ document.addEventListener('click', () => {
       console.error('Erreur chargement données:', error);
     });
 
-  // Calcul de l'efficacité selon le nombre d'unités
-  function calculateEfficiency() {
+  // DIV 1 : Calcul de l'efficacité selon le nombre d'unités
+  function updateEfficiency() {
     const nbUnites = parseInt(document.getElementById('nbUnites').value) || 1;
     
-    // Logique d'efficacité : exemple simplifié
-    // Plus il y a d'unités, meilleure est l'efficacité (max 150%)
+    // Formule temporaire (à affiner plus tard)
+    // 10 unités = 100%, chaque unité supplémentaire = -3%
     let efficiency = 100;
-    if (nbUnites >= 10) efficiency = 150;
-    else if (nbUnites >= 5) efficiency = 125;
-    else if (nbUnites >= 3) efficiency = 110;
+    if (nbUnites <= 10) {
+      efficiency = 100;
+    } else {
+      efficiency = 100 - ((nbUnites - 10) * 3);
+      if (efficiency < 0) efficiency = 0;
+    }
     
-    document.getElementById('efficiency').textContent = `Efficacité: ${efficiency}%`;
+    document.getElementById('efficacite').textContent = `Efficacité: ${efficiency}%`;
+    
+    // Changer la couleur selon l'efficacité
+    const effDiv = document.getElementById('efficacite');
+    if (efficiency >= 90) {
+      effDiv.style.color = '#16a34a'; // Vert
+    } else if (efficiency >= 70) {
+      effDiv.style.color = '#d97706'; // Orange
+    } else {
+      effDiv.style.color = '#dc2626'; // Rouge
+    }
+  }
+
+  function validerDiv1() {
+    stackSize = parseInt(document.getElementById('nbUnites').value) || 10;
+    const effText = document.getElementById('efficacite').textContent;
+    stackEfficiency = parseInt(effText.match(/\d+/)[0]);
+    
+    alert(`✓ Validé !\nNombre d'unités: ${stackSize}\nEfficacité: ${stackEfficiency}%`);
+    console.log('Div 1 validée:', { stackSize, stackEfficiency });
+  }
+
+  // DIV 2 : Nombre d'unités différentes
+  function validerDiv2() {
+    const input = parseInt(document.getElementById('nbUnitesDifferentes').value) || 1;
+    
+    // Vérification : ne peut pas dépasser le nombre total d'unités
+    if (input > stackSize) {
+      alert(`❌ Erreur !\nVous ne pouvez pas avoir ${input} types différents avec seulement ${stackSize} unités au total.\n\nValidez d'abord la Div 1 ou réduisez le nombre de types.`);
+      return;
+    }
+    
+    nbUnitesDifferentes = input;
+    alert(`✓ Validé !\nNombre d'unités différentes: ${nbUnitesDifferentes}`);
+    console.log('Div 2 validée:', { nbUnitesDifferentes });
+    
+    // Générer les menus déroulants dans la Div 3
+    genererMenusDiv3();
+  }
+
+  // DIV 3 : Génération dynamique des menus déroulants
+  function genererMenusDiv3() {
+    const container = document.getElementById('div3Content');
+    
+    if (unitsData.length === 0) {
+      container.innerHTML = '<p style="color: #dc2626; font-weight: bold;">⚠️ Données non chargées. Rechargez la page.</p>';
+      return;
+    }
+    
+    let html = '<label style="color: black; font-weight: bold; font-size: 16px; margin-bottom: 10px;">Sélectionnez vos unités</label>';
+    
+    for (let i = 1; i <= nbUnitesDifferentes; i++) {
+      html += `
+        <div style="width: 90%; margin-bottom: 10px;">
+          <label style="color: black; font-size: 13px; font-weight: bold;">Type ${i}:</label>
+          <select id="unite${i}" style="width: 100%; padding: 6px; border: 2px solid #333; border-radius: 5px; font-size: 14px; margin-top: 3px;">
+            <option value="">-- Choisir --</option>
+          </select>
+        </div>
+      `;
+    }
+    
+    html += `
+      <button onclick="validerDiv3()" style="padding: 10px 20px; background: #7c3aed; color: white; border: none; border-radius: 5px; font-weight: bold; font-size: 14px; cursor: pointer; margin-top: 10px;">
+        ✓ Valider
+      </button>
+    `;
+    
+    container.innerHTML = html;
+    
+    // Remplir chaque menu avec les unités du Google Sheet
+    for (let i = 1; i <= nbUnitesDifferentes; i++) {
+      const select = document.getElementById(`unite${i}`);
+      unitsData.forEach(unit => {
+        const nom = unit["Unité"] || unit.nom || 'Unité inconnue';
+        const option = document.createElement('option');
+        option.value = nom;
+        option.textContent = nom;
+        select.appendChild(option);
+      });
+    }
+  }
+
+  function validerDiv3() {
+    unitesSelectionnees = [];
+    let erreur = false;
+    
+    for (let i = 1; i <= nbUnitesDifferentes; i++) {
+      const select = document.getElementById(`unite${i}`);
+      const valeur = select.value;
+      
+      if (!valeur) {
+        alert(`❌ Erreur !\nVeuillez sélectionner une unité pour le Type ${i}.`);
+        erreur = true;
+        break;
+      }
+      
+      unitesSelectionnees.push(valeur);
+    }
+    
+    if (!erreur) {
+      alert(`✓ Validé !\nUnités sélectionnées:\n${unitesSelectionnees.join('\n')}`);
+      console.log('Div 3 validée:', { unitesSelectionnees });
+    }
   }
 
   // Modal pour équipe d'admin
