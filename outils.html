@@ -225,12 +225,22 @@ document.addEventListener('click', () => {
             </div>
             <strong style="color: #6b7280; text-align: center; font-size: 11px; margin-top: 10px;">Div 5</strong>
           </div>
-          <div style="border: 2px solid #e5e7eb; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: #6b7280; text-align: center; font-size: 11px;">Div 6</strong></div>
+          <div style="border: 2px solid #e5e7eb; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
+            <div id="div6Content" style="flex: 1; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; padding: 5px;">
+              <p style="color: #9ca3af; font-size: 13px; text-align: center; line-height: 1.4;">Validez d'abord la Div 5</p>
+            </div>
+            <strong style="color: #6b7280; text-align: center; font-size: 11px; margin-top: 10px;">Div 6</strong>
+          </div>
         </div>
         
         <!-- Rangée du bas - 6 colonnes -->
         <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; height: 550px;">
-          <div style="border: 2px solid #e5e7eb; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: #6b7280; text-align: center; font-size: 11px;">Div 7</strong></div>
+          <div style="border: 2px solid #e5e7eb; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
+            <div id="div6Content" style="flex: 1; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; padding: 5px;">
+              <p style="color: #9ca3af; font-size: 13px; text-align: center; line-height: 1.4;">Validez d'abord la Div 5</p>
+            </div>
+            <strong style="color: #6b7280; text-align: center; font-size: 11px; margin-top: 10px;">Div 6</strong>
+          </div>
           <div style="border: 2px solid #e5e7eb; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: #6b7280; text-align: center; font-size: 11px;">Div 8</strong></div>
           <div style="border: 2px solid #e5e7eb; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: #6b7280; text-align: center; font-size: 11px;">Div 9</strong></div>
           <div style="border: 2px solid #e5e7eb; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: flex-end;"><strong style="color: #6b7280; text-align: center; font-size: 11px;">Div 10</strong></div>
@@ -677,7 +687,51 @@ document.addEventListener('click', () => {
       msg.textContent = `✓ ${niveauxRecherche.length} niveau${niveauxRecherche.length > 1 ? 'x' : ''} défini${niveauxRecherche.length > 1 ? 's' : ''}`;
       
       console.log('Div 5 validée:', { niveauxRecherche });
+      
+      // Générer la Div 6 avec le récapitulatif
+      genererDiv6();
     }
+  }
+
+  // DIV 6 : Tableau récapitulatif
+  function genererDiv6() {
+    const container = document.getElementById('div6Content');
+    
+    let html = '<label style="color: #374151; font-weight: 600; font-size: 14px; margin-bottom: 12px; text-align: center; width: 100%; display: block; line-height: 1.4;">✨ Récapitulatif</label>';
+    html += '<div style="max-height: 460px; overflow-y: auto; width: 100%; padding: 0 5%;">';
+    
+    // Info générales
+    html += `
+      <div style="background: #f0fdf4; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
+        <div style="font-size: 12px; color: #374151; margin-bottom: 4px;"><strong>Stack:</strong> ${stackSize} unités</div>
+        <div style="font-size: 12px; color: #374151;"><strong>Efficacité:</strong> ${stackEfficiency}%</div>
+      </div>
+    `;
+    
+    // Tableau des unités
+    html += '<div style="font-size: 11px; color: #374151; font-weight: 600; margin-bottom: 8px; text-align: center;">Détails des unités</div>';
+    
+    for (let i = 0; i < unitesSelectionnees.length; i++) {
+      const lettre = String.fromCharCode(65 + i);
+      const nomUnite = unitesSelectionnees[i];
+      const quantite = quantitesParType[i];
+      const niveau = niveauxRecherche[i];
+      
+      html += `
+        <div style="background: white; border: 1px solid #e5e7eb; padding: 8px; border-radius: 4px; margin-bottom: 6px;">
+          <div style="font-size: 11px; color: #6b7280; font-weight: 600; margin-bottom: 4px;">Type ${lettre}</div>
+          <div style="font-size: 11px; color: #374151;">${nomUnite}</div>
+          <div style="font-size: 10px; color: #6b7280; margin-top: 4px;">
+            <span style="margin-right: 8px;">● Qnté: ${quantite}</span>
+            <span>● Niv: ${niveau}</span>
+          </div>
+        </div>
+      `;
+    }
+    
+    html += '</div>';
+    
+    container.innerHTML = html;
   }
 
   // Modal pour équipe d'admin
