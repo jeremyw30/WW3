@@ -786,14 +786,22 @@ document.addEventListener('click', () => {
       
       let statsHTML = '';
       if (statUnite) {
-        const atkInf = statUnite["atk inf"] || '-';
-        const atkBlinde = statUnite["atk blinde"] || '-';
-        const defInf = statUnite["def inf"] || '-';
-        const defBlinde = statUnite["def blinde"] || '-';
+        // Récupérer les valeurs unitaires
+        const atkInfUnit = parseFloat(statUnite["atk inf"]) || 0;
+        const atkBlindeUnit = parseFloat(statUnite["atk blinde"]) || 0;
+        const defInfUnit = parseFloat(statUnite["def inf"]) || 0;
+        const defBlindeUnit = parseFloat(statUnite["def blinde"]) || 0;
+        
+        // Calculer les totaux
+        const atkInfTotal = (atkInfUnit * quantite).toFixed(1);
+        const atkBlindeTotal = (atkBlindeUnit * quantite).toFixed(1);
+        const defInfTotal = (defInfUnit * quantite).toFixed(1);
+        const defBlindeTotal = (defBlindeUnit * quantite).toFixed(1);
+        
         statsHTML = `
           <div style="font-size: 10px; color: #6b7280; margin-top: 6px; padding-top: 6px; border-top: 1px solid #f3f4f6;">
-            <div style="margin-bottom: 2px;"><strong>ATK:</strong> Inf ${atkInf} | Blindé ${atkBlinde}</div>
-            <div><strong>DEF:</strong> Inf ${defInf} | Blindé ${defBlinde}</div>
+            <div style="margin-bottom: 2px;"><strong>ATK:</strong> Inf ${atkInfTotal} (${atkInfUnit}×${quantite}) | Blindé ${atkBlindeTotal} (${atkBlindeUnit}×${quantite})</div>
+            <div><strong>DEF:</strong> Inf ${defInfTotal} (${defInfUnit}×${quantite}) | Blindé ${defBlindeTotal} (${defBlindeUnit}×${quantite})</div>
           </div>
         `;
       } else {
