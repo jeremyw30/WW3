@@ -861,44 +861,51 @@ document.addEventListener('click', () => {
     html += '<div style="overflow-x: auto; background: #2c3e50;">';
     html += '<table style="width: 100%; border-collapse: collapse; font-size: 12px;">';
     
-    // En-tête avec icônes/types d'unités
-    html += '<thead><tr style="background: linear-gradient(180deg, #34495e 0%, #2c3e50 100%);">';
-    html += '<th style="padding: 15px 10px; text-align: left; color: #95a5a6; font-weight: 600; border-right: 1px solid #1a252f; min-width: 150px;"></th>';
+    // Définir toutes les stats
+    const toutesLesStats = [
+      { label: 'ATK Infanterie', key: 'atk inf', icon: '🪖', color: '#e74c3c' },
+      { label: 'ATK Blindé', key: 'atk blinde', icon: '🛡️', color: '#e74c3c' },
+      { label: 'ATK Hélico', key: 'atk helico', icon: '🚁', color: '#e74c3c' },
+      { label: 'ATK Avion', key: 'atk avion', icon: '✈️', color: '#e74c3c' },
+      { label: 'ATK Bateau', key: 'atk bateau', icon: '⚓', color: '#e74c3c' },
+      { label: 'DEF Infanterie', key: 'def inf', icon: '🪖', color: '#27ae60' },
+      { label: 'DEF Blindé', key: 'def blinde', icon: '🛡️', color: '#27ae60' },
+      { label: 'DEF Hélico', key: 'def helico', icon: '🚁', color: '#27ae60' },
+      { label: 'DEF Avion', key: 'def avion', icon: '✈️', color: '#27ae60' },
+      { label: 'DEF Bateau', key: 'def bateau', icon: '⚓', color: '#27ae60' }
+    ];
     
-    for (let i = 0; i < unitesSelectionnees.length; i++) {
-      const lettre = String.fromCharCode(65 + i);
-      const nomUnite = unitesSelectionnees[i];
-      html += `<th style="padding: 15px 10px; text-align: center; border-right: 1px solid #1a252f; min-width: 80px;">
-        <div style="color: #fbbf24; font-weight: 700; font-size: 11px; margin-bottom: 5px;">TYPE ${lettre}</div>
-        <div style="color: #ecf0f1; font-size: 10px; font-weight: 500; line-height: 1.3;">${nomUnite}</div>
-        <div style="color: #7f8c8d; font-size: 9px; margin-top: 4px;">×${quantitesParType[i]} | Niv ${niveauxRecherche[i]}</div>
+    // En-tête avec les stats en colonnes
+    html += '<thead><tr style="background: linear-gradient(180deg, #34495e 0%, #2c3e50 100%);">';
+    html += '<th style="padding: 15px 10px; text-align: left; color: #95a5a6; font-weight: 600; border-right: 1px solid #1a252f; min-width: 120px;">TYPE</th>';
+    
+    for (let stat of toutesLesStats) {
+      html += `<th style="padding: 15px 8px; text-align: center; border-right: 1px solid #1a252f; min-width: 85px;">
+        <div style="color: #ecf0f1; font-weight: 600; font-size: 10px; line-height: 1.3;">${stat.icon} ${stat.label}</div>
       </th>`;
     }
     html += '</tr></thead>';
     
     html += '<tbody>';
     
-    // Ligne Classement ATQ
-    html += '<tr style="background: #34495e;"><td colspan="' + (unitesSelectionnees.length + 1) + '" style="padding: 8px 10px; color: #ecf0f1; font-weight: 700; font-size: 11px; border-top: 2px solid #1a252f; border-bottom: 1px solid #1a252f;">Classement ATQ</td></tr>';
-    
-    // Stats ATK
-    const statsATK = [
-      { label: 'ATK Infanterie', key: 'atk inf', icon: '🪖' },
-      { label: 'ATK Blindé', key: 'atk blinde', icon: '🛡️' },
-      { label: 'ATK Hélico', key: 'atk helico', icon: '🚁' },
-      { label: 'ATK Avion', key: 'atk avion', icon: '✈️' },
-      { label: 'ATK Bateau', key: 'atk bateau', icon: '⚓' }
-    ];
-    
-    statsATK.forEach((stat, idx) => {
-      html += `<tr style="background: ${idx % 2 === 0 ? '#2c3e50' : '#283846'};">`;
-      html += `<td style="padding: 10px; color: #bdc3c7; font-size: 11px; border-right: 1px solid #1a252f;">${stat.icon} ${stat.label}</td>`;
+    // Une ligne par type d'unité
+    for (let i = 0; i < unitesSelectionnees.length; i++) {
+      const lettre = String.fromCharCode(65 + i);
+      const nomUnite = unitesSelectionnees[i];
+      const niveau = niveauxRecherche[i];
+      const quantite = quantitesParType[i];
       
-      for (let i = 0; i < unitesSelectionnees.length; i++) {
-        const nomUnite = unitesSelectionnees[i];
-        const niveau = niveauxRecherche[i];
-        const quantite = quantitesParType[i];
-        
+      html += `<tr style="background: ${i % 2 === 0 ? '#2c3e50' : '#283846'};">`;
+      
+      // Cellule du type
+      html += `<td style="padding: 10px; border-right: 1px solid #1a252f;">
+        <div style="color: #fbbf24; font-weight: 700; font-size: 11px; margin-bottom: 3px;">TYPE ${lettre}</div>
+        <div style="color: #ecf0f1; font-size: 10px; font-weight: 500; line-height: 1.3;">${nomUnite}</div>
+        <div style="color: #7f8c8d; font-size: 9px; margin-top: 2px;">×${quantite} | Niv ${niveau}</div>
+      </td>`;
+      
+      // Cellules des stats
+      for (let stat of toutesLesStats) {
         const statUnite = unitsData.find(u => {
           const lvlStr = (u["level 1à10 ATK"] || '').toString();
           return u["Unité"] === nomUnite && (lvlStr.includes(`level ${niveau}`) || lvlStr === `level ${niveau}`);
@@ -908,7 +915,7 @@ document.addEventListener('click', () => {
           const valeurUnit = parseFloat(statUnite[stat.key]) || 0;
           const valeurTotal = (valeurUnit * quantite).toFixed(1);
           html += `<td style="padding: 10px; text-align: center; border-right: 1px solid #1a252f;">
-            <div style="color: #e74c3c; font-size: 15px; font-weight: 700;">${valeurTotal}</div>
+            <div style="color: ${stat.color}; font-size: 15px; font-weight: 700;">${valeurTotal}</div>
             <div style="color: #7f8c8d; font-size: 9px; margin-top: 2px;">(${valeurUnit} × ${quantite})</div>
           </td>`;
         } else {
@@ -916,47 +923,7 @@ document.addEventListener('click', () => {
         }
       }
       html += '</tr>';
-    });
-    
-    // Ligne Classement DEF
-    html += '<tr style="background: #34495e;"><td colspan="' + (unitesSelectionnees.length + 1) + '" style="padding: 8px 10px; color: #ecf0f1; font-weight: 700; font-size: 11px; border-top: 2px solid #1a252f; border-bottom: 1px solid #1a252f;">Classement DEF</td></tr>';
-    
-    // Stats DEF
-    const statsDEF = [
-      { label: 'DEF Infanterie', key: 'def inf', icon: '🪖' },
-      { label: 'DEF Blindé', key: 'def blinde', icon: '🛡️' },
-      { label: 'DEF Hélico', key: 'def helico', icon: '🚁' },
-      { label: 'DEF Avion', key: 'def avion', icon: '✈️' },
-      { label: 'DEF Bateau', key: 'def bateau', icon: '⚓' }
-    ];
-    
-    statsDEF.forEach((stat, idx) => {
-      html += `<tr style="background: ${idx % 2 === 0 ? '#2c3e50' : '#283846'};">`;
-      html += `<td style="padding: 10px; color: #bdc3c7; font-size: 11px; border-right: 1px solid #1a252f;">${stat.icon} ${stat.label}</td>`;
-      
-      for (let i = 0; i < unitesSelectionnees.length; i++) {
-        const nomUnite = unitesSelectionnees[i];
-        const niveau = niveauxRecherche[i];
-        const quantite = quantitesParType[i];
-        
-        const statUnite = unitsData.find(u => {
-          const lvlStr = (u["level 1à10 ATK"] || '').toString();
-          return u["Unité"] === nomUnite && (lvlStr.includes(`level ${niveau}`) || lvlStr === `level ${niveau}`);
-        });
-        
-        if (statUnite && statUnite[stat.key]) {
-          const valeurUnit = parseFloat(statUnite[stat.key]) || 0;
-          const valeurTotal = (valeurUnit * quantite).toFixed(1);
-          html += `<td style="padding: 10px; text-align: center; border-right: 1px solid #1a252f;">
-            <div style="color: #27ae60; font-size: 15px; font-weight: 700;">${valeurTotal}</div>
-            <div style="color: #7f8c8d; font-size: 9px; margin-top: 2px;">(${valeurUnit} × ${quantite})</div>
-          </td>`;
-        } else {
-          html += `<td style="padding: 10px; text-align: center; color: #546e7a; border-right: 1px solid #1a252f;">-</td>`;
-        }
-      }
-      html += '</tr>';
-    });
+    }
     
     html += '</tbody></table></div>';
     
