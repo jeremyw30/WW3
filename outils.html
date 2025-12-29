@@ -866,11 +866,11 @@ document.addEventListener('click', () => {
       { label: 'Inf', keyATK: 'atk inf', keyDEF: 'def inf', icon: '🪖' },
       { label: 'Blindé', keyATK: 'atk blinde', keyDEF: 'def blinde', icon: '🛡️' },
       { label: 'Avion', keyATK: 'atk avion', keyDEF: 'def avion', icon: '✈️' },
-      { label: 'Hélico', keyATK: 'atk helico', keyDEF: 'def heli', icon: '🚁' },
+      { label: 'Hélico', keyATK: 'atk helico', keyDEF: 'def helico', icon: '🚁' },
       { label: 'Drone', keyATK: 'atk drone', keyDEF: 'def drone', icon: '🛸' },
       { label: 'Missile', keyATK: 'atk missile', keyDEF: 'def missile', icon: '🚀' },
       { label: 'Bateau', keyATK: 'atk bateau', keyDEF: 'def bateau', icon: '⚓' },
-      { label: 'Sous-marin', keyATK: 'atk sous-marine', keyDEF: 'def sous-marine', icon: '🌊' }
+      { label: 'Sous-marin', keyATK: 'atk sous-marin', keyDEF: 'def sous-marin', icon: '🌊' }
     ];
     
     // En-tête avec les catégories en colonnes
@@ -1001,10 +1001,6 @@ document.addEventListener('click', () => {
     }
   }
 
-    const statsModal = document.getElementById('statsModal');
-    if (event.target == statsModal) {
-      statsModal.style.display = 'none';
-    }
   if (closeBtn) {
     closeBtn.onclick = function() {
       modal.style.display = 'none';
