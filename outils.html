@@ -918,7 +918,7 @@ document.addEventListener('click', () => {
       </td>`;
       
       for (let cat of categories) {
-        if (statUnite && statUnite[cat.keyATK]) {
+        if (statUnite) {
           const valeurUnit = parseFloat(statUnite[cat.keyATK]) || 0;
           const valeurTotal = (valeurUnit * quantite).toFixed(1);
           totaux[cat.keyATK] += parseFloat(valeurTotal);
@@ -926,7 +926,9 @@ document.addEventListener('click', () => {
             <div style="color: #e74c3c; font-size: 13px; font-weight: 700;">${valeurTotal}</div>
           </td>`;
         } else {
-          html += `<td style="padding: 8px 5px; text-align: center; color: #546e7a; border-right: 1px solid #1a252f;">-</td>`;
+          html += `<td style="padding: 8px 5px; text-align: center; border-right: 1px solid #1a252f;">
+            <div style="color: #e74c3c; font-size: 13px; font-weight: 700;">0.0</div>
+          </td>`;
         }
       }
       html += '</tr>';
@@ -938,7 +940,7 @@ document.addEventListener('click', () => {
       </td>`;
       
       for (let cat of categories) {
-        if (statUnite && statUnite[cat.keyDEF]) {
+        if (statUnite) {
           const valeurUnit = parseFloat(statUnite[cat.keyDEF]) || 0;
           const valeurTotal = (valeurUnit * quantite).toFixed(1);
           totaux[cat.keyDEF] += parseFloat(valeurTotal);
@@ -946,7 +948,9 @@ document.addEventListener('click', () => {
             <div style="color: #27ae60; font-size: 13px; font-weight: 700;">${valeurTotal}</div>
           </td>`;
         } else {
-          html += `<td style="padding: 8px 5px; text-align: center; color: #546e7a; border-right: 1px solid #1a252f; border-top: 1.5px solid #1a252f;">-</td>`;
+          html += `<td style="padding: 8px 5px; text-align: center; border-right: 1px solid #1a252f; border-top: 1.5px solid #1a252f;">
+            <div style="color: #27ae60; font-size: 13px; font-weight: 700;">0.0</div>
+          </td>`;
         }
       }
       html += '</tr>';
