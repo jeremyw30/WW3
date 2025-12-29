@@ -918,17 +918,16 @@ document.addEventListener('click', () => {
       </td>`;
       
       for (let cat of categories) {
-        if (statUnite) {
-          const valeurUnit = parseFloat(statUnite[cat.keyATK]) || 0;
-          const valeurTotal = (valeurUnit * quantite).toFixed(1);
+        const valeurUnit = statUnite ? (parseFloat(statUnite[cat.keyATK]) || 0) : 0;
+        const valeurTotal = (valeurUnit * quantite).toFixed(1);
+        
+        if (valeurUnit > 0) {
           totaux[cat.keyATK] += parseFloat(valeurTotal);
           html += `<td style="padding: 8px 5px; text-align: center; border-right: 1px solid #1a252f;">
             <div style="color: #e74c3c; font-size: 13px; font-weight: 700;">${valeurTotal}</div>
           </td>`;
         } else {
-          html += `<td style="padding: 8px 5px; text-align: center; border-right: 1px solid #1a252f;">
-            <div style="color: #e74c3c; font-size: 13px; font-weight: 700;">0.0</div>
-          </td>`;
+          html += `<td style="padding: 8px 5px; text-align: center; color: #7f8c8d; border-right: 1px solid #1a252f; font-size: 13px;">-</td>`;
         }
       }
       html += '</tr>';
@@ -940,17 +939,16 @@ document.addEventListener('click', () => {
       </td>`;
       
       for (let cat of categories) {
-        if (statUnite) {
-          const valeurUnit = parseFloat(statUnite[cat.keyDEF]) || 0;
-          const valeurTotal = (valeurUnit * quantite).toFixed(1);
+        const valeurUnit = statUnite ? (parseFloat(statUnite[cat.keyDEF]) || 0) : 0;
+        const valeurTotal = (valeurUnit * quantite).toFixed(1);
+        
+        if (valeurUnit > 0) {
           totaux[cat.keyDEF] += parseFloat(valeurTotal);
           html += `<td style="padding: 8px 5px; text-align: center; border-right: 1px solid #1a252f; border-top: 1.5px solid #1a252f;">
             <div style="color: #27ae60; font-size: 13px; font-weight: 700;">${valeurTotal}</div>
           </td>`;
         } else {
-          html += `<td style="padding: 8px 5px; text-align: center; border-right: 1px solid #1a252f; border-top: 1.5px solid #1a252f;">
-            <div style="color: #27ae60; font-size: 13px; font-weight: 700;">0.0</div>
-          </td>`;
+          html += `<td style="padding: 8px 5px; text-align: center; color: #7f8c8d; border-right: 1px solid #1a252f; border-top: 1.5px solid #1a252f; font-size: 13px;">-</td>`;
         }
       }
       html += '</tr>';
@@ -967,9 +965,13 @@ document.addEventListener('click', () => {
     
     for (let cat of categories) {
       const total = totaux[cat.keyATK].toFixed(1);
-      html += `<td style="padding: 10px 5px; text-align: center; border-right: 1px solid #1a252f;">
-        <div style="color: #e74c3c; font-size: 16px; font-weight: 700;">${total}</div>
-      </td>`;
+      if (parseFloat(total) > 0) {
+        html += `<td style="padding: 10px 5px; text-align: center; border-right: 1px solid #1a252f;">
+          <div style="color: #e74c3c; font-size: 16px; font-weight: 700;">${total}</div>
+        </td>`;
+      } else {
+        html += `<td style="padding: 10px 5px; text-align: center; color: #7f8c8d; border-right: 1px solid #1a252f; font-size: 16px;">-</td>`;
+      }
     }
     html += '</tr>';
     
@@ -981,9 +983,13 @@ document.addEventListener('click', () => {
     
     for (let cat of categories) {
       const total = totaux[cat.keyDEF].toFixed(1);
-      html += `<td style="padding: 10px 5px; text-align: center; border-right: 1px solid #1a252f; border-top: 1.5px solid #1a252f;">
-        <div style="color: #27ae60; font-size: 16px; font-weight: 700;">${total}</div>
-      </td>`;
+      if (parseFloat(total) > 0) {
+        html += `<td style="padding: 10px 5px; text-align: center; border-right: 1px solid #1a252f; border-top: 1.5px solid #1a252f;">
+          <div style="color: #27ae60; font-size: 16px; font-weight: 700;">${total}</div>
+        </td>`;
+      } else {
+        html += `<td style="padding: 10px 5px; text-align: center; color: #7f8c8d; border-right: 1px solid #1a252f; border-top: 1.5px solid #1a252f; font-size: 16px;">-</td>`;
+      }
     }
     html += '</tr>';
     
