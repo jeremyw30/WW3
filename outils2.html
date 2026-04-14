@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Outil 2 — Alliance Napoléoniens</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #accessOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+    #accessBox {
+      background: #1a1a1a;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+    }
+    #accessBox h2 {
+      color: #fbbf24;
+      margin-bottom: 20px;
+    }
+    #accessBox input {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: 2px solid #fbbf24;
+      border-radius: 5px;
+      background: #2a2a2a;
+      color: white;
+      width: 250px;
+      margin-bottom: 15px;
+    }
+    #accessBox button {
+      padding: 10px 30px;
+      font-size: 16px;
+      background: #fbbf24;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #accessBox button:hover {
+      background: #f59e0b;
+    }
+    #accessError {
+      color: #ef4444;
+      margin-top: 10px;
+      display: none;
+    }
+    #mainContent {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="accessOverlay">
+  <div id="accessBox">
+    <h2>🔒 Accès Restreint</h2>
+    <p style="color: #ccc; margin-bottom: 20px;">Entrez le code d'accès</p>
+    <input type="password" id="accessCode" placeholder="Code d'accès">
+    <br>
+    <button onclick="checkAccess()">Valider</button>
+    <p id="accessError">Code incorrect</p>
+  </div>
+</div>
+
+<div id="mainContent">
+
+<header class="topbar">
+  <div class="inner">
+    <a href="index.html" class="brand" style="text-decoration:none; color:inherit; display:flex; align-items:center; cursor:pointer;">
+      <img src="napo.png" alt="Logo Alliance" style="height:150px; margin-right:8px">
+      <span style="display:flex; align-items:center; justify-content:center; height:150px; flex:1; font-size:42px; font-weight:900; color:#fbbf24; text-shadow:2px 2px 4px rgba(0,0,0,0.5); font-family:Georgia, serif; letter-spacing:1px">Alliance Napoléoniens</span>
+    </a>
+    <div class="burger-menu" id="burgerMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="nav">
+      <div class="dropdown">
+        <div class="dropdown-toggle">📚 Documentation</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="infanterie.html">Infanterie</a>
+          <a class="dropdown-item" href="blindes.html">Blindés</a>
+          <a class="dropdown-item" href="soutien.html">Soutien</a>
+          <a class="dropdown-item" href="missiles.html">Missiles</a>
+          <a class="dropdown-item" href="chasseurs.html">Chasseurs</a>
+          <a class="dropdown-item" href="bombardiers.html">Bombardiers</a>
+          <a class="dropdown-item" href="naval.html">Naval</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <div class="dropdown-toggle">🎓 École</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="demande-prof.html">👨‍🏫 Demande de prof</a>
+          <a class="dropdown-item" href="idee1.html">💡 Idée 1</a>
+          <a class="dropdown-item" href="idee2.html">💡 Idée 2</a>
+        </div>
+      </div>
+      <a class="navlink" href="tactiques.html">🎯 Tactiques</a>
+      <a class="navlink" href="guide.html">📖 Guide</a>
+      <a class="navlink" href="communaute.html">👥 Communauté</a>
+      <div class="dropdown">
+        <div class="dropdown-toggle active">🧮 Outils</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="outils.html">Calculateur de Combat</a>
+          <a class="dropdown-item active" href="outils2.html">Outil 2</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+const burger = document.getElementById('burgerMenu');
+const nav = document.getElementById('nav');
+if (burger && nav) {
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('active');
+    nav.classList.toggle('active');
+  });
+}
+
+// Dropdown menus
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+dropdownToggles.forEach(toggle => {
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const menu = toggle.nextElementSibling;
+    document.querySelectorAll('.dropdown-menu').forEach(m => {
+      if (m !== menu) m.classList.remove('show');
+    });
+    menu.classList.toggle('show');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    menu.classList.remove('show');
+  });
+});
+</script>
+
+<main class="container">
+  <section class="hero">
+    <div class="pad">
+      <h1 class="h-title">🛠️ Outil 2</h1>
+      <p class="h-sub">Nouvel outil en préparation</p>
+    </div>
+  </section>
+
+  <section style="margin-top:20px; width: 100vw; margin-left: calc(-50vw + 50%); padding: 0 20px;">
+    <div id="tool2-container" style="
+      width: 100%;
+      max-width: 1800px;
+      margin: 0 auto;
+      min-height: 600px;
+      background: #f5f5dc;
+      border: 2px solid var(--brand);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    ">
+      
+      <!-- Contenu temporaire -->
+      <div style="text-align: center; color: #6b7280;">
+        <h2 style="font-size: 32px; color: var(--brand); margin-bottom: 20px;">✨ Zone de travail</h2>
+        <p style="font-size: 18px; margin-bottom: 10px;">Cette page est prête à recevoir votre nouveau simulateur</p>
+        <p style="font-size: 14px; color: #9ca3af;">Partagez vos idées pour commencer le développement</p>
+      </div>
+      
+    </div>
+  </section>
+
+  <footer class="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>À propos</h3>
+        <p class="footer-text">
+          Alliance Napoléonienne sur Conflict of Nations WW3. Jouable sur mobile, tablette et PC. 
+          84 membres actifs sur Discord. Rejoignez-nous pour lancer des parties entre membres !
+        </p>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Navigation</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="infanterie.html">🪖 Infanterie</a></li>
+          <li><a href="blindes.html">🛡️ Blindés</a></li>
+          <li><a href="soutien.html">💣 Soutien</a></li>
+          <li><a href="missiles.html">🚀 Missiles</a></li>
+          <li><a href="chasseurs.html">✈️ Chasseurs</a></li>
+          <li><a href="bombardiers.html">🛩️ Bombardiers</a></li>
+          <li><a href="naval.html">⚓ Naval</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Communauté</h3>
+        <ul class="footer-links">
+          <li><a href="https://discord.gg/z99qUe52PN" target="_blank">💬 Discord</a></li>
+          <li><a href="#">📧 Contact (lien à ajouter)</a></li>
+          <li><a href="login.html">🔐 Connexion Admin</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-col">
+        <h3>Informations</h3>
+        <ul class="footer-links">
+          <li>📅 Dernière MAJ : Avr. 2026</li>
+          <li>🎮 Jeu : Conflict of Nations WW3</li>
+          <li>⚔️ Alliance : Les Napoléoniens</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      © Alliance Napoléoniens — développé par Jerem32 & déployé par Cloudflare Pages
+      <span style="margin-left: 20px">|</span>
+      <a href="admin.html" style="margin-left: 20px; color: var(--brand)">🔐 Admin</a>
+    </div>
+  </footer>
+
+</main>
+</div>
+
+<script>
+  // Gestion de l'accès avec code
+  function checkAccess() {
+    const code = document.getElementById('accessCode').value;
+    if (code === 'napoleon2025') {
+      document.getElementById('accessOverlay').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      sessionStorage.setItem('outil2Access', 'granted');
+    } else {
+      document.getElementById('accessError').style.display = 'block';
+      document.getElementById('accessCode').value = '';
+    }
+  }
+
+  document.getElementById('accessCode').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      checkAccess();
+    }
+  });
+
+  window.addEventListener('load', function() {
+    if (sessionStorage.getItem('outil2Access') === 'granted') {
+      document.getElementById('accessOverlay').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+    }
+  });
+
+  // =========================================
+  // ZONE POUR LE NOUVEAU SIMULATEUR
+  // Le code sera ajouté ici après réception du document
+  // =========================================
+</script>
+</body>
+</html>

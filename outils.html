@@ -112,7 +112,13 @@
       <a class="navlink" href="tactiques.html">🎯 Tactiques</a>
       <a class="navlink" href="guide.html">📖 Guide</a>
       <a class="navlink" href="communaute.html">👥 Communauté</a>
-      <a class="navlink active" href="outils.html">🧮 Outils</a>
+      <div class="dropdown">
+        <div class="dropdown-toggle active">🧮 Outils</div>
+        <div class="dropdown-menu">
+          <a class="dropdown-item active" href="outils.html">Calculateur de Combat</a>
+          <a class="dropdown-item" href="outils2.html">Outil 2</a>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
@@ -694,7 +700,7 @@ document.addEventListener('click', () => {
           if (statNiveau) {
             const atkInf = statNiveau["atk inf"] || '-';
             const atkBlinde = statNiveau["atk blinde"] || '-';
-            html += `<option value="${niv}">Niveau ${niv} (ATK inf: ${atkInf}, blindé: ${atkBlinde})</option>`;
+            html += `<option value="${niv}">Niveau ${niv}</option>`;
           }
         }
       } else {
@@ -763,75 +769,7 @@ document.addEventListener('click', () => {
   function genererDiv6() {
     const container = document.getElementById('div6Content');
     
-    let html = '<label style="color: #374151; font-weight: 600; font-size: 14px; margin-bottom: 12px; text-align: center; width: 100%; display: block; line-height: 1.4;">✨ Récapitulatif</label>';
-    html += '<div style="max-height: 460px; overflow-y: auto; width: 100%; padding: 0 5%;">';
-    
-    // Info générales
-    html += `
-      <div style="background: #f0fdf4; padding: 12px; border-radius: 6px; margin-bottom: 10px;">
-        <div style="font-size: 12px; color: #374151; margin-bottom: 4px;"><strong>Stack:</strong> ${stackSize} unités</div>
-        <div style="font-size: 12px; color: #374151;"><strong>Efficacité:</strong> ${stackEfficiency}%</div>
-      </div>
-    `;
-    
-    // Tableau des unités
-    html += '<div style="font-size: 11px; color: #374151; font-weight: 600; margin-bottom: 8px; text-align: center;">Détails des unités</div>';
-    
-    for (let i = 0; i < unitesSelectionnees.length; i++) {
-      const lettre = String.fromCharCode(65 + i);
-      const nomUnite = unitesSelectionnees[i];
-      const quantite = quantitesParType[i];
-      const niveau = niveauxRecherche[i];
-      
-      // Récupérer les stats de cette unité au niveau sélectionné
-      const statUnite = unitsData.find(u => {
-        const lvlStr = (u["level 1à10 ATK"] || '').toString();
-        return u["Unité"] === nomUnite && (lvlStr.includes(`level ${niveau}`) || lvlStr === `level ${niveau}`);
-      });
-      
-      console.log(`Stats pour ${nomUnite} niveau ${niveau}:`, statUnite);
-      
-      let statsHTML = '';
-      if (statUnite) {
-        // Récupérer les valeurs unitaires
-        const atkInfUnit = parseFloat(statUnite["atk inf"]) || 0;
-        const atkBlindeUnit = parseFloat(statUnite["atk blinde"]) || 0;
-        const defInfUnit = parseFloat(statUnite["def inf"]) || 0;
-        const defBlindeUnit = parseFloat(statUnite["def blinde"]) || 0;
-        
-        // Calculer les totaux
-        const atkInfTotal = (atkInfUnit * quantite).toFixed(1);
-        const atkBlindeTotal = (atkBlindeUnit * quantite).toFixed(1);
-        const defInfTotal = (defInfUnit * quantite).toFixed(1);
-        const defBlindeTotal = (defBlindeUnit * quantite).toFixed(1);
-        
-        statsHTML = `
-          <div style="font-size: 10px; color: #6b7280; margin-top: 6px; padding-top: 6px; border-top: 1px solid #f3f4f6;">
-            <div style="margin-bottom: 2px;"><strong>ATK:</strong> Inf ${atkInfTotal} (${atkInfUnit}×${quantite}) | Blindé ${atkBlindeTotal} (${atkBlindeUnit}×${quantite})</div>
-            <div><strong>DEF:</strong> Inf ${defInfTotal} (${defInfUnit}×${quantite}) | Blindé ${defBlindeTotal} (${defBlindeUnit}×${quantite})</div>
-          </div>
-        `;
-      } else {
-        statsHTML = '<div style="font-size: 10px; color: #dc2626; margin-top: 4px;">Stats non trouvées</div>';
-      }
-      
-      html += `
-        <div style="background: white; border: 1px solid #e5e7eb; padding: 8px; border-radius: 4px; margin-bottom: 6px;">
-          <div style="font-size: 11px; color: #6b7280; font-weight: 600; margin-bottom: 4px;">Type ${lettre}</div>
-          <div style="font-size: 11px; color: #374151;">${nomUnite}</div>
-          <div style="font-size: 10px; color: #6b7280; margin-top: 4px;">
-            <span style="margin-right: 8px;">● Qnté: ${quantite}</span>
-            <span>● Niv: ${niveau}</span>
-          </div>
-          ${statsHTML}
-        </div>
-      `;
-    }
-    
-    html += '</div>';
-    
-    // Bouton pour ouvrir le modal récapitulatif
-    html += `
+    let html = `
       <div style="margin-top: 15px; text-align: center;">
         <button onclick="ouvrirModalRecap()" style="padding: 12px 24px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: #000; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4); transition: transform 0.2s;">
           📊 Tableau Récapitulatif Complet
@@ -863,7 +801,7 @@ document.addEventListener('click', () => {
     
     // Définir les catégories de colonnes
     const categories = [
-      { label: 'Inf', keyATK: 'atk inf', keyDEF: 'def inf', icon: '<img src="images/tableaux-img/inf-tab.png" style="width: 120px; height: 72px;">' },
+      { label: 'Inf', keyATK: 'atk inf', keyDEF: 'def inf', icon: '<img src="images/tableaux-img/inf-tab.png" style="width: 120px; height: 72px; mix-blend-mode: screen; opacity: 0.9;">' },
       { label: 'Blindé', keyATK: 'atk blinde', keyDEF: 'def blinde', icon: '🛡️' },
       { label: 'Avion', keyATK: 'atk avion', keyDEF: 'def avion', icon: '✈️' },
       { label: 'Hélico', keyATK: 'atk helico', keyDEF: 'def helico', icon: '🚁' },

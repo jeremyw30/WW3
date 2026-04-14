@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       liste.innerHTML = unites.map(u => {
         const nom = (u["Unité"] ?? "").toString().trim() || "Unité sans nom";
         const desc = (u.description ?? "").toString().trim() || "Aucune description.";
-        const efficace = (u["Efficace contre"] ?? "").toString().trim();
-        const faible = (u["Faible contre"] ?? "").toString().trim();
+        const efficace = (u["Points forts"] ?? "").toString().trim();
+        const faible = (u["Points faibles"] ?? "").toString().trim();
         const erreurs = (u["À ne pas faire"] ?? "").toString().trim();
 
         // Keywords = nom + description + catégorie (pour ta recherche)
@@ -56,11 +56,11 @@ document.addEventListener("DOMContentLoaded", async function () {
             <div class="u-body">
               <div class="cols">
                 <div class="block ok">
-                  <h3>Efficace contre</h3>
+                  <h3>Points forts</h3>
                   <ul>${toList(efficace)}</ul>
                 </div>
                 <div class="block warn">
-                  <h3>Faible contre</h3>
+                  <h3>Points faibles</h3>
                   <ul>${toList(faible)}</ul>
                 </div>
                 <div class="block bad">
