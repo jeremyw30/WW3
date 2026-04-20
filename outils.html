@@ -175,6 +175,63 @@ document.addEventListener('click', () => {
       
       <!-- Zone de design du simulateur -->
       <div style="display: flex; flex-direction: column; gap: 15px; min-height: 1450px;">
+        
+        <!-- SÉLECTEURS DE DOCTRINE ET TERRAIN -->
+        <div style="background: white; border: 3px solid var(--brand); border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); margin-bottom: 10px;">
+          <h2 style="color: var(--brand); font-size: 24px; margin-bottom: 20px; text-align: center; font-weight: 700;">⚙️ Configuration de bataille</h2>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <!-- Sélecteur de Doctrine -->
+            <div>
+              <label style="display: block; color: #374151; font-weight: 700; font-size: 16px; margin-bottom: 12px; text-align: center;">
+                🎖️ Choisissez votre doctrine
+              </label>
+              <div style="display: flex; gap: 12px; justify-content: center;">
+                <button id="doctrineEST" onclick="choisirDoctrine('EST')" style="flex: 1; padding: 15px 20px; background: #e5e7eb; color: #374151; border: 3px solid #d1d5db; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.3s;">
+                  EST
+                </button>
+                <button id="doctrineOUEST" onclick="choisirDoctrine('OUEST')" style="flex: 1; padding: 15px 20px; background: #e5e7eb; color: #374151; border: 3px solid #d1d5db; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.3s;">
+                  OUEST
+                </button>
+                <button id="doctrineEUROPE" onclick="choisirDoctrine('EUROPE')" style="flex: 1; padding: 15px 20px; background: #e5e7eb; color: #374151; border: 3px solid #d1d5db; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: all 0.3s;">
+                  EUROPE
+                </button>
+              </div>
+              <div id="doctrineStatus" style="text-align: center; margin-top: 10px; color: #6b7280; font-size: 14px; font-weight: 600;">
+                ❌ Aucune doctrine sélectionnée
+              </div>
+            </div>
+            
+            <!-- Sélecteur de Terrain -->
+            <div>
+              <label style="display: block; color: #374151; font-weight: 700; font-size: 16px; margin-bottom: 12px; text-align: center;">
+                🗺️ Type de terrain
+              </label>
+              <select id="terrainSelect" onchange="choisirTerrain()" style="width: 100%; padding: 15px; background: white; color: #374151; border: 3px solid #d1d5db; border-radius: 8px; font-weight: 600; font-size: 16px; cursor: pointer;">
+                <option value="">-- Sélectionnez un terrain --</option>
+                <option value="Terrain Dégagé">Terrain Dégagé</option>
+                <option value="Montagnes">Montagnes</option>
+                <option value="Forêts">Forêts</option>
+                <option value="Urbain">Urbain</option>
+                <option value="Banlieue">Banlieue</option>
+                <option value="Jungle">Jungle</option>
+                <option value="Toundra">Toundra</option>
+                <option value="Désert">Désert</option>
+                <option value="Eaux Cotières">Eaux Cotières</option>
+                <option value="Haute mer">Haute mer</option>
+              </select>
+              <div id="terrainStatus" style="text-align: center; margin-top: 10px; color: #6b7280; font-size: 14px; font-weight: 600;">
+                ❌ Aucun terrain sélectionné
+              </div>
+            </div>
+          </div>
+          
+          <!-- Message de blocage -->
+          <div id="configMessage" style="margin-top: 20px; padding: 15px; background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; text-align: center; color: #92400e; font-weight: 600; font-size: 15px;">
+            ⚠️ Veuillez choisir une doctrine ET un terrain pour débloquer le calculateur
+          </div>
+        </div>
+        
         <!-- Rangée du haut - 6 colonnes -->
         <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; height: 550px;">
           <div style="border: 2px solid #e5e7eb; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between;">
@@ -390,7 +447,7 @@ document.addEventListener('click', () => {
 <script>
   // Données du Google Sheet
   let unitsData = [];
-  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzVig7wZfe5NLUj_Yk97bWYfLgeVlpCGN3D-4KGdqV8d2jX1nn3DZT1pyjx56oQ2JG3/exec';
+  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyuZZnkWlWqhwIOcZfxUlHhwZ_C1TF0tsoNVHA4Ecwj2n3WgkG9k3aTIYAJxHTwTix-4w/exec';
 
   // Variables globales pour stocker les valeurs validées
   let stackSize = 10;
@@ -400,18 +457,153 @@ document.addEventListener('click', () => {
   let quantitesParType = [];
   let niveauxRecherche = [];
 
-  // Charger les données au démarrage
-  fetch(SHEET_API_URL)
-    .then(response => response.json())
-    .then(data => {
-      console.log('Données chargées depuis Google Sheet:', data);
-      // Filtrer seulement les lignes où "Unité" = "Unité" (en-têtes)
-      unitsData = data.filter(row => row["Unité"] && row["Unité"] !== "Unité");
-      console.log('Unités filtrées:', unitsData);
-    })
-    .catch(error => {
-      console.error('Erreur chargement données:', error);
+  // Variables pour doctrine et terrain
+  let doctrineChoisie = null;
+  let terrainChoisi = null;
+  let calculateurDebloque = false;
+  let boostTerrainData = [];
+
+  // Fonction pour choisir la doctrine
+  function choisirDoctrine(doctrine) {
+    doctrineChoisie = doctrine;
+    
+    // Réinitialiser tous les boutons
+    document.getElementById('doctrineEST').style.background = '#e5e7eb';
+    document.getElementById('doctrineEST').style.borderColor = '#d1d5db';
+    document.getElementById('doctrineEST').style.color = '#374151';
+    document.getElementById('doctrineOUEST').style.background = '#e5e7eb';
+    document.getElementById('doctrineOUEST').style.borderColor = '#d1d5db';
+    document.getElementById('doctrineOUEST').style.color = '#374151';
+    document.getElementById('doctrineEUROPE').style.background = '#e5e7eb';
+    document.getElementById('doctrineEUROPE').style.borderColor = '#d1d5db';
+    document.getElementById('doctrineEUROPE').style.color = '#374151';
+    
+    // Activer le bouton sélectionné
+    const btnId = 'doctrine' + doctrine;
+    document.getElementById(btnId).style.background = 'var(--brand)';
+    document.getElementById(btnId).style.borderColor = 'var(--brand)';
+    document.getElementById(btnId).style.color = '#000';
+    
+    // Mettre à jour le statut
+    document.getElementById('doctrineStatus').innerHTML = '✅ Doctrine <strong>' + doctrine + '</strong> sélectionnée';
+    document.getElementById('doctrineStatus').style.color = '#16a34a';
+    
+    verifierConfiguration();
+  }
+
+  // Fonction pour choisir le terrain
+  function choisirTerrain() {
+    const select = document.getElementById('terrainSelect');
+    terrainChoisi = select.value;
+    
+    if (terrainChoisi) {
+      const terrainNom = select.options[select.selectedIndex].text;
+      document.getElementById('terrainStatus').innerHTML = '✅ Terrain <strong>' + terrainNom + '</strong> sélectionné';
+      document.getElementById('terrainStatus').style.color = '#16a34a';
+    } else {
+      document.getElementById('terrainStatus').innerHTML = '❌ Aucun terrain sélectionné';
+      document.getElementById('terrainStatus').style.color = '#6b7280';
+    }
+    
+    verifierConfiguration();
+  }
+
+  // Vérifier si les deux sont sélectionnés
+  function verifierConfiguration() {
+    if (doctrineChoisie && terrainChoisi) {
+      calculateurDebloque = true;
+      document.getElementById('configMessage').style.display = 'none';
+      console.log('Configuration complète : Doctrine=' + doctrineChoisie + ', Terrain=' + terrainChoisi);
+      
+      // Charger les données de la doctrine choisie
+      chargerDonneesDoctrine(doctrineChoisie);
+    } else {
+      calculateurDebloque = false;
+      document.getElementById('configMessage').style.display = 'block';
+    }
+  }
+  
+  // Fonction pour charger les données d'une doctrine spécifique
+  function chargerDonneesDoctrine(doctrine) {
+    const degatsSheet = doctrine + ' - dégâts unités';
+    const boostSheet = doctrine + ' - boost terrains';
+    
+    console.log('Chargement des feuilles:', degatsSheet, boostSheet);
+    document.getElementById('configMessage').innerHTML = '⏳ Chargement des données de ' + doctrine + '...';
+    document.getElementById('configMessage').style.display = 'block';
+    document.getElementById('configMessage').style.background = '#dbeafe';
+    document.getElementById('configMessage').style.borderColor = '#3b82f6';
+    document.getElementById('configMessage').style.color = '#1e40af';
+    
+    // Charger les deux feuilles en parallèle
+    Promise.all([
+      fetch(SHEET_API_URL + '?sheet=' + encodeURIComponent(degatsSheet)).then(r => r.json()),
+      fetch(SHEET_API_URL + '?sheet=' + encodeURIComponent(boostSheet)).then(r => r.json())
+    ])
+      .then(([degatsData, boostData]) => {
+        console.log('Données dégâts chargées:', degatsData.length + ' lignes');
+        console.log('Données boost chargées:', boostData.length + ' lignes');
+        
+        // Filtrer les lignes vides
+        unitsData = degatsData.filter(row => row["Unité"] && row["Unité"] !== "Unité" && row["Unité"] !== "");
+        boostTerrainData = boostData.filter(row => row["Unité"] && row["Unité"] !== "Unité" && row["Unité"] !== "");
+        
+        console.log('Unités filtrées:', unitsData.length + ' unités');
+        console.log('Boost terrain filtrés:', boostTerrainData.length + ' lignes');
+        
+        // Combiner les stats avec les boost terrain
+        combinerStatsAvecTerrain();
+        
+        // Afficher un message de succès
+        document.getElementById('configMessage').innerHTML = '✅ Données chargées ! Doctrine: <strong>' + doctrine + '</strong> | Terrain: <strong>' + terrainChoisi + '</strong>';
+        document.getElementById('configMessage').style.background = '#d1fae5';
+        document.getElementById('configMessage').style.borderColor = '#10b981';
+        document.getElementById('configMessage').style.color = '#065f46';
+      })
+      .catch(error => {
+        console.error('Erreur chargement données:', error);
+        document.getElementById('configMessage').innerHTML = '❌ Erreur lors du chargement des données';
+        document.getElementById('configMessage').style.background = '#fee2e2';
+        document.getElementById('configMessage').style.borderColor = '#ef4444';
+        document.getElementById('configMessage').style.color = '#991b1b';
+      });
+  }
+  
+  // Function pour combiner les stats de base avec les boost terrain
+  function combinerStatsAvecTerrain() {
+    if (!terrainChoisi || !boostTerrainData.length) {
+      console.log('Terrain non choisi ou données boost manquantes');
+      return;
+    }
+    
+    console.log('Combinaison des stats pour le terrain:', terrainChoisi);
+    
+    // Pour chaque unité, ajouter les bonus du terrain choisi
+    unitsData.forEach((unit, index) => {
+      // Trouver la ligne correspondante dans boostTerrainData
+      const boostUnit = boostTerrainData.find(b => 
+        b["Unité"] === unit["Unité"] && 
+        b["level 1à10 ATK"] === unit["level 1à10 ATK"]
+      );
+      
+      if (boostUnit) {
+        // Colonnes ATK du terrain
+        const terrainAtkPrefix = terrainChoisi + ' atk';
+        // Colonnes DEF du terrain
+        const terrainDefPrefix = terrainChoisi + ' def';
+        
+        // Note: Les stats finales sont déjà calculées dans les feuilles
+        // On utilise les valeurs de boostTerrainData directement
+        unit._terrainApplique = terrainChoisi;
+        unit._boostData = boostUnit;
+      }
     });
+    
+    console.log('Stats combinées pour', unitsData.length, 'unités');
+  }
+
+  // Les données seront chargées quand l'utilisateur choisira une doctrine
+  // Plus besoin de charger au démarrage
 
   // DIV 1 : Calcul de l'efficacité selon le nombre d'unités
   function updateEfficiency() {
@@ -441,6 +633,12 @@ document.addEventListener('click', () => {
   }
 
   function validerDiv1() {
+    // Vérifier que la configuration est complète
+    if (!calculateurDebloque) {
+      alert('⚠️ Veuillez d\'abord choisir une doctrine ET un terrain !');
+      return;
+    }
+    
     stackSize = parseInt(document.getElementById('nbUnites').value) || 10;
     const effText = document.getElementById('efficacite').textContent;
     stackEfficiency = parseInt(effText.match(/\d+/)[0]);
