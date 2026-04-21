@@ -447,7 +447,32 @@ document.addEventListener('click', () => {
 <script>
   // Données du Google Sheet
   let unitsData = [];
-  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbxa_eYoNAREt-KDaafPnEnb2f0lCIbySFb1NldyTxe3gF0rANbXMiSxt9NVg5RMmiqApg/exec';
+  const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzdCR1o8uGiJpHNnnGZ6RwlySDG_brFGZd9wcL8wRm3NmFeG7gjrT7pxXhpng2o4-MpzQ/exec';
+  
+  // Fonction helper pour charger des données via JSONP (contourne CORS)
+  function loadJSONP(url, sheetName) {
+    return new Promise((resolve, reject) => {
+      const callbackName = 'jsonpCallback_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+      
+      // Créer la fonction callback globale
+      window[callbackName] = function(data) {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        resolve(data);
+      };
+      
+      // Créer la balise script
+      const script = document.createElement('script');
+      script.src = url + '?sheet=' + encodeURIComponent(sheetName) + '&callback=' + callbackName;
+      script.onerror = function() {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        reject(new Error('Erreur de chargement JSONP'));
+      };
+      
+      document.body.appendChild(script);
+    });
+  }
 
   // Variables globales pour stocker les valeurs validées
   let stackSize = 10;
@@ -528,17 +553,17 @@ document.addEventListener('click', () => {
     const degatsSheet = doctrine + ' - dégâts unités';
     const boostSheet = doctrine + ' - boost terrains';
     
-    console.log('Chargement des feuilles:', degatsSheet, boostSheet);
+    console.log('Chargement des feuilles via JSONP:', degatsSheet, boostSheet);
     document.getElementById('configMessage').innerHTML = '⏳ Chargement des données de ' + doctrine + '...';
     document.getElementById('configMessage').style.display = 'block';
     document.getElementById('configMessage').style.background = '#dbeafe';
     document.getElementById('configMessage').style.borderColor = '#3b82f6';
     document.getElementById('configMessage').style.color = '#1e40af';
     
-    // Charger les deux feuilles en parallèle
+    // Charger les deux feuilles en parallèle via JSONP
     Promise.all([
-      fetch(SHEET_API_URL + '?sheet=' + encodeURIComponent(degatsSheet)).then(r => r.json()),
-      fetch(SHEET_API_URL + '?sheet=' + encodeURIComponent(boostSheet)).then(r => r.json())
+      loadJSONP(SHEET_API_URL, degatsSheet),
+      loadJSONP(SHEET_API_URL, boostSheet)
     ])
       .then(([degatsData, boostData]) => {
         console.log('Données dégâts chargées:', degatsData.length + ' lignes');
