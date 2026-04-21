@@ -584,6 +584,12 @@ document.addEventListener('click', () => {
         document.getElementById('configMessage').style.background = '#d1fae5';
         document.getElementById('configMessage').style.borderColor = '#10b981';
         document.getElementById('configMessage').style.color = '#065f46';
+        
+        // Régénérer la Div 3 si elle avait déjà été générée
+        if (nbUnitesDifferentes > 0) {
+          console.log('Régénération de la Div 3 avec les nouvelles données');
+          genererMenusDiv3();
+        }
       })
       .catch(error => {
         console.error('Erreur chargement données:', error);
